@@ -1,4 +1,4 @@
-# frontend
+# Hexaturion
 
 ## Build Setup
 
