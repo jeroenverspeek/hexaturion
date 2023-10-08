@@ -11,10 +11,11 @@ export default {
   name: 'IndexPage',
   methods: {
     async rubiks() {
-      await this.$axios.get('http://192.168.1.136:3000/');
+      await this.$axios.get('/start');
     },
     async stop () {
-      await this.$axios.get('http://192.168.1.136:3000/stop');
+      const response = await this.$axios.get('/stop');
+      console.log(response.data) 
     }
   }
 }
