@@ -1,6 +1,11 @@
 <script>
 export default {
   name: 'IndexPage',
+  data() {
+    return {
+      nRubik: '',
+    }
+  },
   methods: {
     async rubiks() {
       await this.$axios.get('/start');
