@@ -12,6 +12,7 @@ export default {
       const response = await this.$axios.get('/stop');
       console.log(response.data) 
     }
+    const nRubik = ref('')
   }
 }
 </script>
