@@ -1,6 +1,6 @@
 <template>
-  <h1>Hexaturion Cube Commander</h1>
   <div>
+    <h1>Hexaturion Cube Commander</h1>
     <button @click="rubiks">Start rubiks</button>
     <!--
     <div>nRubik: {{ nRubik }}</div>
