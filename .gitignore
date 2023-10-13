@@ -88,3 +88,10 @@ sw.*
 
 # Vim swap files
 *.swp
+
+# Local backups
+*.vs*
+
+# temporary output files
+nohup.out
+tmp*

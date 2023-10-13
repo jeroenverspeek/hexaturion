@@ -2,8 +2,10 @@
   <div>
     <h1>Hexaturion</h1>
     <button @click="rubiks">Start rubiks</button>
+    <button @click="clock">Start clock</button>
     <button @click="stop">Stop</button>
   </div>
+
 </template>
 
 <script>
@@ -12,6 +14,9 @@ export default {
   methods: {
     async rubiks() {
       await this.$axios.get('/start');
+    },
+    async clock() {
+      await this.$axios.get('/clock');
     },
     async stop () {
       const response = await this.$axios.get('/stop');
