@@ -1,16 +1,20 @@
 <template>
+  <h1>Hexaturion Cube Commander!</h1>
   <div>
-    <h1>Hexaturion Cube Commander</h1>
+    <h2>Rubikscube pseudosolve</h2>
     <button @click="rubiks">Start rubiks</button>
-    <div>nRubik: {{ nRubik }}</div>
+    nRubik: {{ nRubik }}
     <select v-model="nRubik">
       <option disabled value="">nRubik</option>
       <option>2</option>
       <option>3</option>
       <option>4</option>
     </select>
-    <button @click="clock">Start clock</button>
     <button @click="stop">Stop</button>
+  <div>
+  </div>
+    <h2>smart clock</h2>
+    <button @click="clock">Start clock</button>
   </div>
 </template>
 
