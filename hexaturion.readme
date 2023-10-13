@@ -1,0 +1,62 @@
+start server op de raspberrypi met:
+
+>ssh -X raspberrypi
+>cd $lebcube
+>sudo node server.js
+
+of tijdens development:
+>sudo nodemon server.js
+server wordt dan automatisch opnieuw gestart bij iedere wijziging
+
+Hexaturion Cube Commander listening on port 3000
+
+-------------------------
+
+start client in chrome webbrowser:
+
+hexaturion.com
+
+rechtermuisknop -> Inspect -> Console
+
+druk op "Start rubiks"
+
+[CitrixBcrApi.js] has started running.
+9549073.js:2 Mixed Content: The page at 'https://hexaturion.com/' was loaded over HTTPS, but requested an insecure XMLHttpRequest endpoint 'http://192.168.1.136:3000/start'. This request has been blocked; the content must be served over HTTPS.
+(anonymous) @ 9549073.js:2
+t.exports @ 9549073.js:2
+t.exports @ 9549073.js:2
+Promise.then (async)
+v.request @ 9549073.js:2
+r.forEach.v.<computed> @ 9549073.js:2
+(anonymous) @ 9549073.js:2
+(anonymous) @ 41eabe4.js:1
+v @ 9549073.js:2
+(anonymous) @ 9549073.js:2
+(anonymous) @ 9549073.js:2
+r @ 9549073.js:2
+l @ 9549073.js:2
+(anonymous) @ 9549073.js:2
+(anonymous) @ 9549073.js:2
+rubiks @ 41eabe4.js:1
+Fe @ 9549073.js:2
+n @ 9549073.js:2
+c._wrapper @ 9549073.js:2
+9549073.js:2 Error: Network Error
+    at t.exports (9549073.js:2:164578)
+    at w.onerror (9549073.js:2:163544)
+Be @ 9549073.js:2
+Ue @ 9549073.js:2
+De @ 9549073.js:2
+(anonymous) @ 9549073.js:2
+Promise.catch (async)
+Fe @ 9549073.js:2
+n @ 9549073.js:2
+c._wrapper @ 9549073.js:2
+
+------------------------------------
+
+start client in firefox webbrowser:
+
+http://hexaturion.com
+
+succes!
