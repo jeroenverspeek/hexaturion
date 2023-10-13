@@ -1,22 +1,27 @@
-<script setup>
-import { ref } from 'vue'
-
-const nRubik = ref('')
-
-function rubiks() {
-  alert('Hi I am Rubik')
+<script>
+export default {
+  name: 'IndexPage',
+  methods: {
+    async rubiks() {
+      await this.$axios.get('/start');
+    },
+    async clock() {
+      await this.$axios.get('/clock');
+    },
+    async stop () {
+      const response = await this.$axios.get('/stop');
+      console.log(response.data) 
+    }
+  }
 }
-function clock() {
-  alert('Hi I am Clock')
-}
-function stop() {
-  alert('STOP!')
-}
-
 </script>
 
+<style scoped>
+
+</style>
+
+
 <template>
- 
   <div>
     <h1>Hexaturion</h1>
     
@@ -29,7 +34,7 @@ function stop() {
     <div>nRubik:
 
      <select v-model="nRubik">
-       <option disabled value="">Please select one</option>Property 'nRubik' does not exist on type '{ $: ComponentIntern
+       <option disabled value="">Please select one</option>
        <option>2</option>
        <option>3</option>
        <option>4</option>
