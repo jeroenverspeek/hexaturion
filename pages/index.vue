@@ -1,10 +1,8 @@
 <template>
-  <h1>Hexaturion Cube Commander!</h1>
+  <h1>Hexaturion Cube Commander</h1>
   <div>
-    <h2>Rubikscube pseudosolve</h2>
     <button @click="rubiks">Start rubiks</button>
     <button @click="stop">Stop</button>
-    <h2>smart clock</h2>
     <button @click="clock">Start clock</button>
   </div>
 </template>
