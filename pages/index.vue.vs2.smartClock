@@ -2,6 +2,7 @@
   <div>
     <h1>Hexaturion Cube Commander</h1>
     <button @click="rubiks">Start rubiks</button>
+    <!--
     <div>nRubik: {{ nRubik }}</div>
     <select v-model="nRubik">
       <option disabled value="">nRubik</option>
@@ -9,6 +10,7 @@
       <option>3</option>
       <option>4</option>
     </select>
+    //-->
     <button @click="clock">Start clock</button>
     <button @click="stop">Stop</button>
   </div>
