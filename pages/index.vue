@@ -1,10 +1,11 @@
 <template>
-  <h1>Hexaturion Cube Commander</h1>
   <div>
+    <h1>Hexaturion</h1>
     <button @click="rubiks">Start rubiks</button>
-    <button @click="stop">Stop</button>
     <button @click="clock">Start clock</button>
+    <button @click="stop">Stop</button>
   </div>
+
 </template>
 
 <script>
