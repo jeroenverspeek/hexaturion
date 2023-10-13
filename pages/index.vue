@@ -11,8 +11,6 @@
       <option>4</option>
     </select>
     //-->
-    <button @click="stop">Stop</button>
-
   </div>
   <div>
     <button @click="clock">Start clock</button>
