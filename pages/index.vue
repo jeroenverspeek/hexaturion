@@ -3,12 +3,14 @@ export default {
   name: 'IndexPage',
   data() {
     return {
-      nRubik: '',
+      nRubik: null,
     }
   },
   methods: {
     async rubiks() {
-      await this.$axios.get('/start');
+      await this.$axios.post('/start', {
+        'nRubik': this.nRubik
+      });
     },
     async clock() {
       await this.$axios.get('/clock');
@@ -30,7 +32,7 @@ export default {
   <div>
     <h1>Hexaturion</h1>
     
-    <button @click="rubiks">Start rubiks</button><br>
+    <button :disabled="!nRubik" @click="rubiks">Start rubiks</button><br>
     <br>
 
     <span> nRubik: {{ nRubik }}</span><br> 
@@ -39,11 +41,11 @@ export default {
     <div>nRubik:
 
      <select v-model="nRubik">
-       <option disabled value="">Please select one</option>
-       <option>2</option>
-       <option>3</option>
-       <option>4</option>
-       </select>
+       <option disabled :value="null">Please select one</option>
+       <option :value="2">2</option>
+       <option :value="3">3</option>
+       <option :value="4">4</option>
+     </select>
     </div>
     <h3>_______________</h3>
     <button @click="clock">Start clock</button>
