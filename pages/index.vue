@@ -4,17 +4,22 @@ export default {
   data() {
     return {
       nRubik: null,
+      clockType: 'digital',
+      animationTime: null
     }
   },
   methods: {
-    async rubiks() {
-      await this.$axios.post('/start', {
+    async pseudoRubikscubeSolve() {
+      await this.$axios.post('/pseudoRubikscubeSolve', {
         'nRubik': this.nRubik
       });
     },
-    async clock() {
-      await this.$axios.get('/clock');
-    },
+    async smartClock() {
+      await this.$axios.post('/smartClock', {
+        'clockType': this.clockType,
+        'animationTime': this.animationTime
+      });
+  },
     async stop () {
       const response = await this.$axios.get('/stop');
       console.log(response.data) 
@@ -32,24 +37,52 @@ export default {
   <div>
     <h1>Hexaturion</h1>
     
-    <button :disabled="!nRubik" @click="rubiks">Start rubiks</button><br>
+    <button :disabled="!nRubik" @click="pseudoRubikscubeSolve">Start Rubik's cube pseudosolve</button><br>
     <br>
 
-    <span> nRubik: {{ nRubik }}</span><br> 
-    <br>
-
-    <div>nRubik:
-
+    <span> TEST nRubik: {{ nRubik }}</span><br> 
+    <div>Rubik's cube dimension:
      <select v-model="nRubik">
-       <option disabled :value="null">Please select one</option>
-       <option :value="2">2</option>
-       <option :value="3">3</option>
-       <option :value="4">4</option>
+       <option disabled :value="null">dimension</option>
+       <option :value="1">1x1</option>
+       <option :value="2">2x2</option>
+       <option :value="3">3x3</option>
+       <option :value="4">4x4</option>
+       <option :value="5">5x5</option>
+       <option :value="6">6x6</option>
+       <option :value="7">7x7</option>
+       <option :value="8">8x8</option>
+       <option :value="9">9x9</option>
      </select>
     </div>
+
     <h3>_______________</h3>
-    <button @click="clock">Start clock</button>
+    <button :disabled="!clockType" @click="smartClock">Start clock</button><br>
+    <br>
+    <div>TEST clockType: {{ clockType }}</div>
+    <div>type:
+      <input type="radio" id="'digital'" value="digital" v-model="clockType" />
+      <label for="digital">digital</label>
+    
+      <input type="radio" id="word" value="word" v-model="clockType" />
+      <label for="word">word</label>
+    </div>
+
+    <span> TEST animationTime: {{ animationTime }}</span><br> 
+    Animation every:
+     <select v-model="animationTime" :disabled="(clockType!='word')">
+       <option :value="null">no animation</option>
+       <option :value="1">1 minute</option>
+       <option :value="5">5 minutes</option>
+       <option :value="10">10 minutes</option>
+       <option :value="60">60 minutes</option>
+     </select>
+    
+
+
+
     <h3>_______________</h3>
     <button @click="stop">Stop</button>
   </div>
+
 </template>
