@@ -27,13 +27,13 @@ export default {
       alert(this.cubeAppCommand)
       // test code.
 
-      await this.$axios.post(this.cubeAppRoute, 
-                             this.cubeAppCommand
-      );
+      //await this.$axios.post(this.cubeAppRoute, 
+      //                       this.cubeAppCommand
+      //);
       
-      //await this.$axios.post(this.cubeAppRoute, {
-      //  'nRubik': this.nRubik
-      //});
+      await this.$axios.post(this.cubeAppRoute, {
+        'nRubik': this.nRubik
+      });
 
     },
     async smartClock() {
