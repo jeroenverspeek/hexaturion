@@ -5,7 +5,7 @@ export default {
     return {
       cubeAppname: '',
       cubeAppOptions: [],
-      nRubik: null,
+      //nRubik: null,
       clockType: 'digital',
       animationTime: null
     }
@@ -14,17 +14,17 @@ export default {
     async pseudoRubikscubeSolve() {
       this.cubeAppName = 'pseudoRubikscubeSolve';
       this.cubeAppRoute = '/'+this.cubeAppname;
-      //await this.$axios.post(this.cubeAppRoute, {
-      //  'nRubik': this.nRubik
-      //});
+      await this.$axios.post(this.cubeAppRoute, {
+        'nRubik': this.nRubik
+      });
 
       // test code:
-      this.cubeAppOptions = [];
-      if (this.nRubik) {
-        this.cubeAppOptions.push('--nRubiks')
-        this.cubeAppOptions.push(this.nRubik)
-      }
-      alert(this.cubeAppName+' '+this.cubeAppOptions)
+      //this.cubeAppOptions = [];
+      //if (this.nRubik) {
+      //  this.cubeAppOptions.push('--nRubiks')
+      //  this.cubeAppOptions.push(this.nRubik)
+      //}
+      //alert(this.cubeAppName+' '+this.cubeAppOptions)
       // test code.
 
     },
