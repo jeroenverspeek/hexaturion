@@ -19,12 +19,12 @@ export default {
       this.cubeAppPath = '/home/pi/led-hexahedron/apps/src/pseudoRubikscubeSolve/'+ this.cubeAppName + '.ts';
 
       if (this.nRubik) {
-        this.cubeAppOptions['--nRubiks'] = this.nRubik;
+        this.cubeAppOptions['--nRubik'] = this.nRubik;
       }
 
       this.cubeAppCommand = [this.cubeAppRoute];
       if (this.nRubik) {
-        this.cubeAppCommand.push('--nRubiks');
+        this.cubeAppCommand.push('--nRubik');
         this.cubeAppCommand.push(this.nRubik);
       }
 
