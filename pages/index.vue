@@ -37,13 +37,13 @@ export default {
       //                       JSON.stringify(this.cubeAppOptions)
       //);
 
-      //await this.$axios.post(this.cubeAppRoute, 
-      //                       this.cubeAppCommand
-      //);
+      await this.$axios.post(this.cubeAppRoute, 
+                             this.cubeAppCommand
+      );
       
-      await this.$axios.post(this.cubeAppRoute, {
-        'nRubik': this.nRubik
-      });
+      //await this.$axios.post(this.cubeAppRoute, {
+      //  'nRubik': this.nRubik
+      //});
 
     },
     async smartClock() {
@@ -68,7 +68,7 @@ export default {
 <template>
 
   <div>
-    <h1>Hexaturion version 0.1ex</h1>
+    <h1>Hexaturion version 0.1</h1>
     <!-- <span id="theTime"></span> -->
     <button @click="pseudoRubikscubeSolve">Start Rubik's cube pseudosolve</button><br>
     <br>
