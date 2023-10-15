@@ -45,7 +45,7 @@ export default {
       //  this.cubeAppOptions
       //);
 
-      await this.$axios.post(this.cubeAppPath, 
+      await this.$axios.post(this.cubeAppRoute, 
         this.cubeAppCommand
       );
       
@@ -76,7 +76,7 @@ export default {
 <template>
 
   <div>
-    <h1>Hexaturion version 0.19</h1>
+    <h1>Hexaturion version 0.20</h1>
     <!-- <span id="theTime"></span> -->
     <button @click="pseudoRubikscubeSolve">Start Rubik's cube pseudosolve</button><br>
     <br>
