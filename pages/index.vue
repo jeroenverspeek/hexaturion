@@ -38,7 +38,7 @@ export default {
       //);
 
       await this.$axios.post(this.cubeAppRoute, 
-        JSON.stringify(this.cubeAppOptions)
+        this.cubeAppOptions
       );
       
       //await this.$axios.post(this.cubeAppRoute, {
@@ -68,7 +68,7 @@ export default {
 <template>
 
   <div>
-    <h1>Hexaturion version 0.12</h1>
+    <h1>Hexaturion version 0.13</h1>
     <!-- <span id="theTime"></span> -->
     <button @click="pseudoRubikscubeSolve">Start Rubik's cube pseudosolve</button><br>
     <br>
