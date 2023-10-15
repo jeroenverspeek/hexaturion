@@ -6,6 +6,7 @@ export default {
       cubeAppName: '',
       cubeAppPath: '',
       cubeAppCommand: [],
+      cubeAppOptions: {},
       nRubik: null,
       clockType: 'digital',
       animationTime: null
@@ -16,16 +17,25 @@ export default {
       this.cubeAppName = 'pseudoRubikscubeSolve';
       this.cubeAppRoute = '/'+this.cubeAppName;
       this.cubeAppPath = '/home/pi/led-hexahedron/apps/src/pseudoRubikscubeSolve/'+ this.cubeAppName + '.ts';
-      this.cubeAppCommand = [];
-      this.cubeAppCommand.push(this.cubeAppPath);
+
       if (this.nRubik) {
-        this.cubeAppCommand.push('--nRubiks')
-        this.cubeAppCommand.push(this.nRubik)
+        this.cubeAppOptions['--nRubiks'] = this.nRubik;
+      }
+
+      this.cubeAppCommand = [this.cubeAppRoute];
+      if (this.nRubik) {
+        this.cubeAppCommand.push('--nRubiks');
+        this.cubeAppCommand.push(this.nRubik);
       }
 
       // test code:
-      alert(this.cubeAppCommand)
+      alert('this.cubeAppOptions: ' + JSON.stringify(this.cubeAppOptions));
+      alert('this.cubeAppCommand: ' + this.cubeAppCommand);
       // test code.
+
+      //await this.$axios.post(this.cubeAppRoute, 
+      //                       JSON.stringify(this.cubeAppOptions)
+      //);
 
       //await this.$axios.post(this.cubeAppRoute, 
       //                       this.cubeAppCommand
@@ -58,7 +68,7 @@ export default {
 <template>
 
   <div>
-    <h1>Hexaturion version 0.1</h1>
+    <h1>Hexaturion version 0.1ex</h1>
     <!-- <span id="theTime"></span> -->
     <button @click="pseudoRubikscubeSolve">Start Rubik's cube pseudosolve</button><br>
     <br>
