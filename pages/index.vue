@@ -3,9 +3,10 @@ export default {
   name: 'IndexPage',
   data() {
     return {
-      cubeAppname: '',
-      cubeAppOptions: [],
-      //nRubik: null,
+      cubeAppName: '',
+      cubeAppPath: '',
+      cubeAppCommand: [],
+      nRubik: null,
       clockType: 'digital',
       animationTime: null
     }
@@ -13,19 +14,26 @@ export default {
   methods: {
     async pseudoRubikscubeSolve() {
       this.cubeAppName = 'pseudoRubikscubeSolve';
-      this.cubeAppRoute = '/'+this.cubeAppname;
+      this.cubeAppRoute = '/'+this.cubeAppName;
+      this.cubeAppPath = '/home/pi/led-hexahedron/apps/src/pseudoRubikscubeSolve/'+ this.cubeAppName + '.ts';
+      this.cubeAppCommand = [];
+      this.cubeAppCommand.push(this.cubeAppPath);
+      if (this.nRubik) {
+        this.cubeAppCommand.push('--nRubiks')
+        this.cubeAppCommand.push(this.nRubik)
+      }
+
+      // test code:
+      alert(this.cubeAppCommand)
+      // test code.
+
+      //await this.$axios.post(this.cubeAppRoute, 
+      //                       this.cubeAppCommand
+      //);
+      //
       await this.$axios.post(this.cubeAppRoute, {
         'nRubik': this.nRubik
       });
-
-      // test code:
-      //this.cubeAppOptions = [];
-      //if (this.nRubik) {
-      //  this.cubeAppOptions.push('--nRubiks')
-      //  this.cubeAppOptions.push(this.nRubik)
-      //}
-      //alert(this.cubeAppName+' '+this.cubeAppOptions)
-      // test code.
 
     },
     async smartClock() {
@@ -88,7 +96,7 @@ export default {
        <option :value="null">no animation</option>
        <option :value="1">1 minute</option>
        <option :value="5">5 minutes</option>
-       <option :value="10">10 minutes</option>
+       <option :value="15">15 minutes</option>
        <option :value="60">60 minutes</option>
      </select>
     
