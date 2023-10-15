@@ -20,13 +20,15 @@ export default {
 
       if (this.nRubik) {
         this.cubeAppOptions['--nRubik'] = this.nRubik;
-        this.cubeAppOptions['--nStep'] = 200;
+        this.cubeAppOptions['--nStep'] = 25;
       }
 
       this.cubeAppCommand = [this.cubeAppRoute];
       if (this.nRubik) {
         this.cubeAppCommand.push('--nRubik');
         this.cubeAppCommand.push(this.nRubik);
+        this.cubeAppCommand.push('--nStep');
+        this.cubeAppCommand.push(25);
       }
 
       // test code:
@@ -38,8 +40,12 @@ export default {
       //                       JSON.stringify(this.cubeAppOptions)
       //);
 
+      //await this.$axios.post(this.cubeAppRoute, 
+      //  this.cubeAppOptions
+      //);
+
       await this.$axios.post(this.cubeAppRoute, 
-        this.cubeAppOptions
+        this.cubeAppCommand
       );
       
       //await this.$axios.post(this.cubeAppRoute, {
