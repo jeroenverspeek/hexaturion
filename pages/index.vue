@@ -23,8 +23,8 @@ export default {
         this.cubeAppOptions['--nStep'] = 25;
       }
 
-      this.cubeAppCommand = [this.cubeAppPath];
-      //this.cubeAppCommand = [];
+      //this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand = [];
       if (this.nRubik) {
         this.cubeAppCommand.push('--nRubik');
         this.cubeAppCommand.push(this.nRubik);
@@ -76,7 +76,7 @@ export default {
 <template>
 
   <div>
-    <h1>Hexaturion version 0.20</h1>
+    <h1>Hexaturion version 0.01</h1>
     <!-- <span id="theTime"></span> -->
     <button @click="pseudoRubikscubeSolve">Start Rubik's cube pseudosolve</button><br>
     <br>
