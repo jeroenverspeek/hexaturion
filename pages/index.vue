@@ -23,8 +23,8 @@ export default {
         this.cubeAppOptions['--nStep'] = 25;
       }
 
-      //this.cubeAppCommand = [this.cubeAppPath];
-      this.cubeAppCommand = [];
+      this.cubeAppCommand = [this.cubeAppPath];
+      //this.cubeAppCommand = [];
       if (this.nRubik) {
         this.cubeAppCommand.push('--nRubik');
         this.cubeAppCommand.push(this.nRubik);
