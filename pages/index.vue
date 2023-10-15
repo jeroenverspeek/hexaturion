@@ -3,6 +3,8 @@ export default {
   name: 'IndexPage',
   data() {
     return {
+      cubeAppname: '',
+      cubeAppOptions: [],
       nRubik: null,
       clockType: 'digital',
       animationTime: null
@@ -10,22 +12,34 @@ export default {
   },
   methods: {
     async pseudoRubikscubeSolve() {
-      await this.$axios.post('/pseudoRubikscubeSolve', {
-        'nRubik': this.nRubik
-      });
+      this.cubeAppName = 'pseudoRubikscubeSolve';
+      this.cubeAppRoute = '/'+this.cubeAppname;
+      //await this.$axios.post(this.cubeAppRoute, {
+      //  'nRubik': this.nRubik
+      //});
+
+      // test code:
+      this.cubeAppOptions = [];
+      if (this.nRubik) {
+        this.cubeAppOptions.push('--nRubiks')
+        this.cubeAppOptions.push(this.nRubik)
+      }
+      alert(this.cubeAppName+' '+this.cubeAppOptions)
+      // test code.
+
     },
     async smartClock() {
       await this.$axios.post('/smartClock', {
         'clockType': this.clockType,
         'animationTime': this.animationTime
       });
-  },
+    },
     async stop () {
       const response = await this.$axios.get('/stop');
       console.log(response.data) 
+      }
     }
   }
-}
 </script>
 
 <style scoped>
@@ -37,7 +51,7 @@ export default {
   <div>
     <h1>Hexaturion</h1>
     
-    <button :disabled="!nRubik" @click="pseudoRubikscubeSolve">Start Rubik's cube pseudosolve</button><br>
+    <button @click="pseudoRubikscubeSolve">Start Rubik's cube pseudosolve</button><br>
     <br>
 
     <span> TEST nRubik: {{ nRubik }}</span><br> 

@@ -60,3 +60,28 @@ start client in firefox webbrowser:
 http://hexaturion.com
 
 succes!
+
+------------------------------------
+
+Voor lokaal testen:
+
+ga naar:
+/home/ik/hexaturion/
+
+run eerst:
+>export NODE_OPTIONS=--openssl-legacy-provider
+
+vanwege een oude versie van nuxt
+
+en dan:
+>npm run dev
+
+dit geeft de melding:
+Listening on http://localhost:3000/
+
+start localhost in webbrowser:
+localhost:3000
+
+dit geeft de Hexaturion GUI
+
+
