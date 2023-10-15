@@ -23,7 +23,7 @@ export default {
         this.cubeAppOptions['--nStep'] = 25;
       }
 
-      this.cubeAppCommand = [this.cubeAppPath];
+      //this.cubeAppCommand = [this.cubeAppPath];
       if (this.nRubik) {
         this.cubeAppCommand.push('--nRubik');
         this.cubeAppCommand.push(this.nRubik);
@@ -44,7 +44,7 @@ export default {
       //  this.cubeAppOptions
       //);
 
-      await this.$axios.post(this.cubeAppRoute, 
+      await this.$axios.post(this.cubeAppPath, 
         this.cubeAppCommand
       );
       
@@ -75,7 +75,7 @@ export default {
 <template>
 
   <div>
-    <h1>Hexaturion version 0.17</h1>
+    <h1>Hexaturion version 0.18</h1>
     <!-- <span id="theTime"></span> -->
     <button @click="pseudoRubikscubeSolve">Start Rubik's cube pseudosolve</button><br>
     <br>
