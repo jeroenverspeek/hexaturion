@@ -14,9 +14,9 @@ export default {
   },
   methods: {
     async pseudoRubikscubeSolve() {
-      this.cubeAppName = 'pseudoRubikscubeSolve';
+      this.cubeAppName = 'pseudoRubiksCubeSolve';
       this.cubeAppRoute = '/'+this.cubeAppName;
-      this.cubeAppPath = '/home/pi/led-hexahedron/apps/src/pseudoRubikscube/'+ this.cubeAppName + '.ts';
+      this.cubeAppPath = '/home/pi/led-hexahedron/apps/src/pseudoRubiksCube/'+ this.cubeAppName + '.ts';
 
       if (this.nRubik) {
         this.cubeAppOptions['--nRubik'] = this.nRubik;
@@ -76,7 +76,7 @@ export default {
 <template>
 
   <div>
-    <h1>Hexaturion version 0.02</h1>
+    <h1>Hexaturion version 0.03</h1>
     <!-- <span id="theTime"></span> -->
     <button @click="pseudoRubikscubeSolve">Start Rubik's cube pseudosolve</button><br>
     <br>
