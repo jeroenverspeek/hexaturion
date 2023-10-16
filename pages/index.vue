@@ -35,10 +35,30 @@ export default {
       
     },
     async smartClock() {
-      await this.$axios.post('/smartClock', {
-        'clockType': this.clockType,
-        'animationTime': this.animationTime
+      this.cubeAppName = 'smartClock';
+      this.cubeAppRoute = '/'+this.cubeAppName;
+      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
+      this.cubeAppPath = appSrcDir + 'smartClock/'+ this.cubeAppName + '.ts';
+
+      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand.push('--clockType');
+        this.cubeAppCommand.push(this.clockType);
+      if (this.animationTime) {
+        this.cubeAppCommand.push('--animationTime');
+        this.cubeAppCommand.push(this.animationTime);
+      }
+
+      // test code:
+      alert('this.cubeAppCommand: ' + this.cubeAppCommand);
+
+      await this.$axios.post(this.cubeAppRoute, {
+        'cubeAppCommand': this.cubeAppCommand
       });
+
+      //await this.$axios.post('/smartClock', {
+      //  'clockType': this.clockType,
+      //  'animationTime': this.animationTime
+      //});
     },
     async stop () {
       const response = await this.$axios.get('/stop');
@@ -56,12 +76,12 @@ export default {
 <template>
 
   <div>
-    <h1>Hexaturion version 0.11</h1>
+    <h1>Hexaturion version 0.12</h1>
     <!-- <span id="theTime"></span> -->
     <button @click="pseudoRubikscubeSolve">Start Rubik's cube pseudosolve</button><br>
     <br>
 
-    <span> TEST nRubik: {{ nRubik }}</span><br> 
+    <!-- <span> TEST nRubik: {{ nRubik }}</span><br> -->
     <div>Rubik's cube dimension:
      <select v-model="nRubik">
        <option disabled :value="null">dimension</option>
@@ -80,7 +100,7 @@ export default {
     <h3>_______________</h3>
     <button :disabled="!clockType" @click="smartClock">Start clock</button><br>
     <br>
-    <div>TEST clockType: {{ clockType }}</div>
+    //<div>TEST clockType: {{ clockType }}</div>
     <div>type:
       <input type="radio" id="'digital'" value="digital" v-model="clockType" />
       <label for="digital">digital</label>
@@ -89,13 +109,14 @@ export default {
       <label for="word">word</label>
     </div>
 
-    <span> TEST animationTime: {{ animationTime }}</span><br> 
+    <!-- <span> TEST animationTime: {{ animationTime }}</span><br> -->
     Animation every:
      <select v-model="animationTime" :disabled="(clockType!='word')">
        <option :value="null">no animation</option>
        <option :value="1">1 minute</option>
        <option :value="5">5 minutes</option>
        <option :value="15">15 minutes</option>
+       <option :value="30">30 minutes</option>
        <option :value="60">60 minutes</option>
      </select>
 
