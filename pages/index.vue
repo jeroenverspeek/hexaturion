@@ -16,7 +16,7 @@ export default {
     async pseudoRubikscubeSolve() {
       this.cubeAppName = 'pseudoRubikscubeSolve';
       this.cubeAppRoute = '/'+this.cubeAppName;
-      this.cubeAppPath = '/home/pi/led-hexahedron/apps/src/pseudoRubikscubeSolve/'+ this.cubeAppName + '.ts';
+      this.cubeAppPath = '/home/pi/led-hexahedron/apps/src/pseudoRubikscube/'+ this.cubeAppName + '.ts';
 
       if (this.nRubik) {
         this.cubeAppOptions['--nRubik'] = this.nRubik;
