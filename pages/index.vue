@@ -56,7 +56,7 @@ export default {
 <template>
 
   <div>
-    <h1>Hexaturion version 0.1</h1>
+    <h1>Hexaturion version 0.11</h1>
     <!-- <span id="theTime"></span> -->
     <button @click="pseudoRubikscubeSolve">Start Rubik's cube pseudosolve</button><br>
     <br>
