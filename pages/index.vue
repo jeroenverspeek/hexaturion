@@ -6,7 +6,6 @@ export default {
       cubeAppName: '',
       cubeAppPath: '',
       cubeAppCommand: [],
-      //cubeAppOptions: {},
       nRubik: null,
       clockType: 'digital',
       animationTime: null
@@ -16,15 +15,10 @@ export default {
     async pseudoRubikscubeSolve() {
       this.cubeAppName = 'pseudoRubiksCubeSolve';
       this.cubeAppRoute = '/'+this.cubeAppName;
-      this.cubeAppPath = '/home/pi/led-hexahedron/apps/src/pseudoRubiksCube/'+ this.cubeAppName + '.ts';
-
-      //if (this.nRubik) {
-      //  this.cubeAppOptions['--nRubik'] = this.nRubik;
-      //  this.cubeAppOptions['--nStep'] = 25;
-      //}
+      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
+      this.cubeAppPath = appSrcDir + 'pseudoRubiksCube/'+ this.cubeAppName + '.ts';
 
       this.cubeAppCommand = [this.cubeAppPath];
-      //this.cubeAppCommand = [];
       if (this.nRubik) {
         this.cubeAppCommand.push('--nRubik');
         this.cubeAppCommand.push(this.nRubik);
@@ -33,26 +27,12 @@ export default {
       }
 
       // test code:
-      //alert('this.cubeAppOptions: ' + JSON.stringify(this.cubeAppOptions));
       alert('this.cubeAppCommand: ' + this.cubeAppCommand);
-      // test code.
-
-      //await this.$axios.post(this.cubeAppRoute, 
-      //                       JSON.stringify(this.cubeAppOptions)
-      //);
-
-      //await this.$axios.post(this.cubeAppRoute, 
-      //  this.cubeAppOptions
-      //);
 
       await this.$axios.post(this.cubeAppRoute, {
         'cubeAppCommand': this.cubeAppCommand
       });
       
-      //await this.$axios.post(this.cubeAppRoute, {
-      //  'nRubik': this.nRubik
-      //});
-
     },
     async smartClock() {
       await this.$axios.post('/smartClock', {
@@ -118,11 +98,8 @@ export default {
        <option :value="15">15 minutes</option>
        <option :value="60">60 minutes</option>
      </select>
-    
 
-
-
-    <h3>_______________</h3>
+     <h3>_______________</h3>
     <button @click="stop">Stop</button>
   </div>
 
