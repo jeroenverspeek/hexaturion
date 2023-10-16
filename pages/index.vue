@@ -8,7 +8,7 @@ export default {
       cubeAppCommand: [],
       nRubik: null,
       clockType: 'digital',
-      animationTime: null
+      animationInterval: null
     }
   },
   methods: {
@@ -43,9 +43,9 @@ export default {
       this.cubeAppCommand = [this.cubeAppPath];
       this.cubeAppCommand.push('--clockType');
         this.cubeAppCommand.push(this.clockType);
-      if (this.animationTime) {
-        this.cubeAppCommand.push('--animationTime');
-        this.cubeAppCommand.push(this.animationTime);
+      if (this.animationInterval) {
+        this.cubeAppCommand.push('--animationInterval');
+        this.cubeAppCommand.push(this.animationInterval);
       }
 
       // test code:
@@ -57,7 +57,7 @@ export default {
 
       //await this.$axios.post('/smartClock', {
       //  'clockType': this.clockType,
-      //  'animationTime': this.animationTime
+      //  'animationInterval': this.animationInterval
       //});
     },
     async stop () {
@@ -109,9 +109,9 @@ export default {
       <label for="word">word</label>
     </div>
 
-    <span> TEST animationTime: {{ animationTime }}</span><br>
+    <span> TEST animationInterval: {{ animationInterval }}</span><br>
     Animation every:
-     <select v-model="animationTime" :disabled="(clockType!='word')">
+     <select v-model="animationInterval" :disabled="(clockType!='word')">
        <option :value="null">no animation</option>
        <option :value="1">1 minute</option>
        <option :value="5">5 minutes</option>
