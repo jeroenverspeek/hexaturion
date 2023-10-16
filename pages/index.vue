@@ -76,12 +76,12 @@ export default {
 <template>
 
   <div>
-    <h1>Hexaturion version 0.13</h1>
+    <h1>Hexaturion version 0.14</h1>
     <!-- <span id="theTime"></span> -->
     <button @click="pseudoRubikscubeSolve">Start Rubik's cube pseudosolve</button><br>
     <br>
 
-    <!-- <span> TEST nRubik: {{ nRubik }}</span><br> -->
+    <span> TEST nRubik: {{ nRubik }}</span><br>
     <div>Rubik's cube dimension:
      <select v-model="nRubik">
        <option disabled :value="null">dimension</option>
@@ -100,7 +100,7 @@ export default {
     <h3>_______________</h3>
     <button :disabled="!clockType" @click="smartClock">Start clock</button><br>
     <br>
-   <!-- <div>TEST clockType: {{ clockType }}</div> -->
+    <div>TEST clockType: {{ clockType }}</div>
     <div>type:
       <input type="radio" id="'digital'" value="digital" v-model="clockType" />
       <label for="digital">digital</label>
@@ -109,7 +109,7 @@ export default {
       <label for="word">word</label>
     </div>
 
-    <!-- <span> TEST animationTime: {{ animationTime }}</span><br> -->
+    <span> TEST animationTime: {{ animationTime }}</span><br>
     Animation every:
      <select v-model="animationTime" :disabled="(clockType!='word')">
        <option :value="null">no animation</option>
