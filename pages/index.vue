@@ -91,8 +91,8 @@ export default {
 
       // add command line options;
       this.cubeAppCommand = [this.cubeAppPath];
-      this.cubeAppCommand.push('--showTime');
-      this.cubeAppCommand.push(15);
+      //this.cubeAppCommand.push('--showTime');
+      //this.cubeAppCommand.push(300);
 
       // test code:
       alert('this.cubeAppCommand: ' + this.cubeAppCommand);
@@ -114,7 +114,7 @@ export default {
       this.cubeAppCommand.push('--cube_icon_dir');
       this.cubeAppCommand.push('/home/pi/led-hexahedron/apps/cube_icons/family/');
       this.cubeAppCommand.push('--showTime');
-      this.cubeAppCommand.push(15);
+      this.cubeAppCommand.push(300);
       
       // test code:
       alert('this.cubeAppCommand: ' + this.cubeAppCommand);
@@ -147,11 +147,11 @@ export default {
 
     },
 
-    async showCubeLatLonmap() {
-      this.cubeAppName = 'showCubeLatLonmap';
+    async showCubeLatlonmap() {
+      this.cubeAppName = 'showCubeLatlonmap';
       this.cubeAppRoute = '/'+this.cubeAppName;
       let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
-      this.cubeAppPath = appSrcDir + 'cubeLatLonmap/'+ this.cubeAppName + '.ts';
+      this.cubeAppPath = appSrcDir + 'cubeLatlonmap/'+ this.cubeAppName + '.ts';
 
       // add command line options;
       this.cubeAppCommand = [this.cubeAppPath];
@@ -204,7 +204,7 @@ export default {
       // add command line options;
       this.cubeAppCommand = [this.cubeAppPath];
       this.cubeAppCommand.push('--nSlides');
-      this.cubeAppCommand.push('23');
+      this.cubeAppCommand.push('223');
 
       // test code:
       alert('this.cubeAppCommand: ' + this.cubeAppCommand);
@@ -294,10 +294,6 @@ export default {
      </select>
 
     <h3>_______________</h3>
-    <button @click="showFireworks">Show fireworks</button><br>
-    <br>
-
-    <h3>_______________</h3>
     <button @click="showCubeIcons">Show cube icons</button><br>
     <br>
 
@@ -314,7 +310,7 @@ export default {
     <br>
 
     <h3>_______________</h3>
-    <button @click="cubeLatLonmap">Show selestial body</button><br>
+    <button @click="showCubeLatlonmap">Show selestial body</button><br>
     <br>
 
     <h3>_______________</h3>
