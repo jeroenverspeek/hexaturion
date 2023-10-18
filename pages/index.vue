@@ -12,7 +12,7 @@ export default {
     }
   },
   methods: {
-    async pseudoRubikscubeSolve() {
+    async pseudoRubiksCubeSolve() {
       this.cubeAppName = 'pseudoRubiksCubeSolve';
       this.cubeAppRoute = '/'+this.cubeAppName;
       let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
@@ -22,7 +22,7 @@ export default {
       if (this.nRubik) {
         this.cubeAppCommand.push('--nRubik');
         this.cubeAppCommand.push(this.nRubik);
-        this.cubeAppCommand.push('--nStep');
+        this.cubeAppCommand.push('--nSteps');
         this.cubeAppCommand.push(25);
       }
 
@@ -34,6 +34,28 @@ export default {
       });
       
     },
+
+    async showRubiksCube() {
+      this.cubeAppName = 'showRubiksCube';
+      this.cubeAppRoute = '/'+this.cubeAppName;
+      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
+      this.cubeAppPath = appSrcDir + 'rubiksCube/'+ this.cubeAppName + '.ts';
+
+      // add command line options;
+      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand.push('--moveSequence');
+      this.cubeAppCommand.push("");
+      //this.cubeAppCommand.push("R F U' R2 U F' R U F2 R2");
+
+      // test code:
+      alert('this.cubeAppCommand: ' + this.cubeAppCommand);
+
+      await this.$axios.post(this.cubeAppRoute, {
+        'cubeAppCommand': this.cubeAppCommand
+      });
+
+    },
+
     async smartClock() {
       this.cubeAppName = 'smartClock';
       this.cubeAppRoute = '/'+this.cubeAppName;
@@ -60,6 +82,158 @@ export default {
       //  'animationInterval': this.animationInterval
       //});
     },
+
+    async showFireworks() {
+      this.cubeAppName = 'showFireworks';
+      this.cubeAppRoute = '/'+this.cubeAppName;
+      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
+      this.cubeAppPath = appSrcDir + 'fireworks/'+ this.cubeAppName + '.ts';
+
+      // add command line options;
+      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand.push('--showTime');
+      this.cubeAppCommand.push(15);
+
+      // test code:
+      alert('this.cubeAppCommand: ' + this.cubeAppCommand);
+
+      await this.$axios.post(this.cubeAppRoute, {
+        'cubeAppCommand': this.cubeAppCommand
+      });
+
+    },
+
+    async showCubeIcons() {
+      this.cubeAppName = 'showCubeIcons';
+      this.cubeAppRoute = '/'+this.cubeAppName;
+      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
+      this.cubeAppPath = appSrcDir + 'cubeIcons/'+ this.cubeAppName + '.ts';
+
+      // add command line options;
+      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand.push('--cube_icon_dir');
+      this.cubeAppCommand.push('/home/pi/led-hexahedron/apps/cube_icons/family/');
+      this.cubeAppCommand.push('--showTime');
+      this.cubeAppCommand.push(15);
+      
+      // test code:
+      alert('this.cubeAppCommand: ' + this.cubeAppCommand);
+
+      await this.$axios.post(this.cubeAppRoute, {
+        'cubeAppCommand': this.cubeAppCommand
+      });
+
+    },
+
+    async showCubemap() {
+      this.cubeAppName = 'showCubemap';
+      this.cubeAppRoute = '/'+this.cubeAppName;
+      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
+      this.cubeAppPath = appSrcDir + 'cubemap/'+ this.cubeAppName + '.ts';
+
+      // add command line options;
+      this.cubeAppCommand = [this.cubeAppPath];
+      //this.cubeAppCommand.push('-d');
+      //this.cubeAppCommand.push('/home/pi/led-hexahedron/apps/cube_maps/3x2/');
+      //this.cubeAppCommand.push('-i');
+      this.cubeAppCommand.push('atlas1_CUBE.png');
+
+      // test code:
+      alert('this.cubeAppCommand: ' + this.cubeAppCommand);
+
+      await this.$axios.post(this.cubeAppRoute, {
+        'cubeAppCommand': this.cubeAppCommand
+      });
+
+    },
+
+    async showCubeLatLonmap() {
+      this.cubeAppName = 'showCubeLatLonmap';
+      this.cubeAppRoute = '/'+this.cubeAppName;
+      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
+      this.cubeAppPath = appSrcDir + 'cubeLatLonmap/'+ this.cubeAppName + '.ts';
+
+      // add command line options;
+      this.cubeAppCommand = [this.cubeAppPath];
+      //this.cubeAppCommand.push('-d');
+      //this.cubeAppCommand.push('/home/pi/led-hexahedron/apps/cube_latlon_maps/');
+      this.cubeAppCommand.push('-i');
+      this.cubeAppCommand.push('earth.jpg');
+      //this.cubeAppCommand.push('moon.jpg');
+      //this.cubeAppCommand.push('sun.jpg');
+      //this.cubeAppCommand.push('mercury.jpg');
+      //this.cubeAppCommand.push('venus.jpg');
+      //this.cubeAppCommand.push('mars.jpg');
+      //this.cubeAppCommand.push('jupiter.jpg');
+      //this.cubeAppCommand.push('blackhole.jpg');
+
+      // test code:
+      alert('this.cubeAppCommand: ' + this.cubeAppCommand);
+
+      await this.$axios.post(this.cubeAppRoute, {
+        'cubeAppCommand': this.cubeAppCommand
+      });
+
+    },
+
+    async showStockMarketQuotes() {
+      this.cubeAppName = 'showStockMarketQuotes';
+      this.cubeAppRoute = '/'+this.cubeAppName;
+      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
+      this.cubeAppPath = appSrcDir + 'stockMarketQuotes/'+ this.cubeAppName + '.ts';
+
+      // add command line options;
+      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand.push('--tickerSymbols');
+      this.cubeAppCommand.push("['ASML.AS', 'MSFT', 'AAPL']");
+
+      // test code:
+      alert('this.cubeAppCommand: ' + this.cubeAppCommand);
+
+      await this.$axios.post(this.cubeAppRoute, {
+        'cubeAppCommand': this.cubeAppCommand
+      });
+    },
+
+    async slidingPuzzleSolve() {
+      this.cubeAppName = 'slidingPuzzleSolve';
+      this.cubeAppRoute = '/'+this.cubeAppName;
+      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
+      this.cubeAppPath = appSrcDir + 'rubiksQube/'+ this.cubeAppName + '.ts';
+
+      // add command line options;
+      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand.push('--nSlides');
+      this.cubeAppCommand.push('23');
+
+      // test code:
+      alert('this.cubeAppCommand: ' + this.cubeAppCommand);
+
+      await this.$axios.post(this.cubeAppRoute, {
+        'cubeAppCommand': this.cubeAppCommand
+      });
+    },
+
+    async welcome() {
+      this.cubeAppName = 'welcome';
+      this.cubeAppRoute = '/'+this.cubeAppName;
+      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
+      this.cubeAppPath = appSrcDir + 'sprites/'+ this.cubeAppName + '.ts';
+
+      // add command line options;
+      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand.push('--finalMessage');
+      this.cubeAppCommand.push('!!!WELKOM!!!');
+
+      // test code:
+      alert('this.cubeAppCommand: ' + this.cubeAppCommand);
+
+      await this.$axios.post(this.cubeAppRoute, {
+        'cubeAppCommand': this.cubeAppCommand
+      });
+
+    },
+
     async stop () {
       const response = await this.$axios.get('/stop');
       console.log(response.data) 
@@ -76,18 +250,17 @@ export default {
 <template>
 
   <div>
-    <h1>Hexaturion version 0.14</h1>
+    <h1>Hexaturion version 0.15</h1>
     <!-- <span id="theTime"></span> -->
-    <button @click="pseudoRubikscubeSolve">Start Rubik's cube pseudosolve</button><br>
+    <button @click="pseudoRubiksCubeSolve">Start Rubik's cube pseudosolve</button><br>
     <br>
 
     <span> TEST nRubik: {{ nRubik }}</span><br>
     <div>Rubik's cube dimension:
      <select v-model="nRubik">
-       <option disabled :value="null">dimension</option>
        <option :value="1">1x1</option>
        <option :value="2">2x2</option>
-       <option :value="3">3x3</option>
+       <option :value=null>3x3</option>
        <option :value="4">4x4</option>
        <option :value="5">5x5</option>
        <option :value="6">6x6</option>
@@ -120,7 +293,43 @@ export default {
        <option :value="60">60 minutes</option>
      </select>
 
-     <h3>_______________</h3>
+    <h3>_______________</h3>
+    <button @click="showFireworks">Show fireworks</button><br>
+    <br>
+
+    <h3>_______________</h3>
+    <button @click="showCubeIcons">Show cube icons</button><br>
+    <br>
+
+    <h3>_______________</h3>
+    <button @click="showCubemap">Show cube map</button><br>
+    <br>
+
+    <h3>_______________</h3>
+    <button @click="showFireworks">Show fireworks</button><br>
+    <br>
+
+    <h3>_______________</h3>
+    <button @click="showRubiksCube">Show Rubiks cube</button><br>
+    <br>
+
+    <h3>_______________</h3>
+    <button @click="cubeLatLonmap">Show selestial body</button><br>
+    <br>
+
+    <h3>_______________</h3>
+    <button @click="showStockMarketQuotes">Show stock marktet quotes</button><br>
+    <br>
+
+    <h3>_______________</h3>
+    <button @click="slidingPuzzleSolve">Solve sliding puzzle</button><br>
+    <br>
+
+    <h3>_______________</h3>
+    <button @click="welcome">Welcome</button><br>
+    <br>
+
+    <h3>_______________</h3>
     <button @click="stop">Stop</button>
   </div>
 
