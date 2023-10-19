@@ -1,5 +1,5 @@
 <script>
-let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
+//let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
 export default {
   name: 'IndexPage',
   data() {
@@ -16,6 +16,7 @@ export default {
     async pseudoRubiksCubeSolve() {
       this.cubeAppName = 'pseudoRubiksCubeSolve';
       this.cubeAppRoute = '/'+this.cubeAppName;
+      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
       this.cubeAppPath = appSrcDir + 'pseudoRubiksCube/'+ this.cubeAppName + '.ts';
 
       this.cubeAppCommand = [this.cubeAppPath];
@@ -92,7 +93,7 @@ export default {
       // add command line options;
       this.cubeAppCommand = [this.cubeAppPath];
       //this.cubeAppCommand.push('--showTime');
-      //this.cubeAppCommand.push(300);
+      //this.cubeAppCommand.push(15000);
 
       // test code:
       //alert('this.cubeAppCommand: ' + this.cubeAppCommand);
@@ -114,7 +115,7 @@ export default {
       this.cubeAppCommand.push('--cube_icon_dir');
       this.cubeAppCommand.push('/home/pi/led-hexahedron/apps/cube_icons/family/');
       this.cubeAppCommand.push('--showTime');
-      this.cubeAppCommand.push(300);
+      this.cubeAppCommand.push(15000);
       
       await this.$axios.post(this.cubeAppRoute, {
         'cubeAppCommand': this.cubeAppCommand
@@ -225,12 +226,16 @@ export default {
     async sprinkle() {
       this.cubeAppName = 'showSprinkle';
       this.cubeAppRoute = '/'+this.cubeAppName;
+      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
       this.cubeAppPath = appSrcDir + 'sprinkle/'+ this.cubeAppName + '.ts';
 
       // add command line options;
       this.cubeAppCommand = [this.cubeAppPath];
       //this.cubeAppCommand.push('--finalMessage');
       //this.cubeAppCommand.push('!!!WELKOM!!!');
+
+      // test code:
+      alert('this.cubeAppCommand: ' + this.cubeAppCommand);
 
       await this.$axios.post(this.cubeAppRoute, {
         'cubeAppCommand': this.cubeAppCommand
@@ -241,12 +246,16 @@ export default {
     async sparkle() {
       this.cubeAppName = 'showSparkle';
       this.cubeAppRoute = '/'+this.cubeAppName;
+      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
       this.cubeAppPath = appSrcDir + 'sparkle/'+ this.cubeAppName + '.ts';
 
       // add command line options;
       this.cubeAppCommand = [this.cubeAppPath];
       //this.cubeAppCommand.push('--finalMessage');
       //this.cubeAppCommand.push('!!!WELKOM!!!');
+
+      // test code:
+      alert('this.cubeAppCommand: ' + this.cubeAppCommand);
 
       await this.$axios.post(this.cubeAppRoute, {
         'cubeAppCommand': this.cubeAppCommand
@@ -338,7 +347,7 @@ export default {
     <button @click="welcome">Welcome</button>
 
     <h3>_______________</h3>
-    <button @click="sprinkle">Sprinke</button>    <button @click="sparkle">Sparkle</button>
+    <button @click="sprinkle">Sprinkle</button>    <button @click="sparkle">Sparkle</button>
 
     <h3>_______________</h3>
     <button @click="stop">Stop</button>
