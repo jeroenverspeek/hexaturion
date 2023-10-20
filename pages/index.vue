@@ -11,6 +11,9 @@ export default {
       clockType: 'digital',
       animationInterval: null,
       celestialBody: 'earth',
+      finalMessage: null,
+      tickerSymbols: '',
+      tickerSymbolsLimit: 3,
     }
   },
   methods: {
@@ -107,21 +110,15 @@ export default {
 
       // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
-      this.cubeAppCommand.push('--tickerSymbols');
-      this.cubeAppCommand.push("['ASML.AS', 'MSFT', 'AAPL']");
+      if (this.tickerSymbols) {
+        this.cubeAppCommand.push('--tickerSymbols');
+        this.cubeAppCommand.push(this.tickerSymbols);
+      }
     },
 
     async slidingPuzzleSolve() {
       this.cubeAppName = 'slidingPuzzleSolve';
       this.cubeAppPath = appSrcDir + 'rubiksQube/'+ this.cubeAppName + '.ts';
-
-      // add command and command line options;
-      this.cubeAppCommand = [this.cubeAppPath];
-    },
-
-    async welcome() {
-      this.cubeAppName = 'welcome';
-      this.cubeAppPath = appSrcDir + 'sprites/'+ this.cubeAppName + '.ts';
 
       // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
@@ -141,6 +138,18 @@ export default {
 
       // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
+    },
+
+    async welcome() {
+      this.cubeAppName = 'welcome';
+      this.cubeAppPath = appSrcDir + 'sprites/'+ this.cubeAppName + '.ts';
+
+      // add command and command line options;
+      this.cubeAppCommand = [this.cubeAppPath];
+      if (this.finalMessage) {
+        this.cubeAppCommand.push('--finalMessage');
+        this.cubeAppCommand.push(this.finalMessage);
+      }
     },
 
     async start () {
@@ -196,7 +205,7 @@ export default {
       <label for="word">word</label>
     </div>
 
-    <span> TEST animationInterval: {{ animationInterval }}</span><br>
+    <!-- <span> TEST animationInterval: {{ animationInterval }}</span><br> -->
     Animation every:
      <select v-model="animationInterval" :disabled="(clockType!='word')">
        <option :value="null">no animation</option>
@@ -222,28 +231,40 @@ export default {
     <h3>_______________</h3>
     <button @click="showCubeLatlonmap">Celestial body</button>
 
-    
-    <span> TEST celestialBody: {{ celestialBody }}</span><br>
+    <br>
+    <!--<span> TEST celestialBody: {{ celestialBody }}</span><br> -->
     Celestial body:
      <select v-model="celestialBody" >
-      <option earth>earth</option>
-      <option sun>sun</option>
-      <option moon>moon</option>
-      <option mercury>mercury</option>
-      <option venus>venus</option>
-      <option mars>mars</option>
-      <option jupiter>jupiter</option>
+      <option value="earth">earth</option>
+      <option value="sun">sun</option>
+      <option value="moon">moon</option>
+      <option value="mercury">mercury</option>
+      <option value="venus">venus</option>
+      <option value="mars">mars</option>
+      <option value="jupiter">jupiter</option>
+      <option value="blackhole">blackhole</option>
      </select>
     
-
     <h3>_______________</h3>
-    <button @click="showStockMarketQuotes">Stock marktet quotes</button>
+    <button @click="showStockMarketQuotes">Stock market quotes</button>
+
+    <span> TEST tickerSymbols: {{ tickerSymbols }}</span><br>
+    <select  v-model="tickerSymbols" :multiple="true" >
+      <option value="ASML.AS">ASML.AS</option>
+      <option value="SHELL.AS">SHELL.AS</option>
+      <option value="MSFT">MSFT</option>
+      <option value="AAPL">AAPL</option>
+    </select>
 
     <h3>_______________</h3>
     <button @click="slidingPuzzleSolve">Sliding puzzle</button>
 
     <h3>_______________</h3>
     <button @click="welcome">Welcome</button>
+
+    <!--<p>TEST Message: {{ finalMessage }}</p> -->
+    <div>Enter final message: <input v-model="finalMessage" maxlength=16 placeholder="WELKOM!">
+    </div>
 
     <h3>_______________</h3>
     <button @click="sprinkle">Sprinkle</button>    <button @click="sparkle">Sparkle</button>
