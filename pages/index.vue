@@ -1,5 +1,5 @@
 <script>
-//let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
+let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
 export default {
   name: 'IndexPage',
   data() {
@@ -9,16 +9,16 @@ export default {
       cubeAppCommand: [],
       nRubik: null,
       clockType: 'digital',
-      animationInterval: null
+      animationInterval: null,
+      celestialBody: 'earth',
     }
   },
   methods: {
     async pseudoRubiksCubeSolve() {
       this.cubeAppName = 'pseudoRubiksCubeSolve';
-      this.cubeAppRoute = '/'+this.cubeAppName;
-      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
       this.cubeAppPath = appSrcDir + 'pseudoRubiksCube/'+ this.cubeAppName + '.ts';
 
+      // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
       if (this.nRubik) {
         this.cubeAppCommand.push('--nRubik');
@@ -26,43 +26,24 @@ export default {
         this.cubeAppCommand.push('--nSteps');
         this.cubeAppCommand.push(25);
       }
-
-      // test code:
-      alert('this.cubeAppCommand: ' + this.cubeAppCommand);
-
-      await this.$axios.post(this.cubeAppRoute, {
-        'cubeAppCommand': this.cubeAppCommand
-      });
-      
     },
 
     async showRubiksCube() {
       this.cubeAppName = 'showRubiksCube';
-      this.cubeAppRoute = '/'+this.cubeAppName;
-      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
       this.cubeAppPath = appSrcDir + 'rubiksCube/'+ this.cubeAppName + '.ts';
 
-      // add command line options;
+      // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
       this.cubeAppCommand.push('--moveSequence');
       this.cubeAppCommand.push("");
       //this.cubeAppCommand.push("R F U' R2 U F' R U F2 R2");
-
-      // test code:
-      //alert('this.cubeAppCommand: ' + this.cubeAppCommand);
-
-      await this.$axios.post(this.cubeAppRoute, {
-        'cubeAppCommand': this.cubeAppCommand
-      });
-
     },
 
     async smartClock() {
       this.cubeAppName = 'smartClock';
-      this.cubeAppRoute = '/'+this.cubeAppName;
-      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
       this.cubeAppPath = appSrcDir + 'smartClock/'+ this.cubeAppName + '.ts';
 
+      // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
       this.cubeAppCommand.push('--clockType');
         this.cubeAppCommand.push(this.clockType);
@@ -70,205 +51,111 @@ export default {
         this.cubeAppCommand.push('--animationInterval');
         this.cubeAppCommand.push(this.animationInterval);
       }
-
-      // test code:
-      //alert('this.cubeAppCommand: ' + this.cubeAppCommand);
-
-      await this.$axios.post(this.cubeAppRoute, {
-        'cubeAppCommand': this.cubeAppCommand
-      });
-
-      //await this.$axios.post('/smartClock', {
-      //  'clockType': this.clockType,
-      //  'animationInterval': this.animationInterval
-      //});
     },
 
     async showFireworks() {
       this.cubeAppName = 'showFireworks';
-      this.cubeAppRoute = '/'+this.cubeAppName;
-      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
       this.cubeAppPath = appSrcDir + 'fireworks/'+ this.cubeAppName + '.ts';
 
-      // add command line options;
+      // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
       //this.cubeAppCommand.push('--showTime');
       //this.cubeAppCommand.push(15000);
-
-      // test code:
-      //alert('this.cubeAppCommand: ' + this.cubeAppCommand);
-
-      await this.$axios.post(this.cubeAppRoute, {
-        'cubeAppCommand': this.cubeAppCommand
-      });
-
     },
 
     async showCubeIcons() {
       this.cubeAppName = 'showCubeIcons';
-      this.cubeAppRoute = '/'+this.cubeAppName;
-      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
       this.cubeAppPath = appSrcDir + 'cubeIcons/'+ this.cubeAppName + '.ts';
 
-      // add command line options;
+      // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
       this.cubeAppCommand.push('--cube_icon_dir');
       this.cubeAppCommand.push('/home/pi/led-hexahedron/apps/cube_icons/family/');
       this.cubeAppCommand.push('--showTime');
       this.cubeAppCommand.push(15000);
-      
-      await this.$axios.post(this.cubeAppRoute, {
-        'cubeAppCommand': this.cubeAppCommand
-      });
-
     },
 
     async showCubemap() {
       this.cubeAppName = 'showCubemap';
-      this.cubeAppRoute = '/'+this.cubeAppName;
-      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
       this.cubeAppPath = appSrcDir + 'cubemap/'+ this.cubeAppName + '.ts';
 
-      // add command line options;
+      // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
       //this.cubeAppCommand.push('-d');
       //this.cubeAppCommand.push('/home/pi/led-hexahedron/apps/cube_maps/3x2/');
       //this.cubeAppCommand.push('-i');
       this.cubeAppCommand.push('atlas1_CUBE.png');
-
-      // test code:
-      //alert('this.cubeAppCommand: ' + this.cubeAppCommand);
-
-      await this.$axios.post(this.cubeAppRoute, {
-        'cubeAppCommand': this.cubeAppCommand
-      });
-
     },
 
     async showCubeLatlonmap() {
       this.cubeAppName = 'showCubeLatlonmap';
-      this.cubeAppRoute = '/'+this.cubeAppName;
-      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
       this.cubeAppPath = appSrcDir + 'cubeLatlonmap/'+ this.cubeAppName + '.ts';
 
-      // add command line options;
+      // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
       //this.cubeAppCommand.push('-d');
       //this.cubeAppCommand.push('/home/pi/led-hexahedron/apps/cube_latlon_maps/');
-      this.cubeAppCommand.push('-i');
-      this.cubeAppCommand.push('earth.jpg');
-      //this.cubeAppCommand.push('moon.jpg');
-      //this.cubeAppCommand.push('sun.jpg');
-      //this.cubeAppCommand.push('mercury.jpg');
-      //this.cubeAppCommand.push('venus.jpg');
-      //this.cubeAppCommand.push('mars.jpg');
-      //this.cubeAppCommand.push('jupiter.jpg');
-      //this.cubeAppCommand.push('blackhole.jpg');
-
-      await this.$axios.post(this.cubeAppRoute, {
-        'cubeAppCommand': this.cubeAppCommand
-      });
-
+      if (this.celestialBody) {
+        this.cubeAppCommand.push('-i');
+        this.cubeAppCommand.push(this.celestialBody);
+      }
     },
 
     async showStockMarketQuotes() {
       this.cubeAppName = 'showStockMarketQuotes';
-      this.cubeAppRoute = '/'+this.cubeAppName;
-      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
       this.cubeAppPath = appSrcDir + 'stockMarketQuotes/'+ this.cubeAppName + '.ts';
 
-      // add command line options;
+      // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
       this.cubeAppCommand.push('--tickerSymbols');
       this.cubeAppCommand.push("['ASML.AS', 'MSFT', 'AAPL']");
-
-      await this.$axios.post(this.cubeAppRoute, {
-        'cubeAppCommand': this.cubeAppCommand
-      });
     },
 
     async slidingPuzzleSolve() {
       this.cubeAppName = 'slidingPuzzleSolve';
-      this.cubeAppRoute = '/'+this.cubeAppName;
-      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
       this.cubeAppPath = appSrcDir + 'rubiksQube/'+ this.cubeAppName + '.ts';
 
-      // add command line options;
+      // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
-      this.cubeAppCommand.push('--nSlides');
-      this.cubeAppCommand.push('223');
-
-      // test code:
-      //alert('this.cubeAppCommand: ' + this.cubeAppCommand);
-
-      await this.$axios.post(this.cubeAppRoute, {
-        'cubeAppCommand': this.cubeAppCommand
-      });
     },
 
     async welcome() {
       this.cubeAppName = 'welcome';
-      this.cubeAppRoute = '/'+this.cubeAppName;
-      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
       this.cubeAppPath = appSrcDir + 'sprites/'+ this.cubeAppName + '.ts';
 
-      // add command line options;
+      // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
-      this.cubeAppCommand.push('--finalMessage');
-      this.cubeAppCommand.push('!!!WELKOM!!!');
-
-      await this.$axios.post(this.cubeAppRoute, {
-        'cubeAppCommand': this.cubeAppCommand
-      });
-
     },
 
     async sprinkle() {
       this.cubeAppName = 'showSprinkle';
-      this.cubeAppRoute = '/'+this.cubeAppName;
-      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
       this.cubeAppPath = appSrcDir + 'sprinkle/'+ this.cubeAppName + '.ts';
 
-      // add command line options;
+      // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
-      //this.cubeAppCommand.push('--finalMessage');
-      //this.cubeAppCommand.push('!!!WELKOM!!!');
-
-      // test code:
-      alert('this.cubeAppCommand: ' + this.cubeAppCommand);
-
-      await this.$axios.post(this.cubeAppRoute, {
-        'cubeAppCommand': this.cubeAppCommand
-      });
-
     },
 
     async sparkle() {
       this.cubeAppName = 'showSparkle';
-      this.cubeAppRoute = '/'+this.cubeAppName;
-      let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
       this.cubeAppPath = appSrcDir + 'sparkle/'+ this.cubeAppName + '.ts';
 
-      // add command line options;
+      // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
-      //this.cubeAppCommand.push('--finalMessage');
-      //this.cubeAppCommand.push('!!!WELKOM!!!');
+    },
 
-      // test code:
-      alert('this.cubeAppCommand: ' + this.cubeAppCommand);
-
-      await this.$axios.post(this.cubeAppRoute, {
+    async start () {
+      const response = await this.$axios.post('/start', {
         'cubeAppCommand': this.cubeAppCommand
       });
-
+      console.log(response.data)
     },
 
     async stop () {
       const response = await this.$axios.get('/stop');
       console.log(response.data) 
-      }
     }
   }
+}
 </script>
 
 <style scoped>
@@ -280,9 +167,7 @@ export default {
 
     <nuxt-link to="/about">About page</nuxt-link><br><br>
 
-    <span> cubeAppCommand: {{ this.cubeAppCommand }}</span><br><br>
-
-    <button @click="pseudoRubiksCubeSolve">Start Rubik's cube pseudosolve</button>
+    <button @click="pseudoRubiksCubeSolve">Rubiks cube pseudosolve</button>
     <br>
 
     <!-- <span> TEST nRubik: {{ nRubik }}</span><br> -->
@@ -301,7 +186,7 @@ export default {
     </div>
 
     <h3>_______________</h3>
-    <button :disabled="!clockType" @click="smartClock">Start clock</button>
+    <button :disabled="!clockType" @click="smartClock">Clock</button>
     <br>
     <div>type:
       <input type="radio" id="'digital'" value="digital" v-model="clockType" />
@@ -323,34 +208,49 @@ export default {
      </select>
 
     <h3>_______________</h3>
-    <button @click="showCubeIcons">Show cube icons</button>
+    <button @click="showCubeIcons">Cube icons</button>
 
     <h3>_______________</h3>
-    <button @click="showCubemap">Show cube map</button>
+    <button @click="showCubemap">Cube map</button>
 
     <h3>_______________</h3>
-    <button @click="showFireworks">Show fireworks</button>
+    <button @click="showFireworks">Fireworks</button>
 
     <h3>_______________</h3>
-    <button @click="showRubiksCube">Show Rubiks cube</button>
+    <button @click="showRubiksCube">Rubiks cube</button>
 
     <h3>_______________</h3>
-    <button @click="showCubeLatlonmap">Show celestial body</button>
+    <button @click="showCubeLatlonmap">Celestial body</button>
+
+    
+    <span> TEST celestialBody: {{ celestialBody }}</span><br>
+    Celestial body:
+     <select v-model="celestialBody" >
+      <option earth>earth</option>
+      <option sun>sun</option>
+      <option moon>moon</option>
+      <option mercury>mercury</option>
+      <option venus>venus</option>
+      <option mars>mars</option>
+      <option jupiter>jupiter</option>
+     </select>
+    
 
     <h3>_______________</h3>
-    <button @click="showStockMarketQuotes">Show stock marktet quotes</button>
+    <button @click="showStockMarketQuotes">Stock marktet quotes</button>
 
     <h3>_______________</h3>
-    <button @click="slidingPuzzleSolve">Solve sliding puzzle</button>
+    <button @click="slidingPuzzleSolve">Sliding puzzle</button>
 
     <h3>_______________</h3>
     <button @click="welcome">Welcome</button>
 
     <h3>_______________</h3>
     <button @click="sprinkle">Sprinkle</button>    <button @click="sparkle">Sparkle</button>
-
     <h3>_______________</h3>
-    <button @click="stop">Stop</button>
+
+    <br><span> cubeAppCommand: {{ this.cubeAppCommand }}</span><br><br>
+    <button @click="start">Start</button>      <button @click="stop">Stop</button>
   </div>
 
 </template>
