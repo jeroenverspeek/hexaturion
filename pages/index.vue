@@ -218,7 +218,14 @@ export default {
 
     <h3>_______________</h3>
     <button @click="showCubeIcons">Cube icons</button>
-
+    
+    <!--
+    <div class="dropbox">
+      <input type="file" :name="uploadFieldName"
+        accept="*" class="input-file">
+    </div>
+    -->
+    
     <h3>_______________</h3>
     <button @click="showCubemap">Cube map</button>
 
@@ -252,6 +259,7 @@ export default {
     <select  v-model="tickerSymbols" :multiple="true" >
       <option value="ASML.AS">ASML.AS</option>
       <option value="SHELL.AS">SHELL.AS</option>
+      <option value="GOOG">GOOG</option>
       <option value="MSFT">MSFT</option>
       <option value="AAPL">AAPL</option>
     </select>
