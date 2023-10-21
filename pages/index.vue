@@ -242,14 +242,14 @@ export default {
     <!--<span> TEST celestialBody: {{ celestialBody }}</span><br> -->
     Celestial body:
      <select v-model="celestialBody" >
-      <option value="earth">earth</option>
-      <option value="sun">sun</option>
-      <option value="moon">moon</option>
-      <option value="mercury">mercury</option>
-      <option value="venus">venus</option>
-      <option value="mars">mars</option>
-      <option value="jupiter">jupiter</option>
-      <option value="blackhole">blackhole</option>
+      <option value="earth.jpg">earth</option>
+      <option value="sun.jpg">sun</option>
+      <option value="moon.jpg">moon</option>
+      <option value="mercury.jpg">mercury</option>
+      <option value="venus.jpg">venus</option>
+      <option value="mars.jpg">mars</option>
+      <option value="jupiter.jpg">jupiter</option>
+      <option value="blackhole.jpg">blackhole</option>
      </select>
     
     <h3>_______________</h3>
