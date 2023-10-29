@@ -9,6 +9,7 @@ export default {
       cubeAppCommand: [],
       nRubik: null,
       pattern: 'anaconda',
+      rollOfJoy: false,
       clockType: 'digital',
       animationInterval: null,
       celestialBody: 'earth',
