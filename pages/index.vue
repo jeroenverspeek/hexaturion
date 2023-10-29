@@ -8,6 +8,7 @@ export default {
       cubeAppPath: '',
       cubeAppCommand: [],
       nRubik: null,
+      pattern: 'anaconda',
       clockType: 'digital',
       animationInterval: null,
       celestialBody: 'earth',
@@ -34,12 +35,23 @@ export default {
     async showRubiksCube() {
       this.cubeAppName = 'showRubiksCube';
       this.cubeAppPath = appSrcDir + 'rubiksCube/'+ this.cubeAppName + '.ts';
-
+      
       // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
-      this.cubeAppCommand.push('--moveSequence');
-      this.cubeAppCommand.push("");
+      if (this.nRubik) {
+        this.cubeAppCommand.push('--nRubik');
+        this.cubeAppCommand.push(this.nRubik);
+      }
+      //this.cubeAppCommand.push('--algorithm');
       //this.cubeAppCommand.push("R F U' R2 U F' R U F2 R2");
+      if (this.pattern != '') {
+        alert('pattern: ' + this.pattern);
+        this.cubeAppCommand.push('--pattern');
+        this.cubeAppCommand.push(this.pattern);
+      }
+      if (this.rollOfJoy) {
+        this.cubeAppCommand.push('--rollOfJoy');
+      }
     },
 
     async smartClock() {
@@ -172,7 +184,7 @@ export default {
 
 <template>
   <div>
-    <h1>Hexaturion version 0.15</h1>
+    <h1>Hexaturion version 0.16</h1>
 
     <nuxt-link to="/about">About page</nuxt-link><br><br>
 
@@ -182,15 +194,15 @@ export default {
     <!-- <span> TEST nRubik: {{ nRubik }}</span><br> -->
     <div>Rubik's cube dimension:
      <select v-model="nRubik">
-       <option :value="1">1x1</option>
-       <option :value="2">2x2</option>
-       <option :value=null>3x3</option>
-       <option :value="4">4x4</option>
-       <option :value="5">5x5</option>
-       <option :value="6">6x6</option>
-       <option :value="7">7x7</option>
-       <option :value="8">8x8</option>
-       <option :value="9">9x9</option>
+       <option value="1">1x1</option>
+       <option value="2">2x2</option>
+       <option value=null>3x3</option>
+       <option value="4">4x4</option>
+       <option value="5">5x5</option>
+       <option value="6">6x6</option>
+       <option value="7">7x7</option>
+       <option value="8">8x8</option>
+       <option value="9">9x9</option>
      </select>
     </div>
 
@@ -208,12 +220,12 @@ export default {
     <!-- <span> TEST animationInterval: {{ animationInterval }}</span><br> -->
     Animation every:
      <select v-model="animationInterval" :disabled="(clockType!='word')">
-       <option :value="null">no animation</option>
-       <option :value="1">1 minute</option>
-       <option :value="5">5 minutes</option>
-       <option :value="15">15 minutes</option>
-       <option :value="30">30 minutes</option>
-       <option :value="60">60 minutes</option>
+       <option value="null">no animation</option>
+       <option value="1">1 minute</option>
+       <option value="5">5 minutes</option>
+       <option value="15">15 minutes</option>
+       <option value="30">30 minutes</option>
+       <option value="60">60 minutes</option>
      </select>
 
     <h3>_______________</h3>
@@ -235,11 +247,108 @@ export default {
     <h3>_______________</h3>
     <button @click="showRubiksCube">Rubiks cube</button>
 
+    <span> TEST nRubik: {{ nRubik }}</span><br>
+    <div>Rubik's cube dimension:
+     <select v-model="nRubik">
+       <option value="1">1x1</option>
+       <option value="2">2x2</option>
+       <option value=null>3x3</option>
+       <option value="4">4x4</option>
+       <option value="5">5x5</option>
+       <option value="6">6x6</option>
+       <option value="7">7x7</option>
+       <option value="8">8x8</option>
+       <option value="9">9x9</option>
+     </select>
+    </div>
+
+    <span> TEST pattern: {{ pattern }}</span><br>
+
+    <div>Patterns:
+     <select v-model="pattern" v-if="(nRubik==1)">
+       <option value="whole cube moves">whole cube moves</option>
+     </select>
+
+     <select v-model="pattern" v-if="(nRubik==2)">
+       <option value="four columns">4 columns</option>
+       <option value="four side checkerboard">4 side checkerboard</option>
+       <option value="anaconda">anaconda</option>
+       <option value="zigzag">zigzag</option>
+       <option value="cube in a cube">cube in a cube</option>
+       <option value="checkerboard">checkerboard</option>
+       <option value="pillar">pillar</option>
+       <option value="spiral">spiral</option>
+     </select>
+
+     <select v-model="pattern" v-if="(nRubik=='null')">
+       <option value="cube in a cube">cube in a cube</option>
+       <option value="cube in a cube in a cube">cube in a cube in a cube</option>
+       <option value="plusminus">plusminus</option>
+       <option value="smiley">( ! ) (ˆ⌣ˆԅ)</option>
+       <option value="checkerboard">checkerboard</option>
+       <option value="four spots">four spots</option>
+       <option value="six spots">six spots</option>
+       <option value="cross">cross</option>
+       <option value="green mamba">green mamba</option>
+       <option value="anaconda">anaconda</option>
+       <option value="lines">lines</option>
+       <option value="dots">dots</option>
+       <option value="lines on 4 sides">lines on 4 sides</option>
+       <option value="superflip">superflip</option>
+       <option value="6 colour cube in a cube in a cube">6 colour cube in a cube in a cube</option>
+       <option value="twist">twist</option>
+     </select>
+
+     <select v-model="pattern" v-if="(nRubik==4)">
+      <option value="columns">columns</option>
+      <option value="checkerboard">checkerboard</option>
+      <option value="6 colour peak">6 colour peak</option>
+      <option value="stripes">stripes</option>
+      <option value="cube in a cube v1">cube in a cube v1</option>
+      <option value="cube in a cube v2">cube in a cube v2</option>
+      <option value="dots">dots</option>
+      <option value="6 colour cube in a cube">6 colour cube in a cube</option>
+      <option value="small box big box">small box big box</option>
+      <option value="corner wrapper">corner wrapper</option>
+      <option value="3x3 in 4x4">3x3 in 4x4</option>
+      <option value="opposite boxes">opposite boxes</option>
+      <option value="rings">rings</option>
+      <option value="four spots">four spots</option>
+     </select>
+
+     <select v-model="pattern" v-if="(nRubik==6)">
+       <option value="plusminus">plusminus</option>
+       <option value="4 dots">4 dots</option>
+       <option value="4 dots in anaconda">4 dots in anaconda</option>
+       <option value="4 dots in checkerboard">4 dots in checkerboard</option>
+     </select>
+
+     <select v-model="pattern" v-if="(nRubik==7)">
+       <option value="plusminus">plusminus</option>
+       <option value="tri-checker">tri-checker</option>
+       <option value="cross checker">cross checker</option>
+     </select>
+
+     <select v-model="pattern" v-if="(nRubik==8)">
+       <option value="plusminus">plusminus</option>
+     </select>
+
+     <select v-model="pattern" v-if="(nRubik==9)">
+       <option value="plusminus">plusminus</option>
+     </select>
+
+    </div>
+
+    <div>
+      <input type="checkbox" id="rollOfJoy" v-model="rollOfJoy">
+      <label for="checkbox">Roll of joy</label>
+    </div>
+
     <h3>_______________</h3>
     <button @click="showCubeLatlonmap">Celestial body</button>
 
     <br>
-    <!--<span> TEST celestialBody: {{ celestialBody }}</span><br> -->
+    <span> TEST celestialBody: {{ celestialBody }}</span><br>
     Celestial body:
      <select v-model="celestialBody" >
       <option value="earth.jpg">earth</option>
