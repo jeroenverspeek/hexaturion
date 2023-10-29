@@ -344,6 +344,10 @@ export default {
       <label for="checkbox">Roll of joy</label>
     </div>
 
+    <div>
+    IMAGE:<img src="images/3x3-dots-300x227.jpg" alt="image not found" width="300" height="227"> 
+    </div>
+    
     <h3>_______________</h3>
     <button @click="showCubeLatlonmap">Celestial body</button>
 
