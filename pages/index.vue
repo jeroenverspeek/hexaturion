@@ -345,7 +345,7 @@ export default {
     </div>
 
     <div>
-    IMAGE:<img src="images/3x3-dots-300x227.jpg" alt="image not found" width="300" height="227"> 
+    IMAGE:<img src="../images/3x3-dots-300x227.jpg" alt="image not found" width="300" height="227"> 
     </div>
     
     <h3>_______________</h3>
