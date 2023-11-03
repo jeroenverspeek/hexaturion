@@ -8,7 +8,7 @@ export default {
       cubeAppPath: '',
       cubeAppCommand: [],
       nRubik: null,
-      pattern: 'anaconda',
+      pattern: '',
       rollOfJoy: false,
       clockType: 'digital',
       animationInterval: null,
@@ -188,7 +188,7 @@ export default {
 
     <nuxt-link to="/about">About page</nuxt-link><br><br>
 
-    <button @click="pseudoRubiksCubeSolve">Rubiks cube pseudosolve</button>
+    <button @click="pseudoRubiksCubeSolve">Rubik's cube pseudosolve</button>
     <br>
 
     <!-- <span> TEST nRubik: {{ nRubik }}</span><br> -->
@@ -245,7 +245,7 @@ export default {
     <button @click="showFireworks">Fireworks</button>
 
     <h3>_______________</h3>
-    <button @click="showRubiksCube">Rubiks cube</button>
+    <button @click="showRubiksCube">Rubik's cube</button>
 
     <span> TEST nRubik: {{ nRubik }}</span><br>
     <div>Rubik's cube dimension:
@@ -270,6 +270,7 @@ export default {
      </select>
 
      <select v-model="pattern" v-if="(nRubik==2)">
+       <option value="" disabled>Select pattern</option>
        <option value="four columns">4 columns</option>
        <option value="four side checkerboard">4 side checkerboard</option>
        <option value="anaconda">anaconda</option>
@@ -280,12 +281,9 @@ export default {
        <option value="spiral">spiral</option>
      </select>
 
-     <select v-model="pattern" v-if="(nRubik=='null')">
+     <select v-model="pattern" v-if="(nRubik==null)">
        <option value="cube in a cube">cube in a cube</option>
        <option value="cube in a cube in a cube">cube in a cube in a cube</option>
-       <option value="plusminus">plusminus</option>
-       <option value="smiley">( ! ) (ˆ⌣ˆԅ)</option>
-       <option value="checkerboard">checkerboard</option>
        <option value="four spots">four spots</option>
        <option value="six spots">six spots</option>
        <option value="cross">cross</option>
@@ -314,6 +312,14 @@ export default {
       <option value="opposite boxes">opposite boxes</option>
       <option value="rings">rings</option>
       <option value="four spots">four spots</option>
+     </select>
+
+     <select v-model="pattern" v-if="(nRubik==5)">
+       <option value="plusminus">plusminus</option>
+       <option value="checkerboard">checkerboard</option>
+       <option value="cube in a cube">cube in a cube</option>
+       <option value="flipped egdes">flipped edges</option>
+       <option value="tri-checkerboard">tri-checkerboard</option>
      </select>
 
      <select v-model="pattern" v-if="(nRubik==6)">
