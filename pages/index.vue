@@ -9,6 +9,7 @@ export default {
       cubeAppCommand: [],
       nRubik: null,
       pattern: '',
+      patternImage:'.jpg',
       rollOfJoy: false,
       clockType: 'digital',
       animationInterval: null,
@@ -18,7 +19,30 @@ export default {
       tickerSymbolsLimit: 3,
     }
   },
+  watch: {
+    // whenever question changes, this function will run
+    //question(newQuestion, oldQuestion) {
+    //  if (newQuestion.includes('?')) {
+    //    this.getAnswer()
+    //  }
+    //}
+    pattern(rubikPattern) {
+      if (rubikPattern.includes('c')) {
+        this.patternImage = 'anaconda.jpg'
+      }
+      //this.patternImage = getPatternImage(rubiksPattern)
+    }
+  },
   methods: {
+
+    //getPatternImage(rubikPattern){
+    //  if (rubikPattern.includes('c')) {
+    //    return 'anaconda.jpg'
+    //  } else {
+    //    return 'test.jpg'
+    //  }
+    //},
+
     async pseudoRubiksCubeSolve() {
       this.cubeAppName = 'pseudoRubiksCubeSolve';
       this.cubeAppPath = appSrcDir + 'pseudoRubiksCube/'+ this.cubeAppName + '.ts';
@@ -188,24 +212,6 @@ export default {
 
     <nuxt-link to="/about">About page</nuxt-link><br><br>
 
-    <button @click="pseudoRubiksCubeSolve">Rubik's cube pseudosolve</button>
-    <br>
-
-    <!-- <span> TEST nRubik: {{ nRubik }}</span><br> -->
-    <div>Rubik's cube dimension:
-     <select v-model="nRubik">
-       <option value="1">1x1</option>
-       <option value="2">2x2</option>
-       <option value=null>3x3</option>
-       <option value="4">4x4</option>
-       <option value="5">5x5</option>
-       <option value="6">6x6</option>
-       <option value="7">7x7</option>
-       <option value="8">8x8</option>
-       <option value="9">9x9</option>
-     </select>
-    </div>
-
     <h3>_______________</h3>
     <button :disabled="!clockType" @click="smartClock">Clock</button>
     <br>
@@ -245,9 +251,7 @@ export default {
     <button @click="showFireworks">Fireworks</button>
 
     <h3>_______________</h3>
-    <button @click="showRubiksCube">Rubik's cube</button>
 
-    <span> TEST nRubik: {{ nRubik }}</span><br>
     <div>Rubik's cube dimension:
      <select v-model="nRubik">
        <option value="1">1x1</option>
@@ -262,7 +266,17 @@ export default {
      </select>
     </div>
 
+    <span> TEST nRubik: {{ nRubik }}</span><br>
+    <!--
+    <button @click="rubiksCubeScramble">scramble</button>
+    <button @click="rubiksCubeSolve">solve</button>
+    -->
+    <button @click="pseudoRubiksCubeSolve">pseudosolve</button>
+    <button @click="showRubiksCube">pattern</button>
+    <br>
+
     <span> TEST pattern: {{ pattern }}</span><br>
+    <span> TEST patternImage: {{ patternImage }}</span><br>
 
     <div>Patterns:
      <select v-model="pattern" size="5" v-if="(nRubik==1)">
