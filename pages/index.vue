@@ -265,12 +265,12 @@ export default {
     <span> TEST pattern: {{ pattern }}</span><br>
 
     <div>Patterns:
-     <select v-model="pattern" v-if="(nRubik==1)">
+     <select v-model="pattern" size="5" v-if="(nRubik==1)">
        <option value="whole cube moves">whole cube moves</option>
      </select>
 
-     <select v-model="pattern" v-if="(nRubik==2)">
-       <option value="" disabled>Select pattern</option>
+     <select v-model="pattern" size="5" v-if="(nRubik==2)">
+       <!--<option value="" disabled>Select pattern</option>-->
        <option value="four columns">4 columns</option>
        <option value="four side checkerboard">4 side checkerboard</option>
        <option value="anaconda">anaconda</option>
@@ -281,7 +281,7 @@ export default {
        <option value="spiral">spiral</option>
      </select>
 
-     <select v-model="pattern" v-if="(nRubik==null)">
+     <select v-model="pattern" size="5" v-if="(nRubik=='null')">
        <option value="cube in a cube">cube in a cube</option>
        <option value="cube in a cube in a cube">cube in a cube in a cube</option>
        <option value="four spots">four spots</option>
@@ -297,7 +297,7 @@ export default {
        <option value="twist">twist</option>
      </select>
 
-     <select v-model="pattern" v-if="(nRubik==4)">
+     <select v-model="pattern" size="5" v-if="(nRubik==4)">
       <option value="columns">columns</option>
       <option value="checkerboard">checkerboard</option>
       <option value="6 colour peak">6 colour peak</option>
@@ -314,7 +314,7 @@ export default {
       <option value="four spots">four spots</option>
      </select>
 
-     <select v-model="pattern" v-if="(nRubik==5)">
+     <select v-model="pattern" size="5" v-if="(nRubik==5)">
        <option value="plusminus">plusminus</option>
        <option value="checkerboard">checkerboard</option>
        <option value="cube in a cube">cube in a cube</option>
@@ -322,24 +322,24 @@ export default {
        <option value="tri-checkerboard">tri-checkerboard</option>
      </select>
 
-     <select v-model="pattern" v-if="(nRubik==6)">
+     <select v-model="pattern" size="5" v-if="(nRubik==6)">
        <option value="plusminus">plusminus</option>
        <option value="4 dots">4 dots</option>
        <option value="4 dots in anaconda">4 dots in anaconda</option>
        <option value="4 dots in checkerboard">4 dots in checkerboard</option>
      </select>
 
-     <select v-model="pattern" v-if="(nRubik==7)">
+     <select v-model="pattern" size="5" v-if="(nRubik==7)">
        <option value="plusminus">plusminus</option>
        <option value="tri-checker">tri-checker</option>
        <option value="cross checker">cross checker</option>
      </select>
 
-     <select v-model="pattern" v-if="(nRubik==8)">
+     <select v-model="pattern" size="5" v-if="(nRubik==8)">
        <option value="plusminus">plusminus</option>
      </select>
 
-     <select v-model="pattern" v-if="(nRubik==9)">
+     <select v-model="pattern" size="5" v-if="(nRubik==9)">
        <option value="plusminus">plusminus</option>
      </select>
 
