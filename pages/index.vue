@@ -1,7 +1,10 @@
 <script>
 let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
+let imageDir = '/images/';
+
 export default {
   name: 'IndexPage',
+
   data() {
     return {
       cubeAppName: '',
@@ -19,29 +22,16 @@ export default {
       tickerSymbolsLimit: 3,
     }
   },
-  watch: {
-    // whenever question changes, this function will run
-    //question(newQuestion, oldQuestion) {
-    //  if (newQuestion.includes('?')) {
-    //    this.getAnswer()
-    //  }
-    //}
-    pattern(rubikPattern) {
-      if (rubikPattern.includes('c')) {
-        this.patternImage = 'anaconda.jpg'
-      }
-      //this.patternImage = getPatternImage(rubiksPattern)
-    }
-  },
-  methods: {
 
-    //getPatternImage(rubikPattern){
-    //  if (rubikPattern.includes('c')) {
-    //    return 'anaconda.jpg'
-    //  } else {
-    //    return 'test.jpg'
-    //  }
-    //},
+  watch: {
+    // whenever pattern changes, this function will run
+    pattern(rubikPattern){
+      //this.patternImage = `${imageDir}${rubikPattern}${this.nRubik}x${this.nRubik}.jpg`;
+      this.patternImage = `${rubikPattern}${this.nRubik}x${this.nRubik}.jpg`;
+    },
+  },
+
+  methods: {
 
     async pseudoRubiksCubeSolve() {
       this.cubeAppName = 'pseudoRubiksCubeSolve';
@@ -284,7 +274,6 @@ export default {
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==2)">
-       <!--<option value="" disabled>Select pattern</option>-->
        <option value="four columns">4 columns</option>
        <option value="four side checkerboard">4 side checkerboard</option>
        <option value="anaconda">anaconda</option>
@@ -366,8 +355,11 @@ export default {
 
     
     <div>
-    <!--  <img src="../images/3x3-dots-300x227.jpg" alt="image not found" width="300" height="227"> -->
-      <img src="../images/3x3-cube-cube-300x227.jpg" alt="image not found" width="300" height="227"> 
+    <!--  <img src="../images/3x3-dots-300x227.jpg" alt="image not found" width="300" height="227">
+          <img :src="imageDir + patternImage" alt="image not found" width="300" height="227">
+  -->
+          <span> TEST patternImage: {{ patternImage }}</span><br>
+          <img v-bind:src="'/images/zigzag2x2.jpg'" alt="image not found" width="300" height="227"/>
     </div>
     
     
