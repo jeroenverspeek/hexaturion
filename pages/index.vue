@@ -1,6 +1,8 @@
 <script>
 let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
-let imageDir = '/images/';
+//let imageDir = '../images/';
+let imageDir = '../images/';
+import testImage from '../images/zigzag2x2.jpg';
 
 export default {
   name: 'IndexPage',
@@ -20,14 +22,15 @@ export default {
       finalMessage: null,
       tickerSymbols: '',
       tickerSymbolsLimit: 3,
+      testImage
     }
   },
 
   watch: {
     // whenever pattern changes, this function will run
     pattern(rubikPattern){
-      //this.patternImage = `${imageDir}${rubikPattern}${this.nRubik}x${this.nRubik}.jpg`;
-      this.patternImage = `${rubikPattern}${this.nRubik}x${this.nRubik}.jpg`;
+      this.patternImage = `${imageDir}${rubikPattern}${this.nRubik}x${this.nRubik}.jpg`;
+      //this.patternImage = `${rubikPattern}${this.nRubik}x${this.nRubik}.jpg`;
     },
   },
 
@@ -357,11 +360,11 @@ export default {
     <div>
     <!--  <img src="../images/3x3-dots-300x227.jpg" alt="image not found" width="300" height="227">
           <img :src="imageDir + patternImage" alt="image not found" width="300" height="227">
-  -->
+  <img :src="require(`~/assets/img/${image}.jpg`)" />
+    -->
           <span> TEST patternImage: {{ patternImage }}</span><br>
-          <img v-bind:src="'/images/zigzag2x2.jpg'" alt="image not found" width="300" height="227"/>
+          <img v-bind:src="testImage" alt="image not found" width="300" height="227"/>
     </div>
-    
     
     <h3>_______________</h3>
     <button @click="showCubeLatlonmap">Celestial body</button>
