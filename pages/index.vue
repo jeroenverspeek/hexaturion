@@ -3,14 +3,15 @@ let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
 //let imageDir = '../public/';
 let imageDir = '/_nuxt/public/';
 //let imageDir = '~/public/';
-import testImage from '../public/anaconda2x2.jpg';
-import testImage2 from '../public/pillar2x2.jpg';
+import testImage from '../public/2x2/cubeInAcube.2x2.jpg';
 
 export default {
   name: 'IndexPage',
   computed: { // preload all images in public folder
       images () {
-        const path = require.context('../public', false, /\.jpg$/)
+        const path = require.context('../public', 
+                                     useSubdirectories = true, 
+                                     regExp = /\.jpg$/)
         return path.keys().map(path)
       }
     },
@@ -39,8 +40,12 @@ export default {
 
   watch: {
     // whenever pattern changes, this function will run
+    nRubik(){
+      this.patternImage = `${imageDir}${this.nRubik}x${this.nRubik}/solved.${this.nRubik}x${this.nRubik}.jpg`;
+    },
     pattern(rubikPattern){
-      this.patternImage = `${imageDir}${rubikPattern}${this.nRubik}x${this.nRubik}.jpg`;
+      //this.patternImage = `${imageDir}/${rubikPattern}.${this.nRubik}x${this.nRubik}.jpg`;
+      this.patternImage = `${imageDir}${this.nRubik}x${this.nRubik}/${rubikPattern}.${this.nRubik}x${this.nRubik}.jpg`;
       //this.patternImage = `${require(`${this.patternImage}`)}`
       //this.patternImage = `${require(this.patternImage)}`
       //this.patternImage = require(`${this.patternImage}`);
@@ -50,6 +55,7 @@ export default {
       //alert('patterImage: ' + this.patternImage);
 
     },
+
   },
 
   methods: {
@@ -301,10 +307,13 @@ export default {
 
     <div>Patterns:
      <select v-model="pattern" size="5" v-if="(nRubik==1)">
-       <option value="wholeCubeMoves">whole cube moves</option>
+      <option value="wholeCubeMoves">whole cube moves</option>
+      <option value="scrambled">scramble</option>
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==2)">
+       <option value="wholeCubeMoves">whole cube moves</option>
+       <option value="scrambled">scramble</option>
        <option value="fourColumns">4 columns</option>
        <option value="fourSideCheckerboard">4 side checkerboard</option>
        <option value="anaconda">anaconda</option>
@@ -316,6 +325,8 @@ export default {
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==3)">
+       <option value="wholeCubeMoves">whole cube moves</option>
+       <option value="scrambled">scramble</option>
        <option value="cubeInAcube">cube in a cube</option>
        <option value="cubeInAcubeInAcube">cube in a cube in a cube</option>
        <option value="fourSpots">four spots</option>
@@ -333,6 +344,8 @@ export default {
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==4)">
+      <option value="wholeCubeMoves">whole cube moves</option>
+      <option value="scrambled">scramble</option>
       <option value="columns">columns</option>
       <option value="checkerboard">checkerboard</option>
       <option value="sixColourPeak">6 colour peak</option>
@@ -350,6 +363,8 @@ export default {
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==5)">
+       <option value="wholeCubeMoves">whole cube moves</option>
+       <option value="scrambled">scramble</option>
        <option value="plusminus">plusminus</option>
        <option value="checkerboard">checkerboard</option>
        <option value="cubeInAcube">cube in a cube</option>
@@ -358,6 +373,8 @@ export default {
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==6)">
+       <option value="wholeCubeMoves">whole cube moves</option>
+       <option value="scrambled">scramble</option>
        <option value="plusminus">plusminus</option>
        <option value="fourDots">4 dots</option>
        <option value="fourDotsInAnaconda">4 dots in anaconda</option>
@@ -365,16 +382,22 @@ export default {
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==7)">
+       <option value="wholeCubeMoves">whole cube moves</option>
+       <option value="scrambled">scramble</option>
        <option value="plusminus">plusminus</option>
        <option value="triChecker">tri-checker</option>
        <option value="crossChecker">cross checker</option>
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==8)">
+       <option value="wholeCubeMoves">whole cube moves</option>
+       <option value="scrambled">scramble</option>
        <option value="plusminus">plusminus</option>
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==9)">
+       <option value="wholeCubeMoves">whole cube moves</option>
+       <option value="scrambled">scramble</option>
        <option value="plusminus">plusminus</option>
      </select>
 
