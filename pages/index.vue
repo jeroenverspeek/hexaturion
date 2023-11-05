@@ -1,8 +1,9 @@
 <script>
 let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
-//let imageDir = '../images/';
-let imageDir = '../images/';
-import testImage from '../images/zigzag2x2.jpg';
+//let imageDir = '../public/';
+//let imageDir = '../public/';
+let imageDir = '/_nuxt/public/';
+import testImage from '../public/zigzag2x2.jpg';
 
 export default {
   name: 'IndexPage',
@@ -22,7 +23,7 @@ export default {
       finalMessage: null,
       tickerSymbols: '',
       tickerSymbolsLimit: 3,
-      testImage
+      testImage,
     }
   },
 
@@ -30,12 +31,25 @@ export default {
     // whenever pattern changes, this function will run
     pattern(rubikPattern){
       this.patternImage = `${imageDir}${rubikPattern}${this.nRubik}x${this.nRubik}.jpg`;
-      //this.patternImage = `${rubikPattern}${this.nRubik}x${this.nRubik}.jpg`;
+      //this.patternImage = `${require(`${this.patternImage}`)}`
+      //this.patternImage = `${require(this.patternImage)}`
+      //this.patternImage = require(`${this.patternImage}`);
+      //const imgUrl = new URL('./img.png', import.meta.url).href
+      //this.patternImage = getImageUrl(this.patternImage)
+      //this.patternImage = getImgUrl(this.patternImage)
+      //alert('patterImage: ' + this.patternImage);
     },
   },
 
   methods: {
 
+    //getImageUrl(name) {
+    //  return new URL(`${name}`, import.meta.url).href
+    //},
+    //getImgUrl(pic) {
+    //return require(pic)
+    //},
+    
     async pseudoRubiksCubeSolve() {
       this.cubeAppName = 'pseudoRubiksCubeSolve';
       this.cubeAppPath = appSrcDir + 'pseudoRubiksCube/'+ this.cubeAppName + '.ts';
@@ -358,12 +372,15 @@ export default {
 
     
     <div>
-    <!--  <img src="../images/3x3-dots-300x227.jpg" alt="image not found" width="300" height="227">
-          <img :src="imageDir + patternImage" alt="image not found" width="300" height="227">
+    <!--  <img src="../public/3x3-dots-300x227.jpg" alt="image not found" width="300" height="227">
   <img :src="require(`~/assets/img/${image}.jpg`)" />
-    -->
-          <span> TEST patternImage: {{ patternImage }}</span><br>
           <img v-bind:src="testImage" alt="image not found" width="300" height="227"/>
+    -->
+    <span> TEST patternImage: {{ patternImage }}</span><br>
+    <span> TEST testImage: {{ testImage }}</span><br>
+        <!--<img :src="patternImage" alt="image not found" width="300" height="227">-->
+        <!--<img :src="require(`${patternImage}`)" alt="image not found" width="300" height="227">-->
+        <img :src="`${patternImage}`" alt="image not found" width="300" height="227">
     </div>
     
     <h3>_______________</h3>
