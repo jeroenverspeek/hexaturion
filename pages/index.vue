@@ -1,13 +1,19 @@
 <script>
 let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
 //let imageDir = '../public/';
-//let imageDir = '../public/';
 let imageDir = '/_nuxt/public/';
-import testImage from '../public/zigzag2x2.jpg';
+//let imageDir = '~/public/';
+import testImage from '../public/anaconda2x2.jpg';
+import testImage2 from '../public/pillar2x2.jpg';
 
 export default {
   name: 'IndexPage',
-
+  computed: { // preload all images in public folder
+      images () {
+        const path = require.context('../public', false, /\.jpg$/)
+        return path.keys().map(path)
+      }
+    },
   data() {
     return {
       cubeAppName: '',
@@ -26,6 +32,10 @@ export default {
       testImage,
     }
   },
+  
+  //mounted() {
+  //  this.importAll(require.context(imageDir, true, /\.jpg$/));
+  //},
 
   watch: {
     // whenever pattern changes, this function will run
@@ -38,6 +48,7 @@ export default {
       //this.patternImage = getImageUrl(this.patternImage)
       //this.patternImage = getImgUrl(this.patternImage)
       //alert('patterImage: ' + this.patternImage);
+
     },
   },
 
@@ -48,6 +59,9 @@ export default {
     //},
     //getImgUrl(pic) {
     //return require(pic)
+    //},
+    //importAll(r) {
+    //  r.keys().forEach(key => (this.images.push({ pathLong: r(key), pathShort: key })));
     //},
     
     async pseudoRubiksCubeSolve() {
