@@ -19,7 +19,7 @@ export default {
       cubeAppName: '',
       cubeAppPath: '',
       cubeAppCommand: [],
-      nRubik: null,
+      nRubik: 3,
       pattern: '',
       patternImage:'.jpg',
       rollOfJoy: false,
@@ -277,7 +277,7 @@ export default {
      <select v-model="nRubik">
        <option value="1">1x1</option>
        <option value="2">2x2</option>
-       <option value=null>3x3</option>
+       <option value="3">3x3</option>
        <option value="4">4x4</option>
        <option value="5">5x5</option>
        <option value="6">6x6</option>
@@ -301,72 +301,73 @@ export default {
 
     <div>Patterns:
      <select v-model="pattern" size="5" v-if="(nRubik==1)">
-       <option value="whole cube moves">whole cube moves</option>
+       <option value="wholeCubeMoves">whole cube moves</option>
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==2)">
-       <option value="four columns">4 columns</option>
-       <option value="four side checkerboard">4 side checkerboard</option>
+       <option value="fourColumns">4 columns</option>
+       <option value="fourSideCheckerboard">4 side checkerboard</option>
        <option value="anaconda">anaconda</option>
        <option value="zigzag">zigzag</option>
-       <option value="cube in a cube">cube in a cube</option>
+       <option value="cubeInAcube">cube in a cube</option>
        <option value="checkerboard">checkerboard</option>
        <option value="pillar">pillar</option>
        <option value="spiral">spiral</option>
      </select>
 
-     <select v-model="pattern" size="5" v-if="(nRubik=='null')">
-       <option value="cube in a cube">cube in a cube</option>
-       <option value="cube in a cube in a cube">cube in a cube in a cube</option>
-       <option value="four spots">four spots</option>
-       <option value="six spots">six spots</option>
+     <select v-model="pattern" size="5" v-if="(nRubik==3)">
+       <option value="cubeInAcube">cube in a cube</option>
+       <option value="cubeInAcubeInAcube">cube in a cube in a cube</option>
+       <option value="fourSpots">four spots</option>
+       <option value="sixSpots">six spots</option>
        <option value="cross">cross</option>
-       <option value="green mamba">green mamba</option>
+       <option value="greenMamba">green mamba</option>
        <option value="anaconda">anaconda</option>
        <option value="lines">lines</option>
        <option value="dots">dots</option>
-       <option value="lines on 4 sides">lines on 4 sides</option>
+       <option value="linesOnFourSides">lines on 4 sides</option>
        <option value="superflip">superflip</option>
-       <option value="6 colour cube in a cube in a cube">6 colour cube in a cube in a cube</option>
+       <option value="sixColourCubeInAcubeInAcube">6 colour cube in a cube in a cube</option>
        <option value="twist">twist</option>
+       <option value="smiley">( ! ) (ˆ⌣ˆԅ)</option>
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==4)">
       <option value="columns">columns</option>
       <option value="checkerboard">checkerboard</option>
-      <option value="6 colour peak">6 colour peak</option>
+      <option value="sixColourPeak">6 colour peak</option>
       <option value="stripes">stripes</option>
-      <option value="cube in a cube v1">cube in a cube v1</option>
-      <option value="cube in a cube v2">cube in a cube v2</option>
+      <option value="cubeInAcubeV1">cube in a cube v1</option>
+      <option value="cubeInAcubeV2">cube in a cube v2</option>
       <option value="dots">dots</option>
-      <option value="6 colour cube in a cube">6 colour cube in a cube</option>
-      <option value="small box big box">small box big box</option>
-      <option value="corner wrapper">corner wrapper</option>
-      <option value="3x3 in 4x4">3x3 in 4x4</option>
-      <option value="opposite boxes">opposite boxes</option>
+      <option value="sixColourCubeInAcube">6 colour cube in a cube</option>
+      <option value="smallBoxBigBox">small box big box</option>
+      <option value="cornerWrapper">corner wrapper</option>
+      <option value="3x3in4x4">3x3 in 4x4</option>
+      <option value="oppositeBoxes">opposite boxes</option>
       <option value="rings">rings</option>
-      <option value="four spots">four spots</option>
+      <option value="fourSpots">four spots</option>
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==5)">
        <option value="plusminus">plusminus</option>
        <option value="checkerboard">checkerboard</option>
-       <option value="cube in a cube">cube in a cube</option>
-       <option value="flipped egdes">flipped edges</option>
-       <option value="tri-checkerboard">tri-checkerboard</option>
+       <option value="cubeInAcube">cube in a cube</option>
+       <option value="flippedEgdes">flipped edges</option>
+       <option value="triCheckerboard">tri-checkerboard</option>
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==6)">
        <option value="plusminus">plusminus</option>
-       <option value="4 dots">4 dots</option>
-       <option value="4 dots in anaconda">4 dots in anaconda</option>
-       <option value="4 dots in checkerboard">4 dots in checkerboard</option>
+       <option value="fourDots">4 dots</option>
+       <option value="fourDotsInAnaconda">4 dots in anaconda</option>
+       <option value="fourDotsInCheckerboard">4 dots in checkerboard</option>
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==7)">
        <option value="plusminus">plusminus</option>
-       <option value="tri-checker">tri-checker</option>
-       <option value="cross checker">cross checker</option>
+       <option value="triChecker">tri-checker</option>
+       <option value="crossChecker">cross checker</option>
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==8)">
