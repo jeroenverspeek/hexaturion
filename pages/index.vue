@@ -3,7 +3,7 @@ let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
 //let imageDir = '../public/';
 let imageDir = '/_nuxt/public/';
 //let imageDir = '~/public';
-import testImage from '../public/2x2/cubeInAcube.2x2.png';
+//import testImage from '../public/2x2/cubeInAcube.2x2.png';
 
 export default {
   name: 'IndexPage',
@@ -13,7 +13,10 @@ export default {
                                      true, 
                                      /\.png$/)
         return path.keys().map(path)
-      }
+      },
+      now() {
+        return Date.now(); 
+      },
     },
   data() {
     return {
@@ -22,15 +25,16 @@ export default {
       cubeAppCommand: [],
       nRubik: 3,
       pattern: '',
-      patternImage:'solved.3x3.png',
+      patternImage:'_nuxt/public/3x3/solved.3x3.png',
       rollOfJoy: false,
       clockType: 'digital',
       animationInterval: null,
       celestialBody: 'earth',
+      rotate: false,
       finalMessage: null,
       tickerSymbols: '',
       tickerSymbolsLimit: 3,
-      testImage
+      //testImage
     }
   },
   
@@ -164,6 +168,9 @@ export default {
         this.cubeAppCommand.push('-i');
         this.cubeAppCommand.push(this.celestialBody);
       }
+      if (this.rotate) {
+        this.cubeAppCommand.push('--rotate');
+      }
     },
 
     async showStockMarketQuotes() {
@@ -234,7 +241,7 @@ export default {
 
 <template>
   <div>
-    <h1>Hexaturion version 0.16</h1>
+    <h1>Hexaturion version 0.20 now:{{ now }}</h1>
 
     <nuxt-link to="/about">About page</nuxt-link><br><br>
 
@@ -414,11 +421,11 @@ export default {
   <img :src="require(`~/assets/img/${image}.png`)" />
     -->
     <span> TEST patternImage: {{ patternImage }}</span><br>
-    <span> TEST testImage: {{ testImage }}</span><br>
+    <!--<span> TEST testImage: {{ testImage }}</span><br>-->
         <!--<img :src="patternImage" alt="image not found" width="300" height="227">-->
         <!--<img :src="require(`${patternImage}`)" alt="image not found" width="300" height="227">-->
         <img :src="`${patternImage}`" alt="image not found" width="300" height="227"/>
-        <img v-bind:src="testImage" alt="image not found" width="300" height="227"/>
+        <!--<img v-bind:src="testImage" alt="image not found" width="300" height="227"/>-->
     </div>
     
     <h3>_______________</h3>
@@ -438,6 +445,12 @@ export default {
       <option value="blackhole.jpg">blackhole</option>
      </select>
     
+     <div>
+      <input type="checkbox" id="rotate" v-model="rotate">
+      <label for="checkbox">rotate</label>
+    </div>
+
+
     <h3>_______________</h3>
     <button @click="showStockMarketQuotes">Stock market quotes</button>
 
