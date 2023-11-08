@@ -2,19 +2,19 @@
 let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
 //let imageDir = '../public/';
 let imageDir = '/_nuxt/public/';
-//let imageDir = '~/public/';
-import testImage from '../public/2x2/cubeInAcube.2x2.jpg';
+//let imageDir = '~/public';
+import testImage from '../public/2x2/cubeInAcube.2x2.png';
 
 export default {
   name: 'IndexPage',
-  computed: { // preload all images in public folder
-      images () {
-        const path = require.context('../public', 
-                                     useSubdirectories = true, 
-                                     regExp = /\.jpg$/)
-        return path.keys().map(path)
-      }
-    },
+  //computed: { // preload all images in public folder
+  //    images () {
+  //      const path = require.context('../public', 
+  //                                   useSubdirectories = true, 
+  //                                   regExp = /\.png$/)
+  //      return path.keys().map(path)
+  //    }
+  //  },
   data() {
     return {
       cubeAppName: '',
@@ -22,7 +22,7 @@ export default {
       cubeAppCommand: [],
       nRubik: 3,
       pattern: '',
-      patternImage:'.jpg',
+      patternImage:'.png',
       rollOfJoy: false,
       clockType: 'digital',
       animationInterval: null,
@@ -35,17 +35,18 @@ export default {
   },
   
   //mounted() {
-  //  this.importAll(require.context(imageDir, true, /\.jpg$/));
+  //  this.importAll(require.context(imageDir, true, /\.png$/));
   //},
 
   watch: {
     // whenever pattern changes, this function will run
     nRubik(){
-      this.patternImage = `${imageDir}${this.nRubik}x${this.nRubik}/solved.${this.nRubik}x${this.nRubik}.jpg`;
+      this.patternImage = `${imageDir}${this.nRubik}x${this.nRubik}/solved.${this.nRubik}x${this.nRubik}.png`;
+      //alert(this.patternImage);
     },
-    pattern(rubikPattern){
-      //this.patternImage = `${imageDir}/${rubikPattern}.${this.nRubik}x${this.nRubik}.jpg`;
-      this.patternImage = `${imageDir}${this.nRubik}x${this.nRubik}/${rubikPattern}.${this.nRubik}x${this.nRubik}.jpg`;
+    //pattern(rubikPattern){
+      //this.patternImage = `${imageDir}/${rubikPattern}.${this.nRubik}x${this.nRubik}.png`;
+      //this.patternImage = `${imageDir}${this.nRubik}x${this.nRubik}/${rubikPattern}.${this.nRubik}x${this.nRubik}.png`;
       //this.patternImage = `${require(`${this.patternImage}`)}`
       //this.patternImage = `${require(this.patternImage)}`
       //this.patternImage = require(`${this.patternImage}`);
@@ -54,7 +55,7 @@ export default {
       //this.patternImage = getImgUrl(this.patternImage)
       //alert('patterImage: ' + this.patternImage);
 
-    },
+    //},
 
   },
 
@@ -69,7 +70,6 @@ export default {
     //importAll(r) {
     //  r.keys().forEach(key => (this.images.push({ pathLong: r(key), pathShort: key })));
     //},
-    
     async pseudoRubiksCubeSolve() {
       this.cubeAppName = 'pseudoRubiksCubeSolve';
       this.cubeAppPath = appSrcDir + 'pseudoRubiksCube/'+ this.cubeAppName + '.ts';
@@ -410,15 +410,15 @@ export default {
 
     
     <div>
-    <!--  <img src="../public/3x3-dots-300x227.jpg" alt="image not found" width="300" height="227">
-  <img :src="require(`~/assets/img/${image}.jpg`)" />
-          <img v-bind:src="testImage" alt="image not found" width="300" height="227"/>
+    <!--  <img src="../public/3x3-dots-300x227.png" alt="image not found" width="300" height="227">
+  <img :src="require(`~/assets/img/${image}.png`)" />
     -->
     <span> TEST patternImage: {{ patternImage }}</span><br>
     <span> TEST testImage: {{ testImage }}</span><br>
         <!--<img :src="patternImage" alt="image not found" width="300" height="227">-->
         <!--<img :src="require(`${patternImage}`)" alt="image not found" width="300" height="227">-->
-        <img :src="`${patternImage}`" alt="image not found" width="300" height="227">
+        <img :src="`${patternImage}`" alt="image not found" width="300" height="227"/>
+        <img v-bind:src="testImage" alt="image not found" width="300" height="227"/>
     </div>
     
     <h3>_______________</h3>
