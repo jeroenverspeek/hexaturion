@@ -7,14 +7,14 @@ import testImage from '../public/2x2/cubeInAcube.2x2.png';
 
 export default {
   name: 'IndexPage',
-  //computed: { // preload all images in public folder
-  //    images () {
-  //      const path = require.context('../public', 
-  //                                   useSubdirectories = true, 
-  //                                   regExp = /\.png$/)
-  //      return path.keys().map(path)
-  //    }
-  //  },
+  computed: { // preload all images in public folder
+      images () {
+        const path = require.context('../public', 
+                                     true, 
+                                     /\.png$/)
+        return path.keys().map(path)
+      }
+    },
   data() {
     return {
       cubeAppName: '',
@@ -22,7 +22,7 @@ export default {
       cubeAppCommand: [],
       nRubik: 3,
       pattern: '',
-      patternImage:'.png',
+      patternImage:'solved.3x3.png',
       rollOfJoy: false,
       clockType: 'digital',
       animationInterval: null,
@@ -30,7 +30,7 @@ export default {
       finalMessage: null,
       tickerSymbols: '',
       tickerSymbolsLimit: 3,
-      testImage,
+      testImage
     }
   },
   
@@ -44,9 +44,9 @@ export default {
       this.patternImage = `${imageDir}${this.nRubik}x${this.nRubik}/solved.${this.nRubik}x${this.nRubik}.png`;
       //alert(this.patternImage);
     },
-    //pattern(rubikPattern){
+    pattern(rubikPattern){
+      this.patternImage = `${imageDir}${this.nRubik}x${this.nRubik}/${rubikPattern}.${this.nRubik}x${this.nRubik}.png`;
       //this.patternImage = `${imageDir}/${rubikPattern}.${this.nRubik}x${this.nRubik}.png`;
-      //this.patternImage = `${imageDir}${this.nRubik}x${this.nRubik}/${rubikPattern}.${this.nRubik}x${this.nRubik}.png`;
       //this.patternImage = `${require(`${this.patternImage}`)}`
       //this.patternImage = `${require(this.patternImage)}`
       //this.patternImage = require(`${this.patternImage}`);
@@ -54,8 +54,7 @@ export default {
       //this.patternImage = getImageUrl(this.patternImage)
       //this.patternImage = getImgUrl(this.patternImage)
       //alert('patterImage: ' + this.patternImage);
-
-    //},
+    },
 
   },
 
@@ -294,6 +293,7 @@ export default {
     </div>
 
     <span> TEST nRubik: {{ nRubik }}</span><br>
+    <!--<span>{{ images }}</span><br>-->
     <!--
     <button @click="rubiksCubeScramble">scramble</button>
     <button @click="rubiksCubeSolve">solve</button>
