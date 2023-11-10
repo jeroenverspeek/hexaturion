@@ -1,5 +1,8 @@
 <script>
-let appSrcDir = '/home/pi/led-hexahedron/apps/src/';
+const appDir = '/home/pi/led-hexahedron/apps/';
+const appSrcDir = appDir + 'src/';
+//const pictureBaseDir = appDir + 'cube_pictures/'
+
 //let imageDir = '../public/';
 let imageDir = '/_nuxt/public/';
 //let imageDir = '~/public';
@@ -23,6 +26,7 @@ export default {
       cubeAppName: '',
       cubeAppPath: '',
       cubeAppCommand: [],
+      cubePictureDir: '',
       nRubik: 3,
       pattern: '',
       patternImage:'_nuxt/public/3x3/solved.3x3.png',
@@ -34,6 +38,7 @@ export default {
       finalMessage: null,
       tickerSymbols: '',
       tickerSymbolsLimit: 3,
+      //dirName: '',
       //testImage
     }
   },
@@ -50,11 +55,7 @@ export default {
     },
     pattern(rubikPattern){
       this.patternImage = `${imageDir}${this.nRubik}x${this.nRubik}/${rubikPattern}.${this.nRubik}x${this.nRubik}.png`;
-      //this.patternImage = `${imageDir}/${rubikPattern}.${this.nRubik}x${this.nRubik}.png`;
-      //this.patternImage = `${require(`${this.patternImage}`)}`
-      //this.patternImage = `${require(this.patternImage)}`
-      //this.patternImage = require(`${this.patternImage}`);
-      //const imgUrl = new URL('./img.png', import.meta.url).href
+      //const imgUrl = new URL('./img.png', import.meta.url).href // vite instead of webpack
       //this.patternImage = getImageUrl(this.patternImage)
       //this.patternImage = getImgUrl(this.patternImage)
       //alert('patterImage: ' + this.patternImage);
@@ -64,6 +65,18 @@ export default {
 
   methods: {
 
+    async getDirectory(){
+      if(!window.showDirectoryPicker){
+        alert('Unsupported Browser Notice');
+        return;
+      }
+      //const verify = confirm('Ask user to confirm');
+      //if(!verify) return 'File picker canceled.';
+      const dirHandle = await window.showDirectoryPicker();
+      this.dirName = dirHandle.name;
+      alert(this.dirName)
+      return this.dirName;
+    },
     //getImageUrl(name) {
     //  return new URL(`${name}`, import.meta.url).href
     //},
@@ -132,16 +145,18 @@ export default {
       //this.cubeAppCommand.push(15000);
     },
 
-    async showCubeIcons() {
-      this.cubeAppName = 'showCubeIcons';
-      this.cubeAppPath = appSrcDir + 'cubeIcons/'+ this.cubeAppName + '.ts';
+    async showCubePictures() {
+      this.cubeAppName = 'showCubePictures';
+      this.cubeAppPath = appSrcDir + 'cubePictures/'+ this.cubeAppName + '.ts';
 
       // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
-      this.cubeAppCommand.push('--cube_icon_dir');
-      this.cubeAppCommand.push('/home/pi/led-hexahedron/apps/cube_icons/family/');
+      if (this.cubePictureDir) {
+        this.cubeAppCommand.push('--cubePictureDir');
+        this.cubeAppCommand.push(this.cubePictureDir);
+      }
       this.cubeAppCommand.push('--showTime');
-      this.cubeAppCommand.push(15000);
+      this.cubeAppCommand.push(20);
     },
 
     async showCubemap() {
@@ -231,7 +246,7 @@ export default {
     async stop () {
       const response = await this.$axios.get('/stop');
       console.log(response.data) 
-    }
+    },
   }
 }
 </script>
@@ -268,13 +283,35 @@ export default {
      </select>
 
     <h3>_______________</h3>
-    <button @click="showCubeIcons">Cube icons</button>
+    <button @click="showCubePictures">Cube pictures</button><br><br>
+    
+    <span> TEST cubePictureDir: {{ cubePictureDir }}</span><br>
+    Pictures:
+     <select v-model="cubePictureDir">
+       <option value="family">family</option>
+       <option value="chess_icons">chess</option>
+       <option value="emoji">emoji's</option>
+       <option value="flag">flags</option>
+       <option value="borg">borg</option>
+     </select>
+
+     <!--
+    <div class="file">
+      <input type="file"  webkitdirectory = "true" directory :name="uploadFieldName"
+        class="input-file">
+    </div>
+    <br>
+    <br>
+    <form>
+     <input type="file" id="file-upload"  webkitdirectory mozdirectory msdirectory odirectory directory />
+     <label for="file-upload">Upload file</label>
+     <div id="file-upload-filename"></div>
+    </form>
+    -->
     
     <!--
-    <div class="dropbox">
-      <input type="file" :name="uploadFieldName"
-        accept="*" class="input-file">
-    </div>
+    <button @click="getDirectory">get directory {{ dirName }}</button>
+    <span> TEST dirName: {{ dirName }}</span><br>
     -->
     
     <h3>_______________</h3>
