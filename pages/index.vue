@@ -151,10 +151,6 @@ export default {
       this.cubeAppCommand.push('--nMoves');
       //nMoves = this.nRubik * 2
       this.cubeAppCommand.push(this.nRubik * 2);
-      if (this.pattern != '') {
-        this.cubeAppCommand.push('--pattern');
-        this.cubeAppCommand.push(this.pattern);
-      }
       if (this.rollOfJoy) {
         this.cubeAppCommand.push('--rollOfJoy');
       }
