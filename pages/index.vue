@@ -3,16 +3,16 @@ const appDir = '/home/pi/led-hexahedron/apps/';
 const appSrcDir = appDir + 'src/';
 //const pictureBaseDir = appDir + 'cube_pictures/'
 
-//let imageDir = '../public/';
-let imageDir = '/_nuxt/public/';
-//let imageDir = '~/public';
-//import testImage from '../public/2x2/cubeInAcube.2x2.png';
+//let imageDir = '../images/';
+let imageDir = '/_nuxt/images/';
+//let imageDir = '~/images';
+//import testImage from '../images/2x2/cubeInAcube.2x2.png';
 
 export default {
   name: 'IndexPage',
-  computed: { // preload all images in public folder
+  computed: { // preload all images in images folder
       images () {
-        const path = require.context('../public', 
+        const path = require.context('../images', 
                                      true, 
                                      /\.png$/)
         return path.keys().map(path)
@@ -29,7 +29,7 @@ export default {
       cubePictureDir: '',
       nRubik: 3,
       pattern: '',
-      patternImage:'_nuxt/public/3x3/solved.3x3.png',
+      patternImage:'_nuxt/images/3x3/solved.3x3.png',
       rollOfJoy: false,
       clockType: 'digital',
       animationInterval: null,
@@ -100,8 +100,8 @@ export default {
       }
     },
 
-    async showRubiksCube() {
-      this.cubeAppName = 'showRubiksCube';
+    async showRubiksCubePattern() {
+      this.cubeAppName = 'showRubiksCubePattern';
       this.cubeAppPath = appSrcDir + 'rubiksCube/'+ this.cubeAppName + '.ts';
       
       // add command and command line options;
@@ -112,6 +112,45 @@ export default {
       }
       //this.cubeAppCommand.push('--algorithm');
       //this.cubeAppCommand.push("R F U' R2 U F' R U F2 R2");
+      if (this.pattern != '') {
+        this.cubeAppCommand.push('--pattern');
+        this.cubeAppCommand.push(this.pattern);
+      }
+      if (this.rollOfJoy) {
+        this.cubeAppCommand.push('--rollOfJoy');
+      }
+    },
+
+    async scrambleRubiksCube() {
+      this.cubeAppName = 'scrambleSolveRubiksCube';
+      this.cubeAppPath = appSrcDir + 'rubiksCube/'+ this.cubeAppName + '.ts';
+      // add command and command line options;
+      this.cubeAppCommand = [this.cubeAppPath];
+      if (this.nRubik) {
+        this.cubeAppCommand.push('--nRubik');
+        this.cubeAppCommand.push(this.nRubik);
+      }
+      this.cubeAppCommand.push('--nMoves');
+      this.cubeAppCommand.push(this.nRubik * 2);
+      if (this.rollOfJoy) {
+        this.cubeAppCommand.push('--rollOfJoy');
+      }
+    },
+
+    async solveRubiksCube() {
+      this.cubeAppName = 'scrambleSolveRubiksCube';
+      this.cubeAppPath = appSrcDir + 'rubiksCube/'+ this.cubeAppName + '.ts';
+      
+      // add command and command line options;
+      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand.push('--solve');
+      if (this.nRubik) {
+        this.cubeAppCommand.push('--nRubik');
+        this.cubeAppCommand.push(this.nRubik);
+      }
+      this.cubeAppCommand.push('--nMoves');
+      //nMoves = this.nRubik * 2
+      this.cubeAppCommand.push(this.nRubik * 2);
       if (this.pattern != '') {
         this.cubeAppCommand.push('--pattern');
         this.cubeAppCommand.push(this.pattern);
@@ -338,12 +377,10 @@ export default {
 
     <span> TEST nRubik: {{ nRubik }}</span><br>
     <!--<span>{{ images }}</span><br>-->
-    <!--
-    <button @click="rubiksCubeScramble">scramble</button>
-    <button @click="rubiksCubeSolve">solve</button>
-    -->
     <button @click="pseudoRubiksCubeSolve">pseudosolve</button>
-    <button @click="showRubiksCube">pattern</button>
+    <button @click="scrambleRubiksCube">scramble</button>
+    <button @click="solveRubiksCube">solve</button>
+    <button @click="showRubiksCubePattern">pattern</button>
     <br>
 
     <span> TEST pattern: {{ pattern }}</span><br>
@@ -352,97 +389,95 @@ export default {
     <div>Patterns:
      <select v-model="pattern" size="5" v-if="(nRubik==1)">
       <option value="wholeCubeMoves">whole cube moves</option>
-      <option value="scrambled">scramble</option>
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==2)">
        <option value="wholeCubeMoves">whole cube moves</option>
-       <option value="scrambled">scramble</option>
+       <option value="checkerboard">checkerboard</option>
+       <option value="cubex2">cubex2</option>
        <option value="fourColumns">4 columns</option>
        <option value="fourSideCheckerboard">4 side checkerboard</option>
-       <option value="anaconda">anaconda</option>
-       <option value="zigzag">zigzag</option>
-       <option value="cubeInAcube">cube in a cube</option>
-       <option value="checkerboard">checkerboard</option>
        <option value="pillar">pillar</option>
        <option value="spiral">spiral</option>
+       <option value="zigzag">zigzag</option>
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==3)">
        <option value="wholeCubeMoves">whole cube moves</option>
-       <option value="scrambled">scramble</option>
-       <option value="cubeInAcube">cube in a cube</option>
-       <option value="cubeInAcubeInAcube">cube in a cube in a cube</option>
-       <option value="fourSpots">four spots</option>
-       <option value="sixSpots">six spots</option>
-       <option value="cross">cross</option>
-       <option value="greenMamba">green mamba</option>
        <option value="anaconda">anaconda</option>
-       <option value="lines">lines</option>
+       <option value="checkerboard">checkerboard</option>
+       <option value="cross">cross</option>
+       <option value="cubex2">cubex2</option>
+       <option value="cubex3">cubex3</option>
        <option value="dots">dots</option>
+       <option value="fourSpots">four spots</option>
+       <option value="greenMamba">green mamba</option>
+       <option value="lines">lines</option>
        <option value="linesOnFourSides">lines on 4 sides</option>
-       <option value="superflip">superflip</option>
-       <option value="sixColourCubeInAcubeInAcube">6 colour cube in a cube in a cube</option>
-       <option value="twist">twist</option>
+       <option value="plusminus">plusminus</option>
+       <option value="sixColourCubex3">6 colour cubex3</option>
+       <option value="sixSpots">six spots</option>
        <option value="smiley">( ! ) (ˆ⌣ˆԅ)</option>
+       <option value="superflip">superflip</option>
+       <option value="twist">twist</option>
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==4)">
       <option value="wholeCubeMoves">whole cube moves</option>
-      <option value="scrambled">scramble</option>
       <option value="columns">columns</option>
-      <option value="checkerboard">checkerboard</option>
-      <option value="sixColourPeak">6 colour peak</option>
-      <option value="stripes">stripes</option>
-      <option value="cubeInAcubeV1">cube in a cube v1</option>
-      <option value="cubeInAcubeV2">cube in a cube v2</option>
-      <option value="dots">dots</option>
-      <option value="sixColourCubeInAcube">6 colour cube in a cube</option>
-      <option value="smallBoxBigBox">small box big box</option>
       <option value="cornerWrapper">corner wrapper</option>
-      <option value="3x3in4x4">3x3 in 4x4</option>
+      <option value="cubex2">cubex2</option>
+      <option value="cubex3">cubex3</option>
+      <option value="cubex4">cubex4</option>
+      <option value="dots">dots</option>
+      <option value="fourSpots">four spots</option>
+      <option value="lines">lines</option>
+      <option value="linesOnFourSides">lines on four sides</option>
       <option value="oppositeBoxes">opposite boxes</option>
       <option value="rings">rings</option>
-      <option value="fourSpots">four spots</option>
+      <option value="sixColourCubeInAcube">6 colour cube in a cube</option>
+      <option value="sixColourPeak">6 colour peak</option>
+      <option value="smallBoxBigBox">small box big box</option>
+      <option value="stripes">stripes</option>
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==5)">
        <option value="wholeCubeMoves">whole cube moves</option>
-       <option value="scrambled">scramble</option>
-       <option value="plusminus">plusminus</option>
        <option value="checkerboard">checkerboard</option>
-       <option value="cubeInAcube">cube in a cube</option>
+       <option value="cubex3">cubex3</option>
        <option value="flippedEgdes">flipped edges</option>
+       <option value="plusminus">plusminus</option>
        <option value="triCheckerboard">tri-checkerboard</option>
+       <option value="twinPeaks">twin peaks</option>
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==6)">
        <option value="wholeCubeMoves">whole cube moves</option>
-       <option value="scrambled">scramble</option>
-       <option value="plusminus">plusminus</option>
        <option value="fourDots">4 dots</option>
        <option value="fourDotsInAnaconda">4 dots in anaconda</option>
        <option value="fourDotsInCheckerboard">4 dots in checkerboard</option>
+       <option value="plusminus">plusminus</option>
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==7)">
        <option value="wholeCubeMoves">whole cube moves</option>
-       <option value="scrambled">scramble</option>
+       <option value="checkerboard">checkerboard</option>
+       <option value="crossChecker">crossChecker</option>
        <option value="plusminus">plusminus</option>
-       <option value="triChecker">tri-checker</option>
-       <option value="crossChecker">cross checker</option>
+       <option value="triCheckerboard">triCheckerboard</option>
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==8)">
        <option value="wholeCubeMoves">whole cube moves</option>
-       <option value="scrambled">scramble</option>
+       <option value="anaconda">anaconda</option>
        <option value="plusminus">plusminus</option>
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==9)">
        <option value="wholeCubeMoves">whole cube moves</option>
-       <option value="scrambled">scramble</option>
+       <option value="cubex9">cubex9</option>
        <option value="plusminus">plusminus</option>
+       <option value="sixSpots">sixSpots</option>
      </select>
 
     </div>
@@ -454,7 +489,7 @@ export default {
 
     
     <div>
-    <!--  <img src="../public/3x3-dots-300x227.png" alt="image not found" width="300" height="227">
+    <!--  <img src="../images/3x3-dots-300x227.png" alt="image not found" width="300" height="227">
   <img :src="require(`~/assets/img/${image}.png`)" />
     -->
     <span> TEST patternImage: {{ patternImage }}</span><br>
