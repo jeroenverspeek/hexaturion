@@ -420,29 +420,28 @@ export default {
 
      <select v-model="pattern" size="5" v-if="(nRubik==4)">
       <option value="wholeCubeMoves">whole cube moves</option>
+      <option value="checkerboardFourSides">checkerboardFourSides</option>
       <option value="columns">columns</option>
       <option value="cornerWrapper">corner wrapper</option>
       <option value="cubex2">cubex2</option>
       <option value="cubex3">cubex3</option>
       <option value="cubex4">cubex4</option>
+      <option value="displacedMotif">displaced motif</option>
       <option value="dots">dots</option>
-      <option value="fourSpots">four spots</option>
-      <option value="lines">lines</option>
-      <option value="linesOnFourSides">lines on four sides</option>
+      <option value="linesOnSixSides">lines on six sides</option>
       <option value="oppositeBoxes">opposite boxes</option>
-      <option value="rings">rings</option>
-      <option value="sixColourCubeInAcube">6 colour cube in a cube</option>
+      <option value="python">python</option>
       <option value="sixColourPeak">6 colour peak</option>
       <option value="smallBoxBigBox">small box big box</option>
-      <option value="stripes">stripes</option>
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==5)">
        <option value="wholeCubeMoves">whole cube moves</option>
        <option value="checkerboard">checkerboard</option>
        <option value="cubex3">cubex3</option>
-       <option value="flippedEgdes">flipped edges</option>
+       <option value="flippedEdges">flipped edges</option>
        <option value="plusminus">plusminus</option>
+       <option value="sixSpots">six spots</option>
        <option value="triCheckerboard">tri-checkerboard</option>
        <option value="twinPeaks">twin peaks</option>
      </select>
@@ -450,9 +449,8 @@ export default {
      <select v-model="pattern" size="5" v-if="(nRubik==6)">
        <option value="wholeCubeMoves">whole cube moves</option>
        <option value="fourDots">4 dots</option>
-       <option value="fourDotsInAnaconda">4 dots in anaconda</option>
-       <option value="fourDotsInCheckerboard">4 dots in checkerboard</option>
        <option value="plusminus">plusminus</option>
+       <option value="twister">twister</option>
      </select>
 
      <select v-model="pattern" size="5" v-if="(nRubik==7)">
@@ -492,7 +490,7 @@ export default {
     <!--<span> TEST testImage: {{ testImage }}</span><br>-->
         <!--<img :src="patternImage" alt="image not found" width="300" height="227">-->
         <!--<img :src="require(`${patternImage}`)" alt="image not found" width="300" height="227">-->
-        <img :src="`${patternImage}`" alt="image not found" width="300" height="227"/>
+        <img :src="`${patternImage}`" alt="image not found" width="300px" height="300px"/>
         <!--<img v-bind:src="testImage" alt="image not found" width="300" height="227"/>-->
     </div>
     
