@@ -2,6 +2,7 @@
 const appDir = '/home/pi/led-hexahedron/apps/';
 const appSrcDir = appDir + 'src/';
 //const pictureBaseDir = appDir + 'cube_pictures/'
+const hZellerDir = '/home/pi/rpi-rgb-led-matrix/';
 
 //let imageDir = '../images/';
 let imageDir = '/_nuxt/images/';
@@ -88,7 +89,7 @@ export default {
     //},
     async pseudoRubiksCubeSolve() {
       this.cubeAppName = 'pseudoRubiksCubeSolve';
-      this.cubeAppPath = appSrcDir + 'pseudoRubiksCube/'+ this.cubeAppName + '.ts';
+      this.cubeAppPath = appSrcDir + 'pseudoRubiksCube/' + this.cubeAppName + '.ts';
 
       // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
@@ -102,7 +103,7 @@ export default {
 
     async showRubiksCubePattern() {
       this.cubeAppName = 'showRubiksCubePattern';
-      this.cubeAppPath = appSrcDir + 'rubiksCube/'+ this.cubeAppName + '.ts';
+      this.cubeAppPath = appSrcDir + 'rubiksCube/' + this.cubeAppName + '.ts';
       
       // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
@@ -123,7 +124,7 @@ export default {
 
     async scrambleRubiksCube() {
       this.cubeAppName = 'scrambleSolveRubiksCube';
-      this.cubeAppPath = appSrcDir + 'rubiksCube/'+ this.cubeAppName + '.ts';
+      this.cubeAppPath = appSrcDir + 'rubiksCube/' + this.cubeAppName + '.ts';
       // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
       if (this.nRubik) {
@@ -139,7 +140,7 @@ export default {
 
     async solveRubiksCube() {
       this.cubeAppName = 'scrambleSolveRubiksCube';
-      this.cubeAppPath = appSrcDir + 'rubiksCube/'+ this.cubeAppName + '.ts';
+      this.cubeAppPath = appSrcDir + 'rubiksCube/' + this.cubeAppName + '.ts';
       
       // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
@@ -158,7 +159,7 @@ export default {
 
     async smartClock() {
       this.cubeAppName = 'smartClock';
-      this.cubeAppPath = appSrcDir + 'smartClock/'+ this.cubeAppName + '.ts';
+      this.cubeAppPath = appSrcDir + 'smartClock/' + this.cubeAppName + '.ts';
 
       // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
@@ -172,7 +173,7 @@ export default {
 
     async showFireworks() {
       this.cubeAppName = 'showFireworks';
-      this.cubeAppPath = appSrcDir + 'fireworks/'+ this.cubeAppName + '.ts';
+      this.cubeAppPath = appSrcDir + 'fireworks/' + this.cubeAppName + '.ts';
 
       // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
@@ -182,7 +183,7 @@ export default {
 
     async showCubePictures() {
       this.cubeAppName = 'showCubePictures';
-      this.cubeAppPath = appSrcDir + 'cubePictures/'+ this.cubeAppName + '.ts';
+      this.cubeAppPath = appSrcDir + 'cubePictures/' + this.cubeAppName + '.ts';
 
       // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
@@ -196,7 +197,7 @@ export default {
 
     async showCubemap() {
       this.cubeAppName = 'showCubemap';
-      this.cubeAppPath = appSrcDir + 'cubemap/'+ this.cubeAppName + '.ts';
+      this.cubeAppPath = appSrcDir + 'cubemap/' + this.cubeAppName + '.ts';
 
       // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
@@ -208,7 +209,7 @@ export default {
 
     async showCubeLatlonmap() {
       this.cubeAppName = 'showCubeLatlonmap';
-      this.cubeAppPath = appSrcDir + 'cubeLatlonmap/'+ this.cubeAppName + '.ts';
+      this.cubeAppPath = appSrcDir + 'cubeLatlonmap/' + this.cubeAppName + '.ts';
 
       // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
@@ -225,7 +226,7 @@ export default {
 
     async showStockMarketQuotes() {
       this.cubeAppName = 'showStockMarketQuotes';
-      this.cubeAppPath = appSrcDir + 'stockMarketQuotes/'+ this.cubeAppName + '.ts';
+      this.cubeAppPath = appSrcDir + 'stockMarketQuotes/' + this.cubeAppName + '.ts';
 
       // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
@@ -245,7 +246,7 @@ export default {
 
     async sprinkle() {
       this.cubeAppName = 'showSprinkle';
-      this.cubeAppPath = appSrcDir + 'sprinkle/'+ this.cubeAppName + '.ts';
+      this.cubeAppPath = appSrcDir + 'sprinkle/' + this.cubeAppName + '.ts';
 
       // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
@@ -253,15 +254,43 @@ export default {
 
     async sparkle() {
       this.cubeAppName = 'showSparkle';
-      this.cubeAppPath = appSrcDir + 'sparkle/'+ this.cubeAppName + '.ts';
+      this.cubeAppPath = appSrcDir + 'sparkle/' + this.cubeAppName + '.ts';
 
       // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
     },
 
+    async videoViewer() {
+      this.cubeAppName = 'video-viewer';
+      this.cubeAppPath = hZellerDir + 'utils/' + this.cubeAppName;
+
+      // add command and command line options;
+      this.cubeAppCommand = [this.cubeAppPath];
+      //this.cubeAppCommand.push('$options');
+      //this.cubeAppCommand.push('$ledcube/apps/videos/trippy2.mp4');
+      //this.cubeAppCommand.push(' ~led-hexahedron/apps/videos/trippy2.mp4');
+      //this.cubeAppCommand.push(' /home/pi/led-hexahedron/apps/videos/trippy2.mp4');
+      this.cubeAppCommand.push('apps/videos/trippy2.mp4');
+      this.cubeAppCommand.push('--led-rows');
+      this.cubeAppCommand.push(64);
+      this.cubeAppCommand.push('--led-cols');
+      this.cubeAppCommand.push(64);
+      this.cubeAppCommand.push('--led-chain');
+      this.cubeAppCommand.push(2);
+      this.cubeAppCommand.push('--led-parallel');
+      this.cubeAppCommand.push(3);
+      this.cubeAppCommand.push('--led-slowdown-gpio');
+      this.cubeAppCommand.push(3);
+      //this.cubeAppCommand.push(' --led-rows=64');
+      //this.cubeAppCommand.push(' --led-cols=64');
+      //this.cubeAppCommand.push(' --led-chain=2');
+      //this.cubeAppCommand.push(' --led-parallel=3');
+      //this.cubeAppCommand.push(' --led-slowdown-gpio=3');
+    },
+
     async welcome() {
       this.cubeAppName = 'welcome';
-      this.cubeAppPath = appSrcDir + 'sprites/'+ this.cubeAppName + '.ts';
+      this.cubeAppPath = appSrcDir + 'sprites/' + this.cubeAppName + '.ts';
 
       // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
@@ -273,6 +302,19 @@ export default {
 
     async start () {
       const response = await this.$axios.post('/start', {
+        'cubeAppCommand': this.cubeAppCommand
+      });
+      console.log(response.data)
+    },
+
+    async run () {
+      //let cubeAppCmd = '';
+      //for (const element of this.cubeAppCommand){
+      //  cubeAppCmd += element + ' ';
+      //}
+      //alert('cubeAppCmd: ' + cubeAppCmd);
+      //alert('this.cubeAppCommand: ' + this.cubeAppCommand);
+      const response = await this.$axios.post('/run', {
         'cubeAppCommand': this.cubeAppCommand
       });
       console.log(response.data)
@@ -533,6 +575,9 @@ export default {
     <button @click="slidingPuzzleSolve">Sliding puzzle</button>
 
     <h3>_______________</h3>
+    <button @click="videoViewer">Video viewer</button>
+
+    <h3>_______________</h3>
     <button @click="welcome">Welcome</button>
 
     <!--<p>TEST Message: {{ finalMessage }}</p> -->
@@ -544,7 +589,9 @@ export default {
     <h3>_______________</h3>
 
     <br><span> cubeAppCommand: {{ this.cubeAppCommand }}</span><br><br>
-    <button @click="start">Start</button>      <button @click="stop">Stop</button>
+    <button @click="start">Start</button> 
+    <button @click="run">Run</button>
+    <button @click="stop">Stop</button>
   </div>
 
 </template>
