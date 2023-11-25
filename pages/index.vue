@@ -3,21 +3,26 @@ const appDir = '/home/pi/led-hexahedron/apps/';
 const appSrcDir = appDir + 'src/';
 //const pictureBaseDir = appDir + 'cube_pictures/'
 const hZellerDir = '/home/pi/rpi-rgb-led-matrix/';
-
-//let imageDir = '../images/';
+// led-cube specific options
+// no leading or trailing spaces allowed:
+const cubeOptions = ['--led-rows', '64',
+                        '--led-cols', '64',
+                        '--led-chain', '2',
+                        '--led-parallel', '3',
+                        '--led-slowdown-gpio', '3'
+                    ];
 let imageDir = '/images/';
-//let imageDir = '~/images';
 //import testImage from '../images/2x2/cubeInAcube.2x2.png';
 
 export default {
   name: 'IndexPage',
   computed: { // preload all images in images folder
-      images () {
-        const path = require.context('../images', 
-                                     true, 
-                                     /\.png$/)
-        return path.keys().map(path)
-      },
+      //images () {
+        //const path = require.context('../images', 
+        //                             true, 
+        //                             /\.png$/)
+        //return path.keys().map(path)
+      //},
       now() {
         return Date.now(); 
       },
@@ -39,6 +44,7 @@ export default {
       finalMessage: null,
       tickerSymbols: '',
       tickerSymbolsLimit: 3,
+      movie: '',
       //dirName: '',
       //testImage
     }
@@ -265,18 +271,11 @@ export default {
       this.cubeAppPath = hZellerDir + 'utils/' + this.cubeAppName;
 
       // add command and command line options;
-      this.cubeAppCommand = [this.cubeAppPath];
-      this.cubeAppCommand.push('--led-rows'); // no leading or trailing spaces allowed
-      this.cubeAppCommand.push(64);
-      this.cubeAppCommand.push('--led-cols');
-      this.cubeAppCommand.push(64);
-      this.cubeAppCommand.push('--led-chain');
-      this.cubeAppCommand.push(2);
-      this.cubeAppCommand.push('--led-parallel');
-      this.cubeAppCommand.push(3);
-      this.cubeAppCommand.push('--led-slowdown-gpio');
-      this.cubeAppCommand.push(3);
-      this.cubeAppCommand.push('apps/videos/trippy2.mp4'); // use relative path
+      //this.cubeAppCommand = [this.cubeAppPath];
+      //this.cubeAppCommand.push.apply(this.cubeAppCommand, cubeOptions);
+      this.cubeAppCommand = [this.cubeAppPath, ...cubeOptions];
+      this.cubeAppCommand.push(this.movie);
+      //this.cubeAppCommand.push('apps/videos/trippy2.mp4'); // use relative path
     },
 
     async welcome() {
@@ -554,6 +553,14 @@ export default {
 
     <h3>_______________</h3>
     <button @click="videoViewer">Video viewer</button>
+    <span> TEST movie: {{ movie }}</span><br>
+    Movie:
+     <select v-model="movie" >
+      <option value="apps/videos/rotto.mp4">rotto</option>
+      <option value="apps/videos/space.mp4">space</option>
+      <option value="apps/videos/trippy1.mp4">trippy1</option>
+      <option value="apps/videos/trippy2.mp4">trippy2</option>
+     </select>
 
     <h3>_______________</h3>
     <button @click="welcome">Welcome</button>
