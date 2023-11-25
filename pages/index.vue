@@ -5,7 +5,7 @@ const appSrcDir = appDir + 'src/';
 const hZellerDir = '/home/pi/rpi-rgb-led-matrix/';
 
 //let imageDir = '../images/';
-let imageDir = '/_nuxt/images/';
+let imageDir = '/images/';
 //let imageDir = '~/images';
 //import testImage from '../images/2x2/cubeInAcube.2x2.png';
 
@@ -30,7 +30,7 @@ export default {
       cubePictureDir: '',
       nRubik: 3,
       pattern: '',
-      patternImage:'_nuxt/images/3x3/solved.3x3.png',
+      patternImage:'/images/3x3/solved.3x3.png',
       rollOfJoy: false,
       clockType: 'digital',
       animationInterval: null,
@@ -92,7 +92,7 @@ export default {
       this.cubeAppPath = appSrcDir + 'pseudoRubiksCube/' + this.cubeAppName + '.ts';
 
       // add command and command line options;
-      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
       if (this.nRubik) {
         this.cubeAppCommand.push('--nRubik');
         this.cubeAppCommand.push(this.nRubik);
@@ -106,7 +106,7 @@ export default {
       this.cubeAppPath = appSrcDir + 'rubiksCube/' + this.cubeAppName + '.ts';
       
       // add command and command line options;
-      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
       if (this.nRubik) {
         this.cubeAppCommand.push('--nRubik');
         this.cubeAppCommand.push(this.nRubik);
@@ -126,7 +126,7 @@ export default {
       this.cubeAppName = 'scrambleSolveRubiksCube';
       this.cubeAppPath = appSrcDir + 'rubiksCube/' + this.cubeAppName + '.ts';
       // add command and command line options;
-      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
       if (this.nRubik) {
         this.cubeAppCommand.push('--nRubik');
         this.cubeAppCommand.push(this.nRubik);
@@ -143,7 +143,7 @@ export default {
       this.cubeAppPath = appSrcDir + 'rubiksCube/' + this.cubeAppName + '.ts';
       
       // add command and command line options;
-      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
       this.cubeAppCommand.push('--solve');
       if (this.nRubik) {
         this.cubeAppCommand.push('--nRubik');
@@ -162,7 +162,7 @@ export default {
       this.cubeAppPath = appSrcDir + 'smartClock/' + this.cubeAppName + '.ts';
 
       // add command and command line options;
-      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
       this.cubeAppCommand.push('--clockType');
         this.cubeAppCommand.push(this.clockType);
       if (this.animationInterval) {
@@ -176,7 +176,7 @@ export default {
       this.cubeAppPath = appSrcDir + 'fireworks/' + this.cubeAppName + '.ts';
 
       // add command and command line options;
-      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
       //this.cubeAppCommand.push('--showTime');
       //this.cubeAppCommand.push(15000);
     },
@@ -186,7 +186,7 @@ export default {
       this.cubeAppPath = appSrcDir + 'cubePictures/' + this.cubeAppName + '.ts';
 
       // add command and command line options;
-      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
       if (this.cubePictureDir) {
         this.cubeAppCommand.push('--cubePictureDir');
         this.cubeAppCommand.push(this.cubePictureDir);
@@ -200,7 +200,7 @@ export default {
       this.cubeAppPath = appSrcDir + 'cubemap/' + this.cubeAppName + '.ts';
 
       // add command and command line options;
-      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
       //this.cubeAppCommand.push('-d');
       //this.cubeAppCommand.push('/home/pi/led-hexahedron/apps/cube_maps/3x2/');
       //this.cubeAppCommand.push('-i');
@@ -212,7 +212,7 @@ export default {
       this.cubeAppPath = appSrcDir + 'cubeLatlonmap/' + this.cubeAppName + '.ts';
 
       // add command and command line options;
-      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
       //this.cubeAppCommand.push('-d');
       //this.cubeAppCommand.push('/home/pi/led-hexahedron/apps/cube_latlon_maps/');
       if (this.celestialBody) {
@@ -229,7 +229,7 @@ export default {
       this.cubeAppPath = appSrcDir + 'stockMarketQuotes/' + this.cubeAppName + '.ts';
 
       // add command and command line options;
-      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
       if (this.tickerSymbols) {
         this.cubeAppCommand.push('--tickerSymbols');
         this.cubeAppCommand.push(this.tickerSymbols);
@@ -241,7 +241,7 @@ export default {
       this.cubeAppPath = appSrcDir + 'rubiksQube/'+ this.cubeAppName + '.ts';
 
       // add command and command line options;
-      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
     },
 
     async sprinkle() {
@@ -249,7 +249,7 @@ export default {
       this.cubeAppPath = appSrcDir + 'sprinkle/' + this.cubeAppName + '.ts';
 
       // add command and command line options;
-      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
     },
 
     async sparkle() {
@@ -257,7 +257,7 @@ export default {
       this.cubeAppPath = appSrcDir + 'sparkle/' + this.cubeAppName + '.ts';
 
       // add command and command line options;
-      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
     },
 
     async videoViewer() {
@@ -266,12 +266,7 @@ export default {
 
       // add command and command line options;
       this.cubeAppCommand = [this.cubeAppPath];
-      //this.cubeAppCommand.push('$options');
-      //this.cubeAppCommand.push('$ledcube/apps/videos/trippy2.mp4');
-      //this.cubeAppCommand.push(' ~led-hexahedron/apps/videos/trippy2.mp4');
-      //this.cubeAppCommand.push(' /home/pi/led-hexahedron/apps/videos/trippy2.mp4');
-      this.cubeAppCommand.push('apps/videos/trippy2.mp4');
-      this.cubeAppCommand.push('--led-rows');
+      this.cubeAppCommand.push('--led-rows'); // no leading or trailing spaces allowed
       this.cubeAppCommand.push(64);
       this.cubeAppCommand.push('--led-cols');
       this.cubeAppCommand.push(64);
@@ -281,11 +276,7 @@ export default {
       this.cubeAppCommand.push(3);
       this.cubeAppCommand.push('--led-slowdown-gpio');
       this.cubeAppCommand.push(3);
-      //this.cubeAppCommand.push(' --led-rows=64');
-      //this.cubeAppCommand.push(' --led-cols=64');
-      //this.cubeAppCommand.push(' --led-chain=2');
-      //this.cubeAppCommand.push(' --led-parallel=3');
-      //this.cubeAppCommand.push(' --led-slowdown-gpio=3');
+      this.cubeAppCommand.push('apps/videos/trippy2.mp4'); // use relative path
     },
 
     async welcome() {
@@ -293,7 +284,7 @@ export default {
       this.cubeAppPath = appSrcDir + 'sprites/' + this.cubeAppName + '.ts';
 
       // add command and command line options;
-      this.cubeAppCommand = [this.cubeAppPath];
+      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
       if (this.finalMessage) {
         this.cubeAppCommand.push('--finalMessage');
         this.cubeAppCommand.push(this.finalMessage);
@@ -302,19 +293,6 @@ export default {
 
     async start () {
       const response = await this.$axios.post('/start', {
-        'cubeAppCommand': this.cubeAppCommand
-      });
-      console.log(response.data)
-    },
-
-    async run () {
-      //let cubeAppCmd = '';
-      //for (const element of this.cubeAppCommand){
-      //  cubeAppCmd += element + ' ';
-      //}
-      //alert('cubeAppCmd: ' + cubeAppCmd);
-      //alert('this.cubeAppCommand: ' + this.cubeAppCommand);
-      const response = await this.$axios.post('/run', {
         'cubeAppCommand': this.cubeAppCommand
       });
       console.log(response.data)
@@ -590,7 +568,6 @@ export default {
 
     <br><span> cubeAppCommand: {{ this.cubeAppCommand }}</span><br><br>
     <button @click="start">Start</button> 
-    <button @click="run">Run</button>
     <button @click="stop">Stop</button>
   </div>
 
