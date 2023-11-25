@@ -1,0 +1,20 @@
+Genereer de Rubik's cube images op:
+
+alg.cubing.net
+
+-> maximize the window so that all images will be downloaded with 
+   the same width and height dimensions.
+
+press the small cube image until you get the beta screen on the right
+
+playback options -> hint stickers ->  uncheck
+
+moves -> add algorithm moves
+
+tools -> image
+
+right mouse click on image -> save image as ...
+
+-> don't alter the orientation of the cube, the only way to get it 
+   back is by reloading the whole page
+   
