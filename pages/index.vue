@@ -32,7 +32,7 @@ export default {
       cubeAppName: '',
       cubeAppPath: '',
       cubeAppCommand: [],
-      cubePictureDir: '',
+      cubePictureDir: 'emoji',
       nRubik: 3,
       pattern: '',
       patternImage:'/images/3x3/solved.3x3.png',
@@ -45,6 +45,8 @@ export default {
       tickerSymbols: '',
       tickerSymbolsLimit: 3,
       movie: '',
+      animatedGif: '',
+      demoNumber: 10, 
       //dirName: '',
       //testImage
     }
@@ -201,6 +203,18 @@ export default {
       this.cubeAppCommand.push(20);
     },
 
+    async loopCubePictures() {
+      this.cubeAppName = 'led-image-viewer';
+      this.cubeAppPath = hZellerDir + 'utils/' + this.cubeAppName;
+
+      // add command and command line options;
+      this.cubeAppCommand = ['sudo', this.cubeAppPath, ...cubeOptions, '-f', '-w3', '-s'];
+      if (this.cubePictureDir) {
+        this.cubeAppCommand.push(appDir + 'cube_pictures/' + this.cubePictureDir + '/*.png');
+      }
+    },
+
+
     async showCubemap() {
       this.cubeAppName = 'showCubemap';
       this.cubeAppPath = appSrcDir + 'cubemap/' + this.cubeAppName + '.ts';
@@ -278,6 +292,26 @@ export default {
       //this.cubeAppCommand.push('apps/videos/trippy2.mp4'); // use relative path
     },
 
+    async gifViewer() {
+      this.cubeAppName = 'led-image-viewer';
+      this.cubeAppPath = hZellerDir + 'utils/' + this.cubeAppName;
+
+      // add command and command line options;
+      this.cubeAppCommand = [this.cubeAppPath, ...cubeOptions];
+      this.cubeAppCommand.push(this.animatedGif);
+      //this.cubeAppCommand.push('apps/animated_gifs/squares.gif'); // use relative path
+    },
+
+    async ledDemo() {
+      this.cubeAppName = 'demo';
+      this.cubeAppPath = hZellerDir + 'examples-api-use/' + this.cubeAppName;
+
+      // add command and command line options;
+      this.cubeAppCommand = [this.cubeAppPath, ...cubeOptions];
+      this.cubeAppCommand.push('-D');
+      this.cubeAppCommand.push(this.demoNumber);
+    },
+
     async welcome() {
       this.cubeAppName = 'welcome';
       this.cubeAppPath = appSrcDir + 'sprites/' + this.cubeAppName + '.ts';
@@ -337,13 +371,14 @@ export default {
      </select>
 
     <h3>_______________</h3>
-    <button @click="showCubePictures">Cube pictures</button><br><br>
+    <button @click="showCubePictures">Cube pictures</button>
+    <button @click="loopCubePictures">Cube pictures slide show</button><br><br>
     
     <span> TEST cubePictureDir: {{ cubePictureDir }}</span><br>
     Pictures:
      <select v-model="cubePictureDir">
        <option value="family">family</option>
-       <option value="chess_icons">chess</option>
+       <option value="chess_set">chess</option>
        <option value="emoji">emoji's</option>
        <option value="flag">flags</option>
        <option value="borg">borg</option>
@@ -561,6 +596,48 @@ export default {
       <option value="apps/videos/trippy1.mp4">trippy1</option>
       <option value="apps/videos/trippy2.mp4">trippy2</option>
      </select>
+
+     <h3>_______________</h3>
+    <button @click="gifViewer">Animated gif viewer</button>
+    <span> TEST animatedGif: {{ animatedGif }}</span><br>
+    animated gifs:
+     <select v-model="animatedGif" >
+      <option value="apps/animated_gifs/birthday_animated_gif/happy-birthday.gif">happy birthday</option>
+      <option value="apps/animated_gifs/fruit.gif">fruit</option>
+      <option value="apps/animated_gifs/galaxy.gif">galaxy</option>
+      <option value="apps/animated_gifs/globe.gif">globe</option>
+      <option value="apps/animated_gifs/pingpong.gif">pingpong</option>
+      <option value="apps/animated_gifs/psychedelic-kotdwara.gif">psychedelic</option>
+      <option value="apps/animated_gifs/space.gif">space</option>
+      <option value="apps/animated_gifs/spinning_colors.gif">spinning colors</option>
+      <option value="apps/animated_gifs/squares.gif">squares</option>
+      <option value="apps/animated_gifs/thingy.gif">thingy</option>
+      <option value="apps/animated_gifs/tumblr_a5fa375fa82ae7f2d505069080ffa807_cf9380bd_500.gif">tumbler</option>
+      <option value="apps/animated_gifs/tunnel.gif">tunnel</option>
+      <option value="apps/animated_gifs/wolfenstein.gif">Wolfenstein</option>
+     </select>
+
+     <h3>_______________</h3>
+     <button @click="ledDemo">Demo</button>
+     <span> TEST demoNumber: {{ demoNumber }}</span><br>
+     <div>Demo:
+     <select v-model="demoNumber">
+       <option value="0">rotating square</option>
+       <!--<option value="1">forward scrolling an image</option>-->
+       <!--<option value="2">backward scrolling an image</option>-->
+       <!--<option value="3">square</option>-->
+       <option value="4">Pulsing color</option>
+       <option value="5">Grayscale Block</option>
+       <option value="6">Abelian sandpile model</option>
+       <option value="7">Conway's game of life</option>
+       <option value="8">Langton's ant</option>
+       <option value="9">Volume bars</option>
+       <option value="10">Evolution of color</option>
+       <option value="11">Brightness pulse generator</option>
+     </select>
+    </div>
+
+
 
     <h3>_______________</h3>
     <button @click="welcome">Welcome</button>
