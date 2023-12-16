@@ -37,7 +37,10 @@ export default {
       pattern: '',
       patternImage:'/images/3x3/solved.3x3.png',
       rollOfJoy: false,
+      solver: 'reversedPath',
+      heuristic: 'taxiCube3D',
       clockType: 'digital',
+      language: 'Nederlands',
       animationInterval: null,
       celestialBody: 'earth',
       rotate: false,
@@ -165,6 +168,22 @@ export default {
       }
     },
 
+    async slidingPuzzleSolve() {
+      this.cubeAppName = 'slidingPuzzleSolve';
+      this.cubeAppPath = appSrcDir + 'rubiksQube/'+ this.cubeAppName + '.ts';
+
+      // add command and command line options;
+      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
+      this.cubeAppCommand.push('--nRubik');
+      this.cubeAppCommand.push(this.nRubik);
+      this.cubeAppCommand.push('--nSlides');
+      this.cubeAppCommand.push(10);
+      this.cubeAppCommand.push('--solver');
+      this.cubeAppCommand.push(this.solver);
+      this.cubeAppCommand.push('--heuristic');
+      this.cubeAppCommand.push(this.heuristic);
+    },
+
     async smartClock() {
       this.cubeAppName = 'smartClock';
       this.cubeAppPath = appSrcDir + 'smartClock/' + this.cubeAppName + '.ts';
@@ -177,6 +196,8 @@ export default {
         this.cubeAppCommand.push('--animationInterval');
         this.cubeAppCommand.push(this.animationInterval);
       }
+      this.cubeAppCommand.push('--language');
+      this.cubeAppCommand.push(this.language);
     },
 
     async showFireworks() {
@@ -254,14 +275,6 @@ export default {
         this.cubeAppCommand.push('--tickerSymbols');
         this.cubeAppCommand.push(this.tickerSymbols);
       }
-    },
-
-    async slidingPuzzleSolve() {
-      this.cubeAppName = 'slidingPuzzleSolve';
-      this.cubeAppPath = appSrcDir + 'rubiksQube/'+ this.cubeAppName + '.ts';
-
-      // add command and command line options;
-      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
     },
 
     async sprinkle() {
@@ -370,6 +383,15 @@ export default {
        <option value="60">60 minutes</option>
      </select>
 
+    <span> TEST language: {{ language }}</span><br>
+    Animation every:
+     <select v-model="language" :disabled="(clockType!='word')">
+       <option value="Nederlands">Nederlands</option>
+       <option value="English">English</option>
+       <option value="Deutsch">Deutsch</option>
+       <option value="Français">Français</option>
+     </select>
+
     <h3>_______________</h3>
     <button @click="showCubePictures">Cube pictures</button>
     <button @click="loopCubePictures">Cube pictures slide show</button><br><br>
@@ -411,6 +433,7 @@ export default {
 
     <h3>_______________</h3>
 
+    <span> TEST nRubik: {{ nRubik }}</span><br>
     <div>Rubik's cube dimension:
      <select v-model="nRubik">
        <option value="1">1x1</option>
@@ -425,7 +448,6 @@ export default {
      </select>
     </div>
 
-    <span> TEST nRubik: {{ nRubik }}</span><br>
     <!--<span>{{ images }}</span><br>-->
     <button @click="pseudoRubiksCubeSolve">pseudosolve</button>
     <button @click="scrambleRubiksCube">scramble</button>
@@ -549,6 +571,26 @@ export default {
     </div>
     
     <h3>_______________</h3>
+    <button @click="slidingPuzzleSolve">sliding puzzle</button>
+
+    <span> TEST solver: {{ solver }}</span><br>
+    <div>Solver:
+     <select v-model="solver">
+      <option value="reversedPath">reversed path</option>
+      <option value="a*">a* shortest path</option>
+      <option value="best-first">best first</option>
+     </select>
+    </div>
+
+    <span> TEST heuristic: {{ heuristic }}</span><br>
+    <div>Heuristic:
+     <select v-model="heuristic">
+      <option value="taxiCube3D">taxicube</option>
+      <option value="taxiCubeReduced3D">taxicube reduced</option>
+     </select>
+    </div>
+
+    <h3>_______________</h3>
     <button @click="showCubeLatlonmap">Celestial body</button>
 
     <br>
@@ -582,9 +624,6 @@ export default {
       <option value="MSFT">MSFT</option>
       <option value="AAPL">AAPL</option>
     </select>
-
-    <h3>_______________</h3>
-    <button @click="slidingPuzzleSolve">Sliding puzzle</button>
 
     <h3>_______________</h3>
     <button @click="videoViewer">Video viewer</button>
