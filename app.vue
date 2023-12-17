@@ -1,3 +1,6 @@
+<!--
+Hexaturion cube commander main page
+-->
 <script>
 const appDir = '/home/pi/led-hexahedron/apps/';
 const appSrcDir = appDir + 'src/';
