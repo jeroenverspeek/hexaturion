@@ -1,25 +1,21 @@
 {
-  "name": "frontend",
-  "version": "1.0.0",
+  "name": "nuxt-app",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "nuxt",
     "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate"
-  },
-  "dependencies": {
-    "@nuxtjs/axios": "^5.13.6",
-    "@vue/compat": "^3.1.0-0",
-    "core-js": "^3.19.3",
-    "vue": "^3.1.0-0"
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/image-edge": "^1.1.0-28379997.bebad4f",
-    "@vue/compiler-sfc": "^3.1.0-0",
-    "file-loader": "^6.2.0",
+    "@nuxt/devtools": "latest",
+    "@vueuse/nuxt": "^10.7.0",
+    "bulma": "^0.9.4",
     "nuxt": "^3.8.2",
-    "url-loader": "^4.1.1",
-    "webpack": "^4.47.0"
+    "sass": "npm:sass-embedded",
+    "vue": "^3.3.12",
+    "vue-router": "^4.2.5"
   }
 }
