@@ -1,24 +1,28 @@
 <script setup>
 const clockType = ref('digital');
 const language = ref('Nederlands');
-const animationInterval = ref(null);
+const animationInterval = ref();
 const loading = ref(false);
 const { appSrcDir } = useConfig();
 const { start, stop } = useAPI();
 
+const cubeAppCommand = computed(() => {
+  const command = ['ts-node', appSrcDir + 'smartClock/smartClock.ts'];
+  command.push('--clockType');
+  command.push(clockType.value);
+  if (animationInterval.value) {
+    command.push('--animationInterval');
+    command.push(animationInterval.value);
+  }
+  command.push('--language');
+  command.push(language.value);
+  return command;
+})
+
 async function showSmartClock() {
   loading.value = true;
   // build command and command line options;
-  const cubeAppCommand = ['ts-node', appSrcDir + 'smartClock/smartClock.ts'];
-  cubeAppCommand.push('--clockType');
-  cubeAppCommand.push(clockType.value);
-  if (animationInterval.value) {
-    cubeAppCommand.push('--animationInterval');
-    cubeAppCommand.push(animationInterval.value);
-  }
-  cubeAppCommand.push('--language');
-  cubeAppCommand.push(language.value);
-  const response = await start(cubeAppCommand)
+  const response = await start(cubeAppCommand.value)
   console.log(response.data)
 
   loading.value = false;
@@ -45,7 +49,7 @@ async function showSmartClock() {
       <label class="label">Animation every:</label>
       <div class="select">
         <select v-model="animationInterval" :disabled="(clockType != 'word')">
-          <option value="null">no animation</option>
+          <option :value="undefined">no animation</option>
           <option value="1">1 minute</option>
           <option value="5">5 minutes</option>
           <option value="15">15 minutes</option>
@@ -67,6 +71,7 @@ async function showSmartClock() {
       </div>
       <!-- <span> TEST language: {{ language }}</span><br> -->
     </div>
+    {{ cubeAppCommand }}
     <div class="field is-grouped">
       <p class="control">
         <button :disabled="!clockType" @click="showSmartClock" class="button is-primary"

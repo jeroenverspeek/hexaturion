@@ -1,37 +1,39 @@
 <script setup>
 const cubePictureDir = ref('emoji');
+const loop = ref(false);
 const loading = ref(false);
-const { appSrcDir, hZellerDir, cubeOptions } = useConfig();
+const { appDir, appSrcDir, hZellerDir, cubeOptions } = useConfig();
 const { start, stop } = useAPI();
+
+const cubeAppCommand = computed(() => {
+  let command;
+  if (loop.value) {
+    // build command and command line options;
+    const cubeAppPath = hZellerDir + 'utils/led-image-viewer';
+    command = ['sudo', cubeAppPath, ...cubeOptions, '-f', '-w3', '-s'];
+    if (cubePictureDir.value) {
+      command.push(appDir + 'cube_pictures/' + cubePictureDir.value + '/*.png');
+    }
+  } else {
+    // build command and command line options;
+    command = ['ts-node', appSrcDir + 'cubePictures/showCubePictures.ts'];
+    if (cubePictureDir.value) {
+      command.push('--cubePictureDir');
+      command.push(cubePictureDir.value);
+    }
+    command.push('--showTime');
+    command.push(20);
+  }
+  return command;
+})
 
 async function showCubePictures() {
   loading.value = true;
-  // build command and command line options;
-  const cubeAppCommand = ['ts-node', appSrcDir + 'cubePictures/showCubePictures.ts'];
-  if (cubePictureDir.value) {
-    cubeAppCommand.push('--cubePictureDir');
-    cubeAppCommand.push(cubePictureDir.value);
-  }
-  cubeAppCommand.push('--showTime');
-  cubeAppCommand.push(20);
-  const response = await start(cubeAppCommand);
+  const response = await start(cubeAppCommand.value);
   console.log(response.data)
   loading.value = false;
 }
 
-async function loopCubePictures() {
-  loading.value = true;
-  const cubeAppPath = hZellerDir + 'utils/led-image-viewer';
-
-  // build command and command line options;
-  const cubeAppCommand = ['sudo', cubeAppPath, ...cubeOptions, '-f', '-w3', '-s'];
-  if (cubePictureDir.value) {
-    cubeAppCommand.push(appDir + 'cube_pictures/' + cubePictureDir.value + '/*.png');
-  }
-  const response = await start(cubeAppCommand);
-  console.log(response.data)
-  loading.value = false;
-}
 </script>
 
 <template>
@@ -49,15 +51,17 @@ async function loopCubePictures() {
       </div>
       <!-- <span> TEST cubePictureDir: {{ cubePictureDir }}</span><br> -->
     </div>
+    <div class="field">
+      <label class="checkbox">
+        <input type="checkbox" v-model="loop">
+        Slide Show
+      </label>
+    </div>
+    {{ cubeAppCommand }}
     <div class="field is-grouped">
       <p class="control">
         <button @click="showCubePictures" class="button is-primary" :class="{ 'is-loading': loading }">
           Show Pictures
-        </button>
-      </p>
-      <p class="control">
-        <button @click="loopCubePictures" class="button is-primary" :class="{ 'is-loading': loading }">
-          Show Slide Show
         </button>
       </p>
       <p class="control">
