@@ -14,13 +14,13 @@
         </a>
       </div>
 
-      <div id="navbarBasicExample" class="navbar-menu">
+      <div id="navbarBasicExample" class="navbar-menu" :class="{ 'is-active': showMenu }">
         <div class="navbar-start">
-          <nuxt-link to="/" class="navbar-item" exact-active-class="is-active">
+          <nuxt-link to="/" class="navbar-item" exact-active-class="is-active" @click="showMenu = false">
             Home
           </nuxt-link>
 
-          <nuxt-link to="/about" class="navbar-item" exact-active-class="is-active">
+          <nuxt-link to="/about" class="navbar-item" exact-active-class="is-active" @click="showMenu = false">
             About
           </nuxt-link>
         </div>
