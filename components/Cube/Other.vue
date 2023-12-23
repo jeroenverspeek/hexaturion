@@ -146,16 +146,6 @@ export default {
       this.cubeAppCommand.push(this.heuristic);
     },
 
-    async showFireworks() {
-      this.cubeAppPath = appSrcDir + 'fireworks/showFireworks.ts';
-
-      // add command and command line options;
-      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
-      //this.cubeAppCommand.push('--showTime');
-      //this.cubeAppCommand.push(15000);
-    },
-
-
     async showCubemap() {
       this.cubeAppPath = appSrcDir + 'cubemap/showCubemap.ts';
 
@@ -165,20 +155,6 @@ export default {
       //this.cubeAppCommand.push('/home/pi/led-hexahedron/apps/cube_maps/3x2/');
       //this.cubeAppCommand.push('-i');
       this.cubeAppCommand.push('atlas1_CUBE.png');
-    },
-
-    async sprinkle() {
-      this.cubeAppPath = appSrcDir + 'sprinkle/showSprinkle.ts';
-
-      // add command and command line options;
-      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
-    },
-
-    async sparkle() {
-      this.cubeAppPath = appSrcDir + 'sparkle/showSparkle.ts';
-
-      // add command and command line options;
-      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
     },
 
     async videoViewer() {
@@ -244,9 +220,6 @@ export default {
 
     <h3>_______________</h3>
     <button @click="showCubemap">Cube map</button>
-
-    <h3>_______________</h3>
-    <button @click="showFireworks">Fireworks</button>
 
     <h3>_______________</h3>
 
@@ -438,10 +411,6 @@ export default {
       <option value="apps/animated_gifs/wolfenstein.gif">Wolfenstein</option>
     </select>
 
- 
-   <h3>_______________</h3>
-    <button @click="sprinkle">Sprinkle</button> <button @click="sparkle">Sparkle</button>
-    <h3>_______________</h3>
 
     <br><span> cubeAppCommand: {{ this.cubeAppCommand }}</span><br><br>
     <button @click="start">Start</button>

@@ -45,6 +45,12 @@ const currentTab = ref('clock');
             <span>Demo</span>
           </a>
         </li>
+        <li :class="{ 'is-active': currentTab === 'fireworks' }">
+          <a @click="currentTab = 'fireworks'">
+            <span class="icon is-small"><i class="fa-solid fa-fireworks"></i></span>
+            <span>Fireworks</span>
+          </a>
+        </li>
         <li :class="{ 'is-active': currentTab === 'other' }">
           <a @click="currentTab = 'other'">
             <span class="icon is-small"><i class="fa-solid fa-bars"></i></span>
@@ -60,6 +66,7 @@ const currentTab = ref('clock');
       <CubeStockMarketQuotes v-if="currentTab === 'stockMarketQuotes'" />
       <CubeWelcome v-if="currentTab === 'welcome'" />
       <CubeDemo v-if="currentTab === 'demo'" />
+      <CubeFireworks v-if="currentTab === 'fireworks'" />
       <CubeOther v-else-if="currentTab === 'other'" />
     </div>
   </div>
