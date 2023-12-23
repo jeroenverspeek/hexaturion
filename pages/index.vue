@@ -15,6 +15,12 @@ const currentTab = ref('clock');
             <span>Clock</span>
           </a>
         </li>
+        <li :class="{ 'is-active': currentTab === 'video' }">
+          <a @click="currentTab = 'video'">
+            <span class="icon is-small"><i class="fa-solid fa-image"></i></span>
+            <span>Video</span>
+          </a>
+        </li>
         <li :class="{ 'is-active': currentTab === 'pictures' }">
           <a @click="currentTab = 'pictures'">
             <span class="icon is-small"><i class="fa-solid fa-image"></i></span>
@@ -61,6 +67,7 @@ const currentTab = ref('clock');
     </div>
     <div>
       <CubeClock v-if="currentTab === 'clock'" />
+      <CubeVideo v-if="currentTab === 'video'" />
       <CubePictures v-if="currentTab === 'pictures'" />
       <CubeCelestialBodies v-if="currentTab === 'celestialBodies'" />
       <CubeStockMarketQuotes v-if="currentTab === 'stockMarketQuotes'" />
