@@ -17,9 +17,6 @@ export default {
       rollOfJoy: false,
       solver: 'reversedPath',
       heuristic: 'taxiCube3D',
-      finalMessage: null,
-      tickerSymbols: '',
-      tickerSymbolsLimit: 3,
       movie: '',
       animatedGif: '',
       demoNumber: 10,
@@ -173,17 +170,6 @@ export default {
       this.cubeAppCommand.push('atlas1_CUBE.png');
     },
 
-    async showStockMarketQuotes() {
-      this.cubeAppPath = appSrcDir + 'stockMarketQuotes/showStockMarketQuotes.ts';
-
-      // add command and command line options;
-      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
-      if (this.tickerSymbols) {
-        this.cubeAppCommand.push('--tickerSymbols');
-        this.cubeAppCommand.push(this.tickerSymbols);
-      }
-    },
-
     async sprinkle() {
       this.cubeAppPath = appSrcDir + 'sprinkle/showSprinkle.ts';
 
@@ -228,17 +214,6 @@ export default {
       this.cubeAppCommand = [this.cubeAppPath, ...cubeOptions];
       this.cubeAppCommand.push('-D');
       this.cubeAppCommand.push(this.demoNumber);
-    },
-
-    async welcome() {
-      this.cubeAppPath = appSrcDir + 'sprites/welcome.ts';
-
-      // add command and command line options;
-      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
-      if (this.finalMessage) {
-        this.cubeAppCommand.push('--finalMessage');
-        this.cubeAppCommand.push(this.finalMessage);
-      }
     },
 
     async start() {
@@ -446,18 +421,6 @@ export default {
     </div>
 
     <h3>_______________</h3>
-    <button @click="showStockMarketQuotes">Stock market quotes</button>
-
-    <span> TEST tickerSymbols: {{ tickerSymbols }}</span><br>
-    <select v-model="tickerSymbols" :multiple="true">
-      <option value="ASML.AS">ASML.AS</option>
-      <option value="SHELL.AS">SHELL.AS</option>
-      <option value="GOOG">GOOG</option>
-      <option value="MSFT">MSFT</option>
-      <option value="AAPL">AAPL</option>
-    </select>
-
-    <h3>_______________</h3>
     <button @click="videoViewer">Video viewer</button>
     <span> TEST movie: {{ movie }}</span><br>
     Movie:
@@ -508,16 +471,8 @@ export default {
       </select>
     </div>
 
-
-
-    <h3>_______________</h3>
-    <button @click="welcome">Welcome</button>
-
-    <!--<p>TEST Message: {{ finalMessage }}</p> -->
-    <div>Enter final message: <input v-model="finalMessage" maxlength=16 placeholder="WELKOM!">
-    </div>
-
-    <h3>_______________</h3>
+ 
+   <h3>_______________</h3>
     <button @click="sprinkle">Sprinkle</button> <button @click="sparkle">Sparkle</button>
     <h3>_______________</h3>
 
