@@ -17,8 +17,6 @@ export default {
       rollOfJoy: false,
       solver: 'reversedPath',
       heuristic: 'taxiCube3D',
-      celestialBody: 'earth',
-      rotate: false,
       finalMessage: null,
       tickerSymbols: '',
       tickerSymbolsLimit: 3,
@@ -173,22 +171,6 @@ export default {
       //this.cubeAppCommand.push('/home/pi/led-hexahedron/apps/cube_maps/3x2/');
       //this.cubeAppCommand.push('-i');
       this.cubeAppCommand.push('atlas1_CUBE.png');
-    },
-
-    async showCubeLatlonmap() {
-      this.cubeAppPath = appSrcDir + 'cubeLatlonmap/showCubeLatlonmap.ts';
-
-      // add command and command line options;
-      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
-      //this.cubeAppCommand.push('-d');
-      //this.cubeAppCommand.push('/home/pi/led-hexahedron/apps/cube_latlon_maps/');
-      if (this.celestialBody) {
-        this.cubeAppCommand.push('-i');
-        this.cubeAppCommand.push(this.celestialBody);
-      }
-      if (this.rotate) {
-        this.cubeAppCommand.push('--rotate');
-      }
     },
 
     async showStockMarketQuotes() {
@@ -462,29 +444,6 @@ export default {
         <option value="taxiCubeReduced3D">taxicube reduced</option>
       </select>
     </div>
-
-    <h3>_______________</h3>
-    <button @click="showCubeLatlonmap">Celestial body</button>
-
-    <br>
-    <span> TEST celestialBody: {{ celestialBody }}</span><br>
-    Celestial body:
-    <select v-model="celestialBody">
-      <option value="earth.jpg">earth</option>
-      <option value="sun.jpg">sun</option>
-      <option value="moon.jpg">moon</option>
-      <option value="mercury.jpg">mercury</option>
-      <option value="venus.jpg">venus</option>
-      <option value="mars.jpg">mars</option>
-      <option value="jupiter.jpg">jupiter</option>
-      <option value="blackhole.jpg">blackhole</option>
-    </select>
-
-    <div>
-      <input type="checkbox" id="rotate" v-model="rotate">
-      <label for="checkbox">rotate</label>
-    </div>
-
 
     <h3>_______________</h3>
     <button @click="showStockMarketQuotes">Stock market quotes</button>

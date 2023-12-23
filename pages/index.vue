@@ -27,6 +27,12 @@ const currentTab = ref('clock');
             <span>Celestial bodies</span>
           </a>
         </li>
+        <li :class="{ 'is-active': currentTab === 'stockMarketQuotes' }">
+          <a @click="currentTab = 'stockMarketQuotes'">
+            <span class="icon is-small"><i class="fa-solid fa-stockMarketQuotes"></i></span>
+            <span>Stock market quotes</span>
+          </a>
+        </li>
         <li :class="{ 'is-active': currentTab === 'other' }">
           <a @click="currentTab = 'other'">
             <span class="icon is-small"><i class="fa-solid fa-bars"></i></span>
@@ -39,6 +45,7 @@ const currentTab = ref('clock');
       <CubeClock v-if="currentTab === 'clock'" />
       <CubePictures v-if="currentTab === 'pictures'" />
       <CubeCelestialBodies v-if="currentTab === 'celestialBodies'" />
+      <CubeStockMarketQuotes v-if="currentTab === 'stockMarketQuotes'" />
       <CubeOther v-else-if="currentTab === 'other'" />
     </div>
   </div>

@@ -6,15 +6,15 @@ const { appSrcDir } = useConfig();
 const { start, stop } = useAPI();
 
 const cubeAppCommand = computed(() => {
-// build command and command line options;
+  // build command and command line options;
   const command = ['ts-node', appSrcDir + 'celestialBodies/showCubeLatlonmap.ts'];
-    command.push('-i');
-    command.push(celestialBody.value);
+  command.push('-i');
+  command.push(celestialBody.value);
   if (rotate.value) {
     command.push('--rotate');
   }
   return command;
-})
+});
 
 
 async function showCelestialBody() {
