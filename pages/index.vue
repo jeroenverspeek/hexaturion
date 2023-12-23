@@ -17,7 +17,7 @@ const currentTab = ref('clock');
         </li>
         <li :class="{ 'is-active': currentTab === 'video' }">
           <a @click="currentTab = 'video'">
-            <span class="icon is-small"><i class="fa-solid fa-image"></i></span>
+            <span class="icon is-small"><i class="fa-solid fa-video"></i></span>
             <span>Video</span>
           </a>
         </li>
@@ -27,21 +27,27 @@ const currentTab = ref('clock');
             <span>Pictures</span>
           </a>
         </li>
+        <li :class="{ 'is-active': currentTab === 'rubiksCube' }">
+          <a @click="currentTab = 'rubiksCube'">
+            <span class="icon is-small"><i class="fa-solid fa-cube"></i></span>
+            <span>Rubik's cube</span>
+          </a>
+        </li>
         <li :class="{ 'is-active': currentTab === 'celestialBodies' }">
           <a @click="currentTab = 'celestialBodies'">
-            <span class="icon is-small"><i class="fa-solid fa-celestialBodies"></i></span>
+            <span class="icon is-small"><i class="fa-solid fa-earth-europe"></i></span>
             <span>Celestial bodies</span>
           </a>
         </li>
         <li :class="{ 'is-active': currentTab === 'stockMarketQuotes' }">
           <a @click="currentTab = 'stockMarketQuotes'">
-            <span class="icon is-small"><i class="fa-solid fa-stockMarketQuotes"></i></span>
+            <span class="icon is-small"><i class="fa-solid fa-money-bill-trend-up"></i></span>
             <span>Stock market quotes</span>
           </a>
         </li>
         <li :class="{ 'is-active': currentTab === 'welcome' }">
           <a @click="currentTab = 'welcome'">
-            <span class="icon is-small"><i class="fa-solid fa-welcome"></i></span>
+            <span class="icon is-small"><i class="fa-solid fa-door-open"></i></span>
             <span>Welcome</span>
           </a>
         </li>
@@ -69,6 +75,7 @@ const currentTab = ref('clock');
       <CubeClock v-if="currentTab === 'clock'" />
       <CubeVideo v-if="currentTab === 'video'" />
       <CubePictures v-if="currentTab === 'pictures'" />
+      <CubeRubiksCube v-if="currentTab === 'rubiksCube'" />
       <CubeCelestialBodies v-if="currentTab === 'celestialBodies'" />
       <CubeStockMarketQuotes v-if="currentTab === 'stockMarketQuotes'" />
       <CubeWelcome v-if="currentTab === 'welcome'" />

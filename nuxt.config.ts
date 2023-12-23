@@ -6,6 +6,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       API_BASE_URL: 'http://192.168.1.136:3000'
+      //API_BASE_URL: 'https://cors-anywhere.herokuapp.com/http://192.168.1.136:3000'
     }
   },
   app: {
