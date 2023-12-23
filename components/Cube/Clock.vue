@@ -1,4 +1,5 @@
 <script setup>
+const showBackground = ref(false);
 const clockType = ref('digital');
 const language = ref('Nederlands');
 const animationInterval = ref();
@@ -6,17 +7,27 @@ const loading = ref(false);
 const { appSrcDir } = useConfig();
 const { start, stop } = useAPI();
 
+// build command and command line options;
 const cubeAppCommand = computed(() => {
-  const command = ['ts-node', appSrcDir + 'smartClock/smartClock.ts'];
-  command.push('--clockType');
-  command.push(clockType.value);
-  if (animationInterval.value) {
-    command.push('--animationInterval');
-    command.push(animationInterval.value);
+  if ((clockType.value == 'digital') && (showBackground.value)) {
+    const command = ['ts-node', appSrcDir + 'celestialBodies/showDayNightMap.ts'];
+    command.push('--zenith');
+    command.push('LBU'); // cube standing on corner
+    command.push('--realTime');
+    command.push('--digitalClock');
+    return command;
+  } else {
+    const command = ['ts-node', appSrcDir + 'smartClock/smartClock.ts'];
+    command.push('--clockType');
+    command.push(clockType.value);
+    if (animationInterval.value) {
+      command.push('--animationInterval');
+      command.push(animationInterval.value);
+    }
+    command.push('--language');
+    command.push(language.value);
+    return command;
   }
-  command.push('--language');
-  command.push(language.value);
-  return command;
 })
 
 async function showSmartClock() {
@@ -70,6 +81,12 @@ async function showSmartClock() {
         </select>
       </div>
       <!-- <span> TEST language: {{ language }}</span><br> -->
+    </div>
+    <div class="field">
+      <label class="checkbox">
+        <input type="checkbox" v-model="showBackground" :disabled="(clockType != 'digital')">
+        Show day/night background
+      </label>
     </div>
     <div style="word-break: break-all;">{{ cubeAppCommand }}</div>
     <div class="field is-grouped">

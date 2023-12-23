@@ -5,6 +5,7 @@ start server op de raspberrypi met:
 >sudo node server.js
 
 of tijdens development:
+(installeer eerst nodemon: >sudo npm install -g nodemon)
 >sudo nodemon server.js
 server wordt dan automatisch opnieuw gestart bij 
 iedere wijziging in de code
@@ -16,8 +17,6 @@ Hexaturion Cube Commander listening on port 3000
 start client in webbrowser:
 
 http://hexaturion.com
-
-succes!
 
 ------------------------------------
 debugging:
@@ -33,11 +32,6 @@ Voor lokaal testen van hexaturion op localhost:
 
 ga naar:
 >/home/ik/hexaturion/
-
-(niet nodig bij nuxt versie 2.17.2:
-(run eerst:
->export NODE_OPTIONS=--openssl-legacy-provider
-bij een oude versie van nuxt)
 
 en dan:
 >npm run dev
@@ -59,6 +53,8 @@ en
 
 en dan:
 >npm install
-
+------------------------------------
+install and update to the versions in package-lock.json:
+>npm ci
 ------------------------------------
 
