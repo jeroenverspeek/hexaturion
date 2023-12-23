@@ -5,7 +5,7 @@ const loading = ref(false);
 const { appDir, appSrcDir, hZellerDir, cubeOptions } = useConfig();
 const { start, stop } = useAPI();
 
-const cubeAppCommand = computed(() => {
+const cubePicturesAppCommand = computed(() => {
   let command;
   if (loop.value) {
     // build command and command line options;
@@ -25,14 +25,30 @@ const cubeAppCommand = computed(() => {
     command.push(20);
   }
   return command;
-})
+});
+
+const cubeMapAppCommand = computed(() => {
+    // build command and command line options;
+    let command = ['ts-node', appSrcDir + 'cubemap/showCubemap.ts'];
+    command.push('atlas1_CUBE.png');
+  return command;
+});
+
 
 async function showCubePictures() {
   loading.value = true;
-  const response = await start(cubeAppCommand.value);
+  const response = await start(cubePicturesAppCommand.value);
   console.log(response.data)
   loading.value = false;
 }
+
+async function showCubeMap() {
+  loading.value = true;
+  const response = await start(cubeMapAppCommand.value);
+  console.log(response.data)
+  loading.value = false;
+}
+
 
 </script>
 
@@ -62,6 +78,11 @@ async function showCubePictures() {
       <p class="control">
         <button @click="showCubePictures" class="button is-primary" :class="{ 'is-loading': loading }">
           Show Pictures
+        </button>
+      </p>
+      <p class="control">
+        <button @click="showCubeMap" class="button is-primary" :class="{ 'is-loading': loading }">
+          Show CubeMap
         </button>
       </p>
       <p class="control">

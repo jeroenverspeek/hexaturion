@@ -146,16 +146,6 @@ export default {
       this.cubeAppCommand.push(this.heuristic);
     },
 
-    async showCubemap() {
-      this.cubeAppPath = appSrcDir + 'cubemap/showCubemap.ts';
-
-      // add command and command line options;
-      this.cubeAppCommand = ['ts-node', this.cubeAppPath];
-      //this.cubeAppCommand.push('-d');
-      //this.cubeAppCommand.push('/home/pi/led-hexahedron/apps/cube_maps/3x2/');
-      //this.cubeAppCommand.push('-i');
-      this.cubeAppCommand.push('atlas1_CUBE.png');
-    },
 
     async videoViewer() {
       this.cubeAppName = 'video-viewer';
@@ -217,9 +207,6 @@ export default {
     <button @click="getDirectory">get directory {{ dirName }}</button>
     <span> TEST dirName: {{ dirName }}</span><br>
     -->
-
-    <h3>_______________</h3>
-    <button @click="showCubemap">Cube map</button>
 
     <h3>_______________</h3>
 
