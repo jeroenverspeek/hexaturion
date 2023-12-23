@@ -19,9 +19,6 @@ export default {
       heuristic: 'taxiCube3D',
       movie: '',
       animatedGif: '',
-      demoNumber: 10,
-      //dirName: '',
-      //testImage
     }
   },
 
@@ -204,16 +201,6 @@ export default {
       this.cubeAppCommand = [this.cubeAppPath, ...cubeOptions];
       this.cubeAppCommand.push(this.animatedGif);
       //this.cubeAppCommand.push('apps/animated_gifs/squares.gif'); // use relative path
-    },
-
-    async ledDemo() {
-      this.cubeAppName = 'demo';
-      this.cubeAppPath = hZellerDir + 'examples-api-use/' + this.cubeAppName;
-
-      // add command and command line options;
-      this.cubeAppCommand = [this.cubeAppPath, ...cubeOptions];
-      this.cubeAppCommand.push('-D');
-      this.cubeAppCommand.push(this.demoNumber);
     },
 
     async start() {
@@ -450,26 +437,6 @@ export default {
       <option value="apps/animated_gifs/tunnel.gif">tunnel</option>
       <option value="apps/animated_gifs/wolfenstein.gif">Wolfenstein</option>
     </select>
-
-    <h3>_______________</h3>
-    <button @click="ledDemo">Demo</button>
-    <span> TEST demoNumber: {{ demoNumber }}</span><br>
-    <div>Demo:
-      <select v-model="demoNumber">
-        <option value="0">rotating square</option>
-        <!--<option value="1">forward scrolling an image</option>-->
-        <!--<option value="2">backward scrolling an image</option>-->
-        <!--<option value="3">square</option>-->
-        <option value="4">Pulsing color</option>
-        <option value="5">Grayscale Block</option>
-        <option value="6">Abelian sandpile model</option>
-        <option value="7">Conway's game of life</option>
-        <option value="8">Langton's ant</option>
-        <option value="9">Volume bars</option>
-        <option value="10">Evolution of color</option>
-        <option value="11">Brightness pulse generator</option>
-      </select>
-    </div>
 
  
    <h3>_______________</h3>
