@@ -6,7 +6,6 @@ const currentTab = ref('clock');
 <template>
   <div class="box">
     <h1 class="title">Hexaturion</h1>
-    <h2 class="subtitle">version: 0.20</h2>
     <hr />
     <div class="tabs is-boxed">
       <ul>
@@ -22,6 +21,12 @@ const currentTab = ref('clock');
             <span>Pictures</span>
           </a>
         </li>
+        <li :class="{ 'is-active': currentTab === 'celestialBodies' }">
+          <a @click="currentTab = 'celestialBodies'">
+            <span class="icon is-small"><i class="fa-solid fa-celestialBodies"></i></span>
+            <span>Celestial bodies</span>
+          </a>
+        </li>
         <li :class="{ 'is-active': currentTab === 'other' }">
           <a @click="currentTab = 'other'">
             <span class="icon is-small"><i class="fa-solid fa-bars"></i></span>
@@ -33,6 +38,7 @@ const currentTab = ref('clock');
     <div>
       <CubeClock v-if="currentTab === 'clock'" />
       <CubePictures v-if="currentTab === 'pictures'" />
+      <CubeCelestialBodies v-if="currentTab === 'celestialBodies'" />
       <CubeOther v-else-if="currentTab === 'other'" />
     </div>
   </div>

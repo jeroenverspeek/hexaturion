@@ -7,10 +7,10 @@
 <template>
   <div>
     <h1 class="title">About Hexaturion</h1>
-    <h2 class="subtitle">version X</h2><br>
-    A graphical user interface for the led-hexahedron<br><br>
+    <h2 class="subtitle">version 0.3</h2><br>
+    Commander of the six faces<br><br>
 
-    <!-- <span id="theTime"></span> -->
+    A graphical user interface for the led-hexahedron<br><br>
 
     <nuxt-link to="/">Back to Home page</nuxt-link>
     <br>
