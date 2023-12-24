@@ -1,6 +1,7 @@
 <script setup>
 const nRubik = ref(3);
-const pattern = ref('solved');
+const pattern = ref('');
+//const patternImage = ref('/images/3x3/solved.3x3.png');
 const rollOfJoy = ref(false);
 
 const loading = ref(false);
@@ -9,10 +10,29 @@ const { start, stop } = useAPI();
 
 let imageDir = '/images/';
 
-
+// a computed ref
 const patternImage = computed(() => {
-  return `${imageDir}${nRubik.value}x${nRubik.value}/${pattern.value}.${nRubik.value}x${nRubik.value}.png`;
-});
+  return `${imageDir}${nRubik.value}x${nRubik.value}/solved.${nRubik.value}x${nRubik.value}.png`;
+})
+
+// single ref
+//watch(x, (newX) => {
+//  console.log(`x is ${newX}`)
+//})
+
+//  const patternImage = computed(() => {
+//  `${imageDir}${nRubik}x${nRubik}/solved.${nRubik}x${nRubik}.png`;
+//  return patternImage;
+//});
+//
+//
+//  patternImage = 
+//    `${imageDir}${this.nRubik}x${this.nRubik}/${rubikPattern}.${nRubik}x${nRubik}.png`;
+//  //const imgUrl = new URL('./img.png', import.meta.url).href // vite instead of webpack
+//  //this.patternImage = getImageUrl(this.patternImage)
+//  //this.patternImage = getImgUrl(this.patternImage)
+//  //alert('patterImage: ' + this.patternImage);
+//});
 
 
 const solveCubeAppCommand = computed(() => {
@@ -99,7 +119,7 @@ async function showRubiksCubePattern() {
 <template>
   <div>
     <div class="field">
-      <select v-model="nRubik" @change="onChange(pattern='solved')" >
+      <select v-model="nRubik">
         <option value="1">1x1</option>
         <option value="2">2x2</option>
         <option value="3">3x3</option>

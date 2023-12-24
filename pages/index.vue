@@ -63,12 +63,6 @@ const currentTab = ref('clock');
             <span>Fireworks</span>
           </a>
         </li>
-        <li :class="{ 'is-active': currentTab === 'other' }">
-          <a @click="currentTab = 'other'">
-            <span class="icon is-small"><i class="fa-solid fa-bars"></i></span>
-            <span>Other</span>
-          </a>
-        </li>
       </ul>
     </div>
     <div>
@@ -81,7 +75,6 @@ const currentTab = ref('clock');
       <CubeWelcome v-if="currentTab === 'welcome'" />
       <CubeDemo v-if="currentTab === 'demo'" />
       <CubeFireworks v-if="currentTab === 'fireworks'" />
-      <CubeOther v-else-if="currentTab === 'other'" />
     </div>
   </div>
 </template>
