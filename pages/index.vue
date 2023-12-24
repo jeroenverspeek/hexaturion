@@ -33,6 +33,12 @@ const currentTab = ref('clock');
             <span>Rubik's cube</span>
           </a>
         </li>
+        <li :class="{ 'is-active': currentTab === 'slidingPuzzle' }">
+          <a @click="currentTab = 'slidingPuzzle'">
+            <span class="icon is-small"><i class="fa-solid fa-cube"></i></span>
+            <span>Sliding puzzle</span>
+          </a>
+        </li>
         <li :class="{ 'is-active': currentTab === 'celestialBodies' }">
           <a @click="currentTab = 'celestialBodies'">
             <span class="icon is-small"><i class="fa-solid fa-earth-europe"></i></span>
@@ -53,13 +59,13 @@ const currentTab = ref('clock');
         </li>
         <li :class="{ 'is-active': currentTab === 'demo' }">
           <a @click="currentTab = 'demo'">
-            <span class="icon is-small"><i class="fa-solid fa-demo"></i></span>
+            <span class="icon is-small"><i class="fa-solid fa-cube"></i></span>
             <span>Demo</span>
           </a>
         </li>
         <li :class="{ 'is-active': currentTab === 'fireworks' }">
           <a @click="currentTab = 'fireworks'">
-            <span class="icon is-small"><i class="fa-solid fa-fireworks"></i></span>
+            <span class="icon is-small"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
             <span>Fireworks</span>
           </a>
         </li>
@@ -70,6 +76,7 @@ const currentTab = ref('clock');
       <CubeVideo v-if="currentTab === 'video'" />
       <CubePictures v-if="currentTab === 'pictures'" />
       <CubeRubiksCube v-if="currentTab === 'rubiksCube'" />
+      <CubeSlidingPuzzle v-if="currentTab === 'slidingPuzzle'" />
       <CubeCelestialBodies v-if="currentTab === 'celestialBodies'" />
       <CubeStockMarketQuotes v-if="currentTab === 'stockMarketQuotes'" />
       <CubeWelcome v-if="currentTab === 'welcome'" />
