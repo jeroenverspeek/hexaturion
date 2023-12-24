@@ -28,21 +28,21 @@ const slidingPuzzleCubeAppCommand = computed(() => {
     command.push('--solver');
     command.push(solver.value);
   }
-  if (heuristic) {
+  if ((solver.value != 'reversedPath') && (heuristic)) {
     command.push('--heuristic');
     command.push(heuristic.value);
   }
-  if (nSteps) {
+  if ((solver.value == 'reversedPath') && (nSteps)) {
     command.push('--nSlides');
     command.push(nSteps.value);
   }
   return command;
 });
 
-async function scrambleRubiksCube() {
+async function slidingPuzzleSolve() {
   loading.value = true;
   // build command and command line options;
-  const response = await start(scrambleCubeAppCommand.value)
+  const response = await start(slidingPuzzleCubeAppCommand.value)
   console.log(response.data)
 
   loading.value = false;
@@ -99,7 +99,7 @@ async function scrambleRubiksCube() {
   <div style="word-break: break-all;">{{ slidingPuzzleCubeAppCommand }}</div>
   <div class="field is-grouped">
     <p class="control">
-      <button @click="slidingPuzzle" class="button is-primary"
+      <button @click="slidingPuzzleSolve" class="button is-primary"
         :class="{ 'is-loading': loading }">Solve</button>
     </p>
     <p class="control">

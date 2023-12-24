@@ -256,7 +256,7 @@ async function showRubiksCubePattern() {
     </p>
     <p class="control">
       <button @click="pseudoSolveRubiksCube" class="button is-primary"
-        :class="{ 'is-loading': loading }">Pattern</button>
+        :class="{ 'is-loading': loading }">PseudoSolve</button>
     </p>
     <p class="control">
       <button @click="stop" class="button is-danger" :class="{ 'is-loading': loading }">Stop</button>
