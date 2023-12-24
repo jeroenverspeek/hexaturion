@@ -2,6 +2,7 @@
 const nRubik = ref(3);
 const pattern = ref('solved');
 const rollOfJoy = ref(false);
+const nSteps = ref(20);
 
 const loading = ref(false);
 const { appSrcDir } = useConfig();
@@ -17,7 +18,7 @@ const patternImage = computed(() => {
 
 const solveCubeAppCommand = computed(() => {
   // build command and command line options;
-  const command = ['ts-node', appSrcDir + 'rubiksCube/solveRubiksCube.ts'];
+  const command = ['ts-node', appSrcDir + 'rubiksCube/scrambeSolveRubiksCube.ts'];
   command.push('--solve');
   if (nRubik) {
     command.push('--nRubik');
@@ -32,13 +33,13 @@ const solveCubeAppCommand = computed(() => {
 
 const scrambleCubeAppCommand = computed(() => {
   // build command and command line options;
-  const command = ['ts-node', appSrcDir + 'rubiksCube/scrambleRubiksCube.ts'];
+  const command = ['ts-node', appSrcDir + 'rubiksCube/scrambleSolveRubiksCube.ts'];
   if (nRubik) {
     command.push('--nRubik');
     command.push(nRubik.value);
   }
   command.push('--nMoves');
-  command.push(nRubik.value * 2);
+  command.push(nSteps.value);
   if (rollOfJoy.value) {
     command.push('--rollOfJoy');
   }
@@ -63,6 +64,20 @@ const patternCubeAppCommand = computed(() => {
   return command;
 });
 
+
+const pseudoSolveCubeAppCommand = computed(() => {
+  // build command and command line options;
+  const command = ['ts-node', appSrcDir + 'pseudoRubiksCube/pseudoSolveRubiksCube.ts'];
+  if (nRubik) {
+    command.push('--nRubik');
+    command.push(nRubik.value);
+  }
+  if (nSteps) {
+    command.push('--nSteps');
+    command.push(nSteps.value);
+  }
+  return command;
+});
 
 async function solveRubiksCube() {
   loading.value = true;
@@ -214,22 +229,18 @@ async function showRubiksCubePattern() {
   </div>
 
   <div>
-      <!--  <img src="../images/3x3-dots-300x227.png" alt="image not found" width="300" height="227">
-            <img :src="require(`~/assets/img/${image}.png`)" />
-      -->
-      <span> TEST patternImage: {{ patternImage }}</span><br>
-      <!--<span> TEST testImage: {{ testImage }}</span><br>-->
-      <!--<img :src="patternImage" alt="image not found" width="300" height="227">-->
-      <!--<img :src="require(`${patternImage}`)" alt="image not found" width="300" height="227">-->
       <img :src="`${patternImage}`" alt="image not found" width="300px" height="300px" />
-      <!--<img v-bind:src="testImage" alt="image not found" width="300" height="227"/>-->
   </div>
+
+  Number of steps: <input type="number" v-model="nSteps"><br><br>
+  
 
   <span> TEST pattern: {{ pattern }}</span><br>
   <span> TEST patternImage: {{ patternImage }}</span><br>
   <div style="word-break: break-all;">{{ solveCubeAppCommand }}</div>
   <div style="word-break: break-all;">{{ scrambleCubeAppCommand }}</div>
   <div style="word-break: break-all;">{{ patternCubeAppCommand }}</div>
+  <div style="word-break: break-all;">{{ pseudoSolveCubeAppCommand }}</div>
   <div class="field is-grouped">
     <p class="control">
       <button @click="solveRubiksCube" class="button is-primary"
@@ -241,6 +252,10 @@ async function showRubiksCubePattern() {
     </p>
     <p class="control">
       <button @click="showRubiksCubePattern" class="button is-primary"
+        :class="{ 'is-loading': loading }">Pattern</button>
+    </p>
+    <p class="control">
+      <button @click="pseudoSolveRubiksCube" class="button is-primary"
         :class="{ 'is-loading': loading }">Pattern</button>
     </p>
     <p class="control">

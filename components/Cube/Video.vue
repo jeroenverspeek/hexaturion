@@ -71,8 +71,10 @@ async function showGif() {
         <option value="apps/animated_gifs/wolfenstein.gif">Wolfenstein</option>
       </select>
     </div>
+    <!--
     <div style="word-break: break-all;">{{ videoAppCommand }}</div>
     <div style="word-break: break-all;">{{ gifAppCommand }}</div>
+    -->
     <div class="field is-grouped">
       <p class="control">
         <button @click="showVideo" class="button is-primary" :class="{ 'is-loading': loading }">

@@ -59,9 +59,11 @@ async function sparkle() {
   <div>
     <div class="field">
     </div>
+    <!--
     <div style="word-break: break-all;">{{ cubeAppCommandFireworks }}</div>
     <div style="word-break: break-all;">{{ cubeAppCommandSprinkle }}</div>
     <div style="word-break: break-all;">{{ cubeAppCommandSparkle }}</div>
+    -->
     <div class="field is-grouped">
       <p class="control">
         <button @click="showFireworks" class="button is-primary"

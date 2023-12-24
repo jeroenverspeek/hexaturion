@@ -45,7 +45,7 @@ async function ledDemo() {
         <option value="11">Brightness pulse generator</option>
       </select>
     </div>
-    <div style="word-break: break-all;">{{ cubeAppCommand }}</div>
+    <!--<div style="word-break: break-all;">{{ cubeAppCommand }}</div>-->
     <div class="field is-grouped">
       <p class="control">
         <button :disabled="!demoNumber" @click="ledDemo" class="button is-primary"

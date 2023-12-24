@@ -73,7 +73,7 @@ async function showCubeMap() {
         Slide Show
       </label>
     </div>
-    <div style="word-break: break-all;">{{ cubeAppCommand }}</div>
+    <!--<div style="word-break: break-all;">{{ cubeAppCommand }}</div>-->
     <div class="field is-grouped">
       <p class="control">
         <button @click="showCubePictures" class="button is-primary" :class="{ 'is-loading': loading }">

@@ -88,7 +88,7 @@ async function showSmartClock() {
         Show day/night background
       </label>
     </div>
-    <div style="word-break: break-all;">{{ cubeAppCommand }}</div>
+    <!--<div style="word-break: break-all;">{{ cubeAppCommand }}</div>-->
     <div class="field is-grouped">
       <p class="control">
         <button :disabled="!clockType" @click="showSmartClock" class="button is-primary"

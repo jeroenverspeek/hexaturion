@@ -42,7 +42,7 @@ async function showStockMarketQuotes() {
       <!-- <span> TEST language: {{ language }}</span><br> -->
     </div>
     <br><br><br><br>
-    <div style="word-break: break-all;">{{ cubeAppCommand }}</div>
+    <!--<div style="word-break: break-all;">{{ cubeAppCommand }}</div>-->
     <div class="field is-grouped">
       <p class="control">
         <button :disabled="!tickerSymbols" @click="showStockMarketQuotes" class="button is-primary"

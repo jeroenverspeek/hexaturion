@@ -34,7 +34,7 @@ async function welcome() {
       </div>
       <!-- <span> TEST language: {{ language }}</span><br> -->
     </div>
-    <div style="word-break: break-all;">{{ cubeAppCommand }}</div>
+    <!--<div style="word-break: break-all;">{{ cubeAppCommand }}</div>-->
     <div class="field is-grouped">
       <p class="control">
         <button :disabled="!finalMessage" @click="welcome" class="button is-primary"
