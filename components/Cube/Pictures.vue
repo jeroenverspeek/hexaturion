@@ -12,11 +12,12 @@ const cubePicturesAppCommand = computed(() => {
     const cubeAppPath = hZellerDir + 'utils/led-image-viewer';
     command = ['sudo', cubeAppPath, ...cubeOptions, '-f', '-w3', '-s'];
     if (cubePictureDir.value) {
-      command.push(appDir + 'cube_pictures/' + cubePictureDir.value + '/*.png');
+      command.push(appDir + `cube_pictures/${cubePictureDir.value}/\*.png`); // werkt niet door wildcard
+      //command.push(appDir + 'cube_pictures/' + cubePictureDir.value + '/Laugh-icon.png');
     }
   } else {
     // build command and command line options;
-    command = ['ts-node', appSrcDir + 'cubePictures/showCubePictures.ts'];
+    command = ['sudo', 'ts-node', appSrcDir + 'cubePictures/showCubePictures.ts'];
     if (cubePictureDir.value) {
       command.push('--cubePictureDir');
       command.push(cubePictureDir.value);
@@ -30,7 +31,7 @@ const cubePicturesAppCommand = computed(() => {
 const cubeMapAppCommand = computed(() => {
     // build command and command line options;
     let command = ['ts-node', appSrcDir + 'cubemap/showCubemap.ts'];
-    command.push('atlas1_CUBE.png');
+    //command.push('atlas1_CUBE.png');
   return command;
 });
 

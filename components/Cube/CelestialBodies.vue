@@ -11,8 +11,8 @@ const cubeAppCommand = computed(() => {
   // build command and command line options;
   if ((celestialBody.value == 'earth.jpg') && (showDayNight.value)) {
     const command = ['ts-node', appSrcDir + 'celestialBodies/showDayNightMap.ts'];
-    command.push('-i');
-    command.push(celestialBody.value);
+    //command.push('-i');
+    //command.push(celestialBody.value);
     command.push('--fixedSun');
     if (zenith) {
       command.push('--zenith');
@@ -93,7 +93,7 @@ async function showCelestialBody() {
       </label>
     </div>
 
-    <div style="word-break: break-all;">{{ cubeAppCommand }}</div>
+    <!--<div style="word-break: break-all;">{{ cubeAppCommand }}</div>-->
     <div class="field is-grouped">
       <p class="control">
         <button :disabled="!celestialBody" @click="showCelestialBody" class="button is-primary"

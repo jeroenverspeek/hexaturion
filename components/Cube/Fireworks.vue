@@ -19,7 +19,7 @@ const cubeAppCommandSprinkle = computed(() => {
 
 const cubeAppCommandSparkle = computed(() => {
   // build command and command line options;
-  const command = ['ts-node', appSrcDir + 'sprarkle/showSparkle.ts'];
+  const command = ['ts-node', appSrcDir + 'sparkle/showSparkle.ts'];
   return command;
 });
 

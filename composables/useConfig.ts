@@ -1,4 +1,5 @@
 export function useConfig() {
+  const ledCubeDir = '/home/pi/led-hexahedron/';
   const appDir = '/home/pi/led-hexahedron/apps/';
   const appSrcDir = appDir + 'src/';
   //const pictureBaseDir = appDir + 'cube_pictures/'

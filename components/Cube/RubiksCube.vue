@@ -109,6 +109,16 @@ async function showRubiksCubePattern() {
 }
 
 
+async function pseudoSolveRubiksCube() {
+  loading.value = true;
+  // build command and command line options;
+  const response = await start(pseudoSolveCubeAppCommand.value)
+  console.log(response.data)
+
+  loading.value = false;
+}
+
+
 </script>
 
 <template>
@@ -234,13 +244,14 @@ async function showRubiksCubePattern() {
 
   Number of steps: <input type="number" v-model="nSteps"><br><br>
   
-
+  <!--
   <span> TEST pattern: {{ pattern }}</span><br>
   <span> TEST patternImage: {{ patternImage }}</span><br>
   <div style="word-break: break-all;">{{ solveCubeAppCommand }}</div>
   <div style="word-break: break-all;">{{ scrambleCubeAppCommand }}</div>
   <div style="word-break: break-all;">{{ patternCubeAppCommand }}</div>
   <div style="word-break: break-all;">{{ pseudoSolveCubeAppCommand }}</div>
+  -->
   <div class="field is-grouped">
     <p class="control">
       <button @click="solveRubiksCube" class="button is-primary"

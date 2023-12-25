@@ -3,13 +3,15 @@ const rotate = ref(false);
 const demoNumber = ref(10);
 //const tickerSymbols = ref(['AAPL']);
 const loading = ref(false);
-const { appSrcDir, hZellerDir } = useConfig();
+const { appSrcDir, hZellerDir, cubeOptions } = useConfig();
 const { start, stop } = useAPI();
+
 
 const cubeAppCommand = computed(() => {
   // build command and command line options;
-  const cubeAppName = 'demo';
-  const command = ['demo', hZellerDir + 'examples-api-use/' + cubeAppName];
+  let command;
+  const cubeAppPath = hZellerDir + 'examples-api-use/demo';
+  command = ['sudo', cubeAppPath, ...cubeOptions];
   command.push('-D');
   command.push(demoNumber.value);
   return command;
@@ -45,7 +47,7 @@ async function ledDemo() {
         <option value="11">Brightness pulse generator</option>
       </select>
     </div>
-    <!--<div style="word-break: break-all;">{{ cubeAppCommand }}</div>-->
+    <div style="word-break: break-all;">{{ cubeAppCommand }}</div>
     <div class="field is-grouped">
       <p class="control">
         <button :disabled="!demoNumber" @click="ledDemo" class="button is-primary"
