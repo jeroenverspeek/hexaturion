@@ -32,10 +32,8 @@ const slidingPuzzleCubeAppCommand = computed(() => {
     command.push('--heuristic');
     command.push(heuristic.value);
   }
-  if ((solver.value == 'reversedPath') && (nSteps)) {
-    command.push('--nSlides');
-    command.push(nSteps.value);
-  }
+  command.push('--nSlides');
+  command.push(nSteps.value);
   return command;
 });
 
@@ -93,10 +91,11 @@ async function slidingPuzzleSolve() {
   </div>
 
   Number of steps: <input type="number" v-model="nSteps"><br><br>
-
+  <!--
   <span> TEST pattern: {{ pattern }}</span><br>
   <span> TEST patternImage: {{ patternImage }}</span><br>
   <div style="word-break: break-all;">{{ slidingPuzzleCubeAppCommand }}</div>
+  -->
   <div class="field is-grouped">
     <p class="control">
       <button @click="slidingPuzzleSolve" class="button is-primary"

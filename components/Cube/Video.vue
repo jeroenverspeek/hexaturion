@@ -11,7 +11,7 @@ const videoAppCommand = computed(() => {
   //const cubeAppPath = '$videoviewer';
   //command = [cubeAppPath];
   const cubeAppPath = hZellerDir + 'utils/video-viewer';
-  command = ['sudo', cubeAppPath, ...cubeOptions];
+  command = [cubeAppPath, ...cubeOptions];
   command.push(appDir + movie.value);
   return command;
 });
@@ -22,7 +22,7 @@ const gifAppCommand = computed(() => {
   //const cubeAppPath = '$led-image-viewer';
   //command = [cubeAppPath];
   const cubeAppPath = hZellerDir + 'utils/led-image-viewer';
-  command = ['sudo', cubeAppPath, ...cubeOptions];
+  command = [cubeAppPath, ...cubeOptions];
   if (animatedGif) {
     command.push(appDir + animatedGif.value);
   }
@@ -74,10 +74,10 @@ async function showGif() {
         <option value="animated_gifs/wolfenstein.gif">Wolfenstein</option>
       </select>
     </div>
-    
+    <!--
     <div style="word-break: break-all;">{{ videoAppCommand }}</div>
     <div style="word-break: break-all;">{{ gifAppCommand }}</div>
-    
+    -->
     <div class="field is-grouped">
       <p class="control">
         <button @click="showVideo" class="button is-primary" :class="{ 'is-loading': loading }">

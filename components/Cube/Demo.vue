@@ -11,7 +11,7 @@ const cubeAppCommand = computed(() => {
   // build command and command line options;
   let command;
   const cubeAppPath = hZellerDir + 'examples-api-use/demo';
-  command = ['sudo', cubeAppPath, ...cubeOptions];
+  command = [cubeAppPath, ...cubeOptions];
   command.push('-D');
   command.push(demoNumber.value);
   return command;
