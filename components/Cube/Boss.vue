@@ -1,17 +1,19 @@
 <script setup>
+const loading = ref(false);
+//const { ledCubeDir, appDir, appSrcDir, hZellerDir, cubeOptions } = useConfig();
 const { start, stop } = useAPI();
 
 const shutdownCubeAppCommand = computed(() => {
   // build command and command line options;
   let command;
-  command = ['shutdown', '-h', 'now'];
+  command = ['sudo', 'shutdown', '-h', 'now'];
   return command;
 });
 
 const rebootCubeAppCommand = computed(() => {
   // build command and command line options;
   let command;
-  command = ['reboot'];
+  command = ['sudo', 'reboot'];
   return command;
 });
 
@@ -38,7 +40,7 @@ async function cubeReboot() {
     <!--
     <div style="word-break: break-all;">{{ shutdownCubeAppCommand }}</div>
     <div style="word-break: break-all;">{{ rebootCubeAppCommand }}</div>
-    -->
+    -->    
     <div class="field is-grouped">
       <p class="control">
         <button @click="cubeShutdown" class="button is-primary" :class="{ 'is-loading': loading }">
