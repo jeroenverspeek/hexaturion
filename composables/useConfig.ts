@@ -12,5 +12,6 @@ export function useConfig() {
     '--led-parallel', '3',
     '--led-slowdown-gpio', '3'
   ];
-  return { appDir, appSrcDir, hZellerDir, cubeOptions }
+  const version = '1.00'
+  return { appDir, appSrcDir, hZellerDir, cubeOptions, version }
 }
