@@ -1,0 +1,1 @@
+function n(){const e="/home/pi/led-hexahedron/apps/",o=e+"src/";return{appDir:e,appSrcDir:o,hZellerDir:"/home/pi/rpi-rgb-led-matrix/",cubeOptions:["--led-rows","64","--led-cols","64","--led-chain","2","--led-parallel","3","--led-slowdown-gpio","3"],version:"1.00"}}export{n as u};
