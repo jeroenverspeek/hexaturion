@@ -1,7 +1,6 @@
 <script setup>
 const loading = ref(false);
-//const { ledCubeDir, appDir, appSrcDir, hZellerDir, cubeOptions } = useConfig();
-const { start, stop } = useAPI();
+const { start } = useAPI();
 
 const shutdownCubeAppCommand = computed(() => {
   // build command and command line options;
@@ -51,9 +50,6 @@ async function cubeReboot() {
         <button @click="cubeReboot" class="button is-primary" :class="{ 'is-loading': loading }">
           Reboot cube
         </button>
-      </p>
-      <p class="control">
-        <button @click="stop" class="button is-danger" :class="{ 'is-loading': loading }">Stop</button>
       </p>
     </div>
   </div>

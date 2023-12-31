@@ -29,8 +29,8 @@ async function welcome() {
 <template>
   <div>
     <div class="field">
-      <label class="label">Ticker symbols:</label>
-      <div>Enter final message: <input v-model="finalMessage" maxlength=16 placeholder="WELKOM!">
+      <label class="label">Enter final message:</label>
+      <div> <input v-model="finalMessage" maxlength=16 placeholder="WELKOM!">
       </div>
       <!-- <span> TEST language: {{ language }}</span><br> -->
     </div>

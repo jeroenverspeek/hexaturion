@@ -1,6 +1,6 @@
 <script setup>
-const movie = ref('');
-const animatedGif = ref('');
+const movie = ref("videos/rotto.mp4");
+const animatedGif = ref("animated_gifs/birthday_animated_gif/happy-birthday.gif");
 const loading = ref(false);
 const { ledCubeDir, appDir, appSrcDir, hZellerDir, cubeOptions } = useConfig();
 const { start, stop } = useAPI();
@@ -49,16 +49,15 @@ async function showGif() {
 
 <template>
   <div>
-    <div class="field">
-      <select v-model="movie">
+    <div class="field is-grouped">
+    <select v-model="movie">
       <option value="videos/rotto.mp4">rotto</option>
       <option value="videos/space.mp4">space</option>
       <option value="videos/trippy1.mp4">trippy1</option>
       <option value="videos/trippy2.mp4">trippy2</option>
     </select>
-    </div>
-    <div class="field">
-      <select v-model="animatedGif">
+    ...............
+    <select v-model="animatedGif">
         <option value="animated_gifs/birthday_animated_gif/happy-birthday.gif">happy birthday</option>
         <option value="animated_gifs/fruit.gif">fruit</option>
         <option value="animated_gifs/galaxy.gif">galaxy</option>
@@ -74,6 +73,9 @@ async function showGif() {
         <option value="animated_gifs/wolfenstein.gif">Wolfenstein</option>
       </select>
     </div>
+    .
+  </div>
+  <div>
     <!--
     <div style="word-break: break-all;">{{ videoAppCommand }}</div>
     <div style="word-break: break-all;">{{ gifAppCommand }}</div>

@@ -51,7 +51,7 @@ const currentTab = ref('clock');
           <li :class="{ 'is-active': currentTab === 'stockMarketQuotes' }">
             <a @click="currentTab = 'stockMarketQuotes'">
               <span class="icon is-small"><i class="fa-solid fa-money-bill-trend-up"></i></span>
-              <span>Stock market quotes</span>
+              <span>Stock market</span>
             </a>
           </li>
           <li :class="{ 'is-active': currentTab === 'welcome' }">
