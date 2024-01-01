@@ -54,10 +54,10 @@ const currentTab = ref('clock');
               <span>Stock market</span>
             </a>
           </li>
-          <li :class="{ 'is-active': currentTab === 'welcome' }">
-            <a @click="currentTab = 'welcome'">
+          <li :class="{ 'is-active': currentTab === 'helloWorld' }">
+            <a @click="currentTab = 'helloWorld'">
               <span class="icon is-small"><i class="fa-solid fa-door-open"></i></span>
-              <span>Welcome</span>
+              <span>Hello world</span>
             </a>
           </li>
           <li :class="{ 'is-active': currentTab === 'demo' }">
@@ -89,7 +89,7 @@ const currentTab = ref('clock');
       <CubeSlidingPuzzle v-if="currentTab === 'slidingPuzzle'" />
       <CubeCelestialBodies v-if="currentTab === 'celestialBodies'" />
       <CubeStockMarketQuotes v-if="currentTab === 'stockMarketQuotes'" />
-      <CubeWelcome v-if="currentTab === 'welcome'" />
+      <CubeHelloWorld v-if="currentTab === 'helloWorld'" />
       <CubeDemo v-if="currentTab === 'demo'" />
       <CubeFireworks v-if="currentTab === 'fireworks'" />
       <CubeBoss v-if="currentTab === 'boss'" />

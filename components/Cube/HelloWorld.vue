@@ -8,14 +8,14 @@ const { start, stop } = useAPI();
 
 const cubeAppCommand = computed(() => {
   // build command and command line options;
-  const command = ['ts-node', appSrcDir + 'sprites/welcome.ts'];
+  const command = ['ts-node', appSrcDir + 'sprites/helloWorld.ts'];
   command.push('--finalMessage');
   command.push(finalMessage.value);
   return command;
 });
 
 
-async function welcome() {
+async function helloWorld() {
   loading.value = true;
   // build command and command line options;
   const response = await start(cubeAppCommand.value)
@@ -29,7 +29,7 @@ async function welcome() {
 <template>
   <div>
     <div class="field">
-      <label class="label">Enter final message:</label>
+      <label class="label">Final message to the world:</label>
       <div> <input v-model="finalMessage" maxlength=16 placeholder="WELKOM!">
       </div>
       <!-- <span> TEST language: {{ language }}</span><br> -->
@@ -37,8 +37,8 @@ async function welcome() {
     <!--<div style="word-break: break-all;">{{ cubeAppCommand }}</div>-->
     <div class="field is-grouped">
       <p class="control">
-        <button :disabled="!finalMessage" @click="welcome" class="button is-primary"
-          :class="{ 'is-loading': loading }">Welcome</button>
+        <button :disabled="!finalMessage" @click="helloWorld" class="button is-primary"
+          :class="{ 'is-loading': loading }">Hello world</button>
       </p>
       <p class="control">
         <button @click="stop" class="button is-danger" :class="{ 'is-loading': loading }">Stop</button>
