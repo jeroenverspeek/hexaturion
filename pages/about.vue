@@ -14,6 +14,11 @@ const { version } = useConfig();
     <h4>
     A graphical user interface for the led-hexahedron<br><br><br>
 
+    <div>
+      <img src="/gallery/cube_rubikscube_pattern.jpg" alt="image not found" width="300px" height="300px" />
+    </div>
+
+
     A Verspeek production<br><br>
 
     Contact: hexaturion@gmail.com<br><br>

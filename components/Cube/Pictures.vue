@@ -18,7 +18,7 @@ const cubePicturesAppCommand = computed(() => {
     }
   } else {
     // build command and command line options;
-    command = ['sudo', 'ts-node', appSrcDir + 'cubePictures/showCubePictures.ts'];
+    command = ['ts-node', appSrcDir + 'cubePictures/showCubePictures.ts'];
     if (cubePictureDir.value) {
       command.push('--cubePictureDir');
       command.push(cubePictureDir.value);
@@ -31,7 +31,7 @@ const cubePicturesAppCommand = computed(() => {
 
 const cubeMapAppCommand = computed(() => {
     // build command and command line options;
-    let command = ['sudo', 'ts-node', appSrcDir + 'cubemap/showCubemap.ts'];
+    let command = ['ts-node', appSrcDir + 'cubemap/showCubemap.ts'];
     let cubemapLayout = '';
     if (cubemap.value) {
       if (cubemap.value == 'atlas1_CUBE.png') {
