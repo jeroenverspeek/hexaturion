@@ -1,5 +1,6 @@
 <script setup>
 const cubePictureDir = ref('emoji');
+const cubemap = ref('garage.jpg');
 const loop = ref(false);
 const loading = ref(false);
 const { appDir, appSrcDir, hZellerDir, cubeOptions } = useConfig();
@@ -30,8 +31,23 @@ const cubePicturesAppCommand = computed(() => {
 
 const cubeMapAppCommand = computed(() => {
     // build command and command line options;
-    let command = ['ts-node', appSrcDir + 'cubemap/showCubemap.ts'];
-    //command.push('atlas1_CUBE.png');
+    let command = ['sudo', 'ts-node', appSrcDir + 'cubemap/showCubemap.ts'];
+    let cubemapLayout = '';
+    if (cubemap.value) {
+      if (cubemap.value == 'atlas1_CUBE.png') {
+        cubemapLayout = '3x2';
+      } else if (['garage.jpg', 'lake.png', 'temple.jpg'].includes(cubemap.value)) {
+        cubemapLayout = 'cross';
+      } else if (['canary', 'forbidden_city', 'unsplashed'].includes(cubemap.value)) {
+        cubemapLayout = '6x1';
+      } else {
+      // ERROR cubemap not found
+      }
+      command.push('--cubemapLayout');
+      command.push(cubemapLayout);
+      command.push('--cubemap');
+      command.push(cubemap.value);
+    }
   return command;
 });
 
@@ -55,8 +71,8 @@ async function showCubeMap() {
 
 <template>
   <div>
-    <div class="field">
-      <label class="label">Pictures directory:</label>
+    <div class="field is-grouped">
+      <label class="label"></label>
       <div class="select">
         <select v-model="cubePictureDir">
           <option value="family">family</option>
@@ -66,7 +82,20 @@ async function showCubeMap() {
           <option value="borg">borg</option>
         </select>
       </div>
-      <!-- <span> TEST cubePictureDir: {{ cubePictureDir }}</span><br> -->
+
+      <label class="label">...........</label>
+      <div class="select">
+        <select v-model="cubemap">
+          <option value="atlas1_CUBE.png">atlas</option>
+          <option value="canary">canary</option>
+          <option value="forbidden_city">forbidden city</option>
+          <option value="unsplashed">unsplashed</option>
+          <option value="garage.jpg">garage</option>
+          <option value="lake.png">lake</option>
+          <option value="temple.jpg">temple</option>
+        </select>
+      </div>
+      <!--<span> TEST cubePictureDir: {{ cubemap }}</span><br>-->
     </div>
     <div class="field">
       <label class="checkbox">
@@ -74,7 +103,10 @@ async function showCubeMap() {
         Slide Show
       </label>
     </div>
-    <!--<div style="word-break: break-all;">{{ cubeAppCommand }}</div>-->
+    <!--
+    <div style="word-break: break-all;">{{ cubePicturesAppCommand }}</div>
+    <div style="word-break: break-all;">{{ cubeMapAppCommand }}</div>
+    -->
     <div class="field is-grouped">
       <p class="control">
         <button @click="showCubePictures" class="button is-primary" :class="{ 'is-loading': loading }">
