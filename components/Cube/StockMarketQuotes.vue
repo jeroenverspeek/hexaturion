@@ -10,7 +10,7 @@ const cubeAppCommand = computed(() => {
   // build command and command line options;
   const command = ['ts-node', appSrcDir + 'stockMarketQuotes/showStockMarketQuotes.ts'];
   command.push('--tickerSymbols');
-  command.push(tickerSymbols.value);
+  command.push(...tickerSymbols.value);
   return command;
 });
 
@@ -42,7 +42,7 @@ async function showStockMarketQuotes() {
       <!-- <span> TEST language: {{ language }}</span><br> -->
     </div>
     <br><br><br><br>
-    <!--<div style="word-break: break-all;">{{ cubeAppCommand }}</div>-->
+    <div style="word-break: break-all;">{{ cubeAppCommand }}</div>
     <div class="field is-grouped">
       <p class="control">
         <button :disabled="!tickerSymbols" @click="showStockMarketQuotes" class="button is-primary"
