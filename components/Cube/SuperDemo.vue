@@ -29,8 +29,8 @@ async function superDemo() {
 
 <template>
 
-  Number of loops: <input type="number" v-model="nLoops"><br><br>
-  Show time per app: <input type="number" v-model="showTime"> (seconds)<br><br>
+  Number of loops: <input type="number" v-model="nLoops" :min="1"><br><br>
+  Show time per app: <input type="number" v-model="showTime" :min="20"> (seconds)<br><br>
   <div style="word-break: break-all;">{{ superDemoAppCommand }}</div>
   <div class="field is-grouped">
     <p class="control">

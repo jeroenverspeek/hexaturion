@@ -90,7 +90,7 @@ async function slidingPuzzleSolve() {
       <img :src="`${patternImage}`" alt="image not found" width="300px" height="300px" />
   </div>
 
-  Number of steps: <input type="number" v-model="nSteps"><br><br>
+  Number of steps: <input type="number" v-model="nSteps" :min="1"><br><br>
   <!--
   <span> TEST pattern: {{ pattern }}</span><br>
   <span> TEST patternImage: {{ patternImage }}</span><br>

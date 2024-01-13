@@ -74,13 +74,13 @@ const currentTab = ref('clock');
           </li>
           <li :class="{ 'is-active': currentTab === 'superDemo' }">
             <a @click="currentTab = 'superDemo'">
-              <span class="icon is-small"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+              <span class="icon is-small"><i class="fa-solid fa-cube"></i></span>
               <span>Super demo</span>
             </a>
           </li>
           <li :class="{ 'is-active': currentTab === 'boss' }">
             <a @click="currentTab = 'boss'">
-              <span class="icon is-small"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+              <span class="icon is-small"><i class="fa-solid fa-cube"></i></span>
               <span>BOSS</span>
             </a>
           </li>

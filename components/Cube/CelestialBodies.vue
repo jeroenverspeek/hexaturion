@@ -20,7 +20,7 @@ const cubeAppCommand = computed(() => {
     }
     return command;
   } else {
-    const command = ['ts-node', appSrcDir + 'celestialBodies/showCubeLatlonMap.ts'];
+    const command = ['ts-node', appSrcDir + 'celestialBodies/showCubeLatLonMap.ts'];
     command.push('-i');
     command.push(celestialBody.value);
     if (rotate.value) {
