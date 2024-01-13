@@ -25,21 +25,22 @@ async function showStockMarketQuotes() {
 }
 
 </script>
-
 <template>
   <div>
     <div class="field">
       <label class="label">Ticker symbols:</label>
       <div class="select">
-        <select v-model="tickerSymbols" :multiple="true">
-          <option value="ASML.AS">ASML.AS</option>
-          <option value="SHELL.AS">SHELL.AS</option>
+        <select v-model="tickerSymbols" :multiple="true" :max="3">
+          <option value="^AEX">AEX</option>
+          <option value="ASML.AS">ASML</option>
+          <option value="RABO.AS">RABO</option>
+          <option value="SHELL.AS">SHELL</option>
           <option value="GOOG">GOOG</option>
           <option value="MSFT">MSFT</option>
           <option value="AAPL">AAPL</option>
         </select>
       </div>
-      <!-- <span> TEST language: {{ language }}</span><br> -->
+      <!-- <span> TEST language: {{ tickerSymbols }}</span><br> -->
     </div>
     <br><br><br><br>
     <div style="word-break: break-all;">{{ cubeAppCommand }}</div>
