@@ -6,7 +6,7 @@ const showDayNight = ref(false);
 const loading = ref(false);
 const { appSrcDir } = useConfig();
 const { start, stop } = useAPI();
-
+ 
 const cubeAppCommand = computed(() => {
   // build command and command line options;
   if ((celestialBody.value == 'earth.jpg') && (showDayNight.value)) {
