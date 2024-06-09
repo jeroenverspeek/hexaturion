@@ -1,4 +1,4 @@
-start server op de raspberrypi met:
+start de server op de raspberrypi met:
 
 >ssh -X raspberrypi
 >cd $lebcube
