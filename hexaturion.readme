@@ -28,15 +28,18 @@ rechtermuisknop -> Inspect -> Console
 
 ------------------------------------
 
-Voor lokaal testen van hexaturion op localhost:
+For testing hexaturion on you computer:
 
-ga naar:
->/home/ik/hexaturion/
+clone repository to you computer:
+>cd /media/ik/internal_disk_1TB/hexaturion
+>git clone git@github.com:jeroenverspeek/hexaturion.git
+Install all node-modules:
+>npm install
 
-en dan:
+then:
 >npm run dev
 
-dit geeft de melding:
+this gives the message:
 Listening on http://localhost:3000/
 
 start localhost in webbrowser:
@@ -45,13 +48,13 @@ localhost:3000
 dit geeft de Hexaturion GUI
 
 ------------------------------------
-Dependencies opnieuw laden:
-remove of hernoem:
+Load dependencies again:
+remove or rename:
  package-lock.json
-en
+and
  node_modules
 
-en dan:
+then:
 >npm install
 ------------------------------------
 install and update to the versions in package-lock.json:
