@@ -1,63 +1,68 @@
-start de server op de raspberrypi met:
+# Hexaturion
 
->ssh -X raspberrypi
->cd $lebcube
->sudo node server.js
+Hexaturion offers a graphical user interface for controlling the LED cube (led-hexahedron) and LED screen (led-tetragon).
 
-of tijdens development:
-(installeer eerst nodemon: >sudo npm install -g nodemon)
->sudo nodemon server.js
-server wordt dan automatisch opnieuw gestart bij 
-iedere wijziging in de code
+## Commander of the six faces
 
-Hexaturion Cube Commander listening on port 3000
+The name Hexaturion is chosen in analogy with the Roman centurion (commander of 100 soldiers) and decurion (commander of 10 soldiers).
 
--------------------------
+## Software platform
 
-start client in webbrowser:
+It is written in VUE-3, in typescript and javascript
+
+## How to use
+
+Scan the QR-code that is shown on startup of the cube, or manually start a client in a webbrowser:
 
 http://hexaturion.com
 
-------------------------------------
-debugging:
-start client in webbrowser:
+On the raspberry pi a server is automatically run at startup.
+If needed, you can manually start the server from the command line:
 
-http://hexaturion.com
+    ssh raspberrypi
+    cd $lebcube
+    sudo node server.js
 
-rechtermuisknop -> Inspect -> Console
+## For development
 
-------------------------------------
+With nodemon the server will automatically restart after each code change.
+Install nodemon on the raspberry pi.
+The nodemon command simplifies the development process by automatically reloading the application (restarting the server) whenever you make changes to the code.
 
-For testing hexaturion on you computer:
+    sudo npm install -g nodemon
 
-clone repository to you computer:
->cd /media/ik/internal_disk_1TB/hexaturion
->git clone git@github.com:jeroenverspeek/hexaturion.git
-Install all node-modules:
->npm install
+Start the server:
 
-then:
->npm run dev
+    sudo nodemon server.js
 
 this gives the message:
+
 Listening on http://localhost:3000/
 
-start localhost in webbrowser:
-localhost:3000
+To open the Hexaturion GUI start http://localhost:3000 in a webbrowser.
 
-dit geeft de Hexaturion GUI
+For debugging use the right mouse button -> Inspect -> Console
 
-------------------------------------
-Load dependencies again:
-remove or rename:
- package-lock.json
-and
- node_modules
+### Testing Hexaturion on you computer
 
-then:
->npm install
-------------------------------------
-install and update to the versions in package-lock.json:
->npm ci
-------------------------------------
+Clone repository to you computer:
+
+    cd {$GITDIR}/hexaturion
+    git clone git@github.com:jeroenverspeek/hexaturion.git
+
+Install all node-modules:
+
+    npm install
+
+Set up a local development server
+
+    npm run dev
+
+this gives the message:
+
+Listening on http://localhost:3000/
+
+To open the Hexaturion GUI start  http://localhost:3000 in a webbrowser.
+
+Note that https://hexaturion.com is not suited for testing purposed, as committed changes will take some time to be reflected therein.
 
