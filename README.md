@@ -1,75 +1,63 @@
-# Nuxt 3 Minimal Starter
+start de server op de raspberrypi met:
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+>ssh -X raspberrypi
+>cd $lebcube
+>sudo node server.js
 
-## Setup
+of tijdens development:
+(installeer eerst nodemon: >sudo npm install -g nodemon)
+>sudo nodemon server.js
+server wordt dan automatisch opnieuw gestart bij 
+iedere wijziging in de code
 
-Make sure to install the dependencies:
+Hexaturion Cube Commander listening on port 3000
 
-```bash
-# npm
-npm install
+-------------------------
 
-# pnpm
-pnpm install
+start client in webbrowser:
 
-# yarn
-yarn install
+http://hexaturion.com
 
-# bun
-bun install
-```
+------------------------------------
+debugging:
+start client in webbrowser:
 
-## Development Server
+http://hexaturion.com
 
-Start the development server on `http://localhost:3000`:
+rechtermuisknop -> Inspect -> Console
 
-```bash
-# npm
-npm run dev
+------------------------------------
 
-# pnpm
-pnpm run dev
+For testing hexaturion on you computer:
 
-# yarn
-yarn dev
+clone repository to you computer:
+>cd /media/ik/internal_disk_1TB/hexaturion
+>git clone git@github.com:jeroenverspeek/hexaturion.git
+Install all node-modules:
+>npm install
 
-# bun
-bun run dev
-```
+then:
+>npm run dev
 
-## Production
+this gives the message:
+Listening on http://localhost:3000/
 
-Build the application for production:
+start localhost in webbrowser:
+localhost:3000
 
-```bash
-# npm
-npm run build
+dit geeft de Hexaturion GUI
 
-# pnpm
-pnpm run build
+------------------------------------
+Load dependencies again:
+remove or rename:
+ package-lock.json
+and
+ node_modules
 
-# yarn
-yarn build
+then:
+>npm install
+------------------------------------
+install and update to the versions in package-lock.json:
+>npm ci
+------------------------------------
 
-# bun
-bun run build.
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
