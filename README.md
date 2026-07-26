@@ -1,6 +1,6 @@
 # Hexaturion
 
-Hexaturion offers a graphical user interface for controlling the LED cube (led-hexahedron) and LED screen (led-tetragon).
+Hexaturion offers a graphical user interface for controlling the LED cube (led-hexahedron).
 
 ## Commander of the six faces
 
@@ -16,18 +16,19 @@ Scan the QR-code that is shown on startup of the cube, or manually start a clien
 
 http://hexaturion.com
 
-On the raspberry pi a server is automatically run at startup.
+On the raspberry pi a server is automatically run at startup.  
+
+The IP address of the raspberry pi is fixed in the Hexaturion software to be 192.168.1.136. 
+
 If needed, you can manually start the server from the command line:
 
-    ssh raspberrypi
+    ssh <username>@192.168.1.136
     cd $lebcube
     sudo node server.js
 
 ## For development
 
-With nodemon the server will automatically restart after each code change.
-Install nodemon on the raspberry pi.
-The nodemon command simplifies the development process by automatically reloading the application (restarting the server) whenever you make changes to the code.
+Install nodemon on the raspberry pi. The nodemon command simplifies the development process by automatically reloading the application (restarting the server) whenever you make changes to the code.
 
     sudo npm install -g nodemon
 
@@ -43,7 +44,7 @@ To open the Hexaturion GUI start http://localhost:3000 in a webbrowser.
 
 For debugging use the right mouse button -> Inspect -> Console
 
-### Testing Hexaturion on you computer
+## Testing Hexaturion on your computer
 
 Clone repository to you computer:
 
@@ -64,5 +65,5 @@ Listening on http://localhost:3000/
 
 To open the Hexaturion GUI start  http://localhost:3000 in a webbrowser.
 
-Note that https://hexaturion.com is not suited for testing purposed, as committed changes will take some time to be reflected therein.
+Note that https://hexaturion.com is not suited for testing purposes, as committed changes will take some time to be reflected therein.
 
