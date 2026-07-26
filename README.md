@@ -26,6 +26,8 @@ If needed, you can manually start the server from the command line:
     cd $lebcube
     sudo node server.js
 
+Raspberrypi listening to Hexaturion on [port 3000]http://localhost:3000
+
 ## For development
 
 Install nodemon on the raspberry pi. The nodemon command simplifies the development process by automatically reloading the application (restarting the server) whenever you make changes to the code.

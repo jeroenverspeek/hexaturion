@@ -1,90 +1,110 @@
-<script setup>
-const cubePictureDir = ref('emoji');
-const cubemap = ref('garage.jpg');
-const loop = ref(false);
-const loading = ref(false);
-const { appDir, appSrcDir, hZellerDir, cubeOptions } = useConfig();
+```vue
+<script setup lang="ts">
+type CubePictureDir = "family" | "chess_set" | "emoji" | "flag" | "borg";
+
+type Cubemap =
+  | "atlas1_CUBE.png"
+  | "canary"
+  | "forbidden_city"
+  | "unsplashed"
+  | "garage.jpg"
+  | "lake.png"
+  | "temple.jpg";
+
+type CubemapLayout = "3x2" | "cross" | "6x1";
+
+const cubePictureDir = ref<CubePictureDir>("emoji");
+const cubemap = ref<Cubemap>("garage.jpg");
+const loop = ref<boolean>(false);
+const loading = ref<boolean>(false);
+
+const { appSrcDir } = useConfig();
 const { start, stop } = useAPI();
 
-const cubePicturesAppCommand = computed(() => {
-  let command;
-  //if (loop.value) {
-  //  // build command and command line options;
-  //  const cubeAppPath = hZellerDir + 'utils/led-image-viewer';
-  //  command = ['sudo', cubeAppPath, ...cubeOptions, '-f', '-w3', '-s'];
-  //  if (cubePictureDir.value) {
-  //     // werkt niet door wildcard:
-  //     command.push(appDir + `cube_pictures/${cubePictureDir.value}/\*.png`);
-  //    //command.push(appDir + 'cube_pictures/' + cubePictureDir.value + '/Laugh-icon.png');
-  //}
+const cubePicturesAppCommand = computed<string[]>(() => {
+  let command: string[];
+
   if (loop.value) {
-    // build command and command line options;
-    command = ['ts-node', appSrcDir + 'cubePictures/showBufferImage.ts'];
+    command = ["ts-node", appSrcDir + "cubePictures/showBufferImage.ts"];
+
     if (cubePictureDir.value) {
-      command.push('--cubePictureDir');
+      command.push("--cubePictureDir");
       command.push(cubePictureDir.value);
     }
-    command.push('--tSlide');
-    command.push(1);
-    command.push('--showTime');
-    command.push(20);
+
+    command.push("--tSlide");
+    command.push("1");
+
+    command.push("--showTime");
+    command.push("20");
   } else {
-    // build command and command line options;
-    command = ['ts-node', appSrcDir + 'cubePictures/showCubePictures.ts'];
+    command = ["ts-node", appSrcDir + "cubePictures/showCubePictures.ts"];
+
     if (cubePictureDir.value) {
-      command.push('--cubePictureDir');
+      command.push("--cubePictureDir");
       command.push(cubePictureDir.value);
     }
-    command.push('--showTime');
-    command.push(20);
+
+    command.push("--showTime");
+    command.push("20");
   }
+
   return command;
 });
 
-const cubeMapAppCommand = computed(() => {
-    // build command and command line options;
-    let command = ['ts-node', appSrcDir + 'cubemap/showCubemap.ts'];
-    let cubemapLayout = '';
-    if (cubemap.value) {
-      if (cubemap.value == 'atlas1_CUBE.png') {
-        cubemapLayout = '3x2';
-      } else if (['garage.jpg', 'lake.png', 'temple.jpg'].includes(cubemap.value)) {
-        cubemapLayout = 'cross';
-      } else if (['canary', 'forbidden_city', 'unsplashed'].includes(cubemap.value)) {
-        cubemapLayout = '6x1';
-      } else {
-      // ERROR cubemap not found
-      }
-      command.push('--cubemapLayout');
-      command.push(cubemapLayout);
-      command.push('--cubemap');
-      command.push(cubemap.value);
-    }
+const cubeMapAppCommand = computed<string[]>(() => {
+  const command: string[] = ["ts-node", appSrcDir + "cubemap/showCubemap.ts"];
+
+  let cubemapLayout: CubemapLayout | undefined;
+
+  if (cubemap.value === "atlas1_CUBE.png") {
+    cubemapLayout = "3x2";
+  } else if (["garage.jpg", "lake.png", "temple.jpg"].includes(cubemap.value)) {
+    cubemapLayout = "cross";
+  } else if (
+    ["canary", "forbidden_city", "unsplashed"].includes(cubemap.value)
+  ) {
+    cubemapLayout = "6x1";
+  }
+
+  if (cubemapLayout !== undefined) {
+    command.push("--cubemapLayout");
+    command.push(cubemapLayout);
+
+    command.push("--cubemap");
+    command.push(cubemap.value);
+  }
+
   return command;
 });
 
-
-async function showCubePictures() {
+async function showCubePictures(): Promise<void> {
   loading.value = true;
-  const response = await start(cubePicturesAppCommand.value);
-  console.log(response.data)
-  loading.value = false;
+
+  try {
+    const response = await start(cubePicturesAppCommand.value);
+    console.log(response.data);
+  } finally {
+    loading.value = false;
+  }
 }
 
-async function showCubeMap() {
+async function showCubeMap(): Promise<void> {
   loading.value = true;
-  const response = await start(cubeMapAppCommand.value);
-  console.log(response.data)
-  loading.value = false;
+
+  try {
+    const response = await start(cubeMapAppCommand.value);
+    console.log(response.data);
+  } finally {
+    loading.value = false;
+  }
 }
-
-
 </script>
 
 <template>
   <div>
-    <div class="field is-grouped">
-      <label class="label"></label>
+    <div class="picture-grid">
+      <!-- Picture selection -->
       <div class="select">
         <select v-model="cubePictureDir">
           <option value="family">family</option>
@@ -95,7 +115,7 @@ async function showCubeMap() {
         </select>
       </div>
 
-      <label class="label">...........</label>
+      <!-- Cubemap selection -->
       <div class="select">
         <select v-model="cubemap">
           <option value="atlas1_CUBE.png">atlas</option>
@@ -107,32 +127,79 @@ async function showCubeMap() {
           <option value="temple.jpg">temple</option>
         </select>
       </div>
-      <!--<span> TEST cubePictureDir: {{ cubemap }}</span><br>-->
-    </div>
-    <div class="field">
-      <label class="checkbox">
-        <input type="checkbox" v-model="loop">
-        Slide Show
-      </label>
-    </div>
-    
-    <div style="word-break: break-all;">{{ cubePicturesAppCommand }}</div>
-    <div style="word-break: break-all;">{{ cubeMapAppCommand }}</div>
-    
-    <div class="field is-grouped">
+
+      <!-- Empty third column -->
+      <div></div>
+
+      <!-- Show Pictures -->
       <p class="control">
-        <button @click="showCubePictures" class="button is-primary" :class="{ 'is-loading': loading }">
+        <button
+          @click="showCubePictures"
+          class="button is-primary"
+          :class="{ 'is-loading': loading }"
+        >
           Show Pictures
         </button>
       </p>
+
+      <!-- Show CubeMap -->
       <p class="control">
-        <button @click="showCubeMap" class="button is-primary" :class="{ 'is-loading': loading }">
+        <button
+          @click="showCubeMap"
+          class="button is-primary"
+          :class="{ 'is-loading': loading }"
+        >
           Show CubeMap
         </button>
       </p>
+
+      <!-- Stop -->
       <p class="control">
-        <button @click="stop" class="button is-danger" :class="{ 'is-loading': loading }">Stop</button>
+        <button
+          @click="stop"
+          class="button is-danger"
+          :class="{ 'is-loading': loading }"
+        >
+          Stop
+        </button>
       </p>
     </div>
+
+    <div class="field">
+      <label class="checkbox">
+        <input type="checkbox" v-model="loop" />
+        Slide Show
+      </label>
+    </div>
+
+    <!-- TEST: show generated commands
+    <div style="word-break: break-all;">
+      {{ cubePicturesAppCommand }}
+    </div>
+
+    <div style="word-break: break-all;">
+      {{ cubeMapAppCommand }}
+    </div>
+    -->
   </div>
 </template>
+
+<style scoped>
+.picture-grid {
+  display: grid;
+  grid-template-columns: max-content max-content max-content;
+  column-gap: 20px;
+  row-gap: 10px;
+  align-items: center;
+}
+
+.picture-grid .select,
+.picture-grid .control {
+  margin: 0;
+}
+
+.picture-grid select,
+.picture-grid button {
+  width: 100%;
+}
+</style>
