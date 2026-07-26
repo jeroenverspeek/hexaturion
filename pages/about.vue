@@ -1,4 +1,3 @@
-```vue
 <script setup lang="ts">
 const { version } = useConfig();
 </script>
@@ -30,4 +29,3 @@ const { version } = useConfig();
     <br />
   </div>
 </template>
-```

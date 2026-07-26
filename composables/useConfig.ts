@@ -1,17 +1,39 @@
-export function useConfig() {
-  const ledCubeDir = '/home/pi/led-hexahedron/';
-  const appDir = '/home/pi/led-hexahedron/apps/';
-  const appSrcDir = appDir + 'src/';
-  //const pictureBaseDir = appDir + 'cube_pictures/'
-  const hZellerDir = '/home/pi/rpi-rgb-led-matrix/';
-  // led-cube specific options
-  // no leading or trailing spaces allowed:
-  const cubeOptions = ['--led-rows', '64',
-    '--led-cols', '64',
-    '--led-chain', '2',
-    '--led-parallel', '3',
-    '--led-slowdown-gpio', '3'
-  ];
-  const version = '1.00'
-  return { appDir, appSrcDir, hZellerDir, cubeOptions, version }
+interface CubeConfig {
+  version: string;
+  ledCubeDir: string;
+  appDir: string;
+  appSrcDir: string;
+  hZellerDir: string;
+  cubeOptions: string[];
 }
+
+export const useConfig = (): CubeConfig => {
+  const version = "1.0.0";
+
+  const ledCubeDir = "/home/ledcube64/led-hexahedron/";
+  const appDir = `${ledCubeDir}apps/`;
+  const appSrcDir = `${appDir}src/`;
+  const hZellerDir = "/home/ledcube64/rpi-rgb-led-matrix/";
+
+  const cubeOptions: string[] = [
+    "--led-rows",
+    "64",
+    "--led-cols",
+    "64",
+    "--led-chain",
+    "2",
+    "--led-parallel",
+    "3",
+    "--led-slowdown-gpio",
+    "3",
+  ];
+
+  return {
+    version,
+    ledCubeDir,
+    appDir,
+    appSrcDir,
+    hZellerDir,
+    cubeOptions,
+  };
+};

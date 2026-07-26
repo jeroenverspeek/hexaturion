@@ -1,38 +1,33 @@
-const useCustomFetch: typeof useFetch = (request, opts?) => {
-  const config = useRuntimeConfig()
-  return useFetch(request, { baseURL: config.public.API_BASE_URL, ...opts })
-}
-
-function useAPI() {
-  const start = async (cubeAppCommand: Array<string>) => {
+export const useAPI = () => {
+  const start = async (cubeAppCommand: string[]) => {
     try {
-      return await useCustomFetch('/start', {
-        method: 'POST',
+      return await useCustomFetch("/start", {
+        method: "POST",
         body: {
-          cubeAppCommand
-        }
-      })
+          cubeAppCommand,
+        },
+      });
     } catch (e) {
       console.error(e);
-      alert('something went wrong! see console')
+      alert("Something went wrong! See console for details.");
+      throw e;
     }
-  }
+  };
 
   const stop = async () => {
     try {
-      return await useCustomFetch('/stop')
+      return await useCustomFetch("/stop", {
+        method: "POST",
+      });
     } catch (e) {
       console.error(e);
-      alert('something went wrong! see console')
+      alert("Something went wrong! See console for details.");
+      throw e;
     }
-  }
+  };
+
   return {
     start,
-    stop
-  }
-}
-
-export {
-  useCustomFetch,
-  useAPI
-}
+    stop,
+  };
+};
