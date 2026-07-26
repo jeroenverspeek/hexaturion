@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  compatibilityDate: "2026-07-26",
   devtools: { enabled: true },
   css: ["~/assets/styles/global.scss"],
   modules: ["@vueuse/nuxt"],
@@ -32,13 +33,4 @@ export default defineNuxtConfig({
     },
   },
   ssr: false,
-  vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: '@import "@/assets/styles/variables.scss";',
-        },
-      },
-    },
-  },
 });

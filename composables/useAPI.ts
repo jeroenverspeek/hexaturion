@@ -1,7 +1,11 @@
+type APIResponse = {
+  data: unknown;
+};
+
 export const useAPI = () => {
-  const start = async (cubeAppCommand: string[]) => {
+  const start = async (cubeAppCommand: string[]): Promise<APIResponse> => {
     try {
-      return await useCustomFetch("/start", {
+      return await useCustomFetch<unknown>("/start", {
         method: "POST",
         body: {
           cubeAppCommand,
@@ -14,9 +18,9 @@ export const useAPI = () => {
     }
   };
 
-  const stop = async () => {
+  const stop = async (): Promise<APIResponse> => {
     try {
-      return await useCustomFetch("/stop", {
+      return await useCustomFetch<unknown>("/stop", {
         method: "POST",
       });
     } catch (e) {

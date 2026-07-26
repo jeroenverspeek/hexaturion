@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "@vueuse/nuxt": "^10.7.0",
-    "bulma": "^0.9.4",
+    "bulma": "^1.0.4",
     "nuxt": "^3.21.9",
     "sass": "npm:sass-embedded",
     "typescript": "^5.4.5",
