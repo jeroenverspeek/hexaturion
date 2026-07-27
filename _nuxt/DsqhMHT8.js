@@ -1,0 +1,1 @@
+const n=()=>{const l="1.0.0",e="/home/ledcube64/led-hexahedron/",o=`${e}apps/`,r=`${o}src/`;return{version:l,ledCubeDir:e,appDir:o,appSrcDir:r,hZellerDir:"/home/ledcube64/rpi-rgb-led-matrix/",cubeOptions:["--led-rows","64","--led-cols","64","--led-chain","2","--led-parallel","3","--led-slowdown-gpio","3"]}};export{n as u};
