@@ -1,26 +1,29 @@
-```vue
 <template>
-  <div class="video-gallery">
+  <section class="gallery">
     <header class="gallery-header">
-      <h1>Hexaturion Video Gallery</h1>
-      <p>Watch the animations of the LED Hexahedron.</p>
+      <h1 class="title">Hexaturion Video Gallery</h1>
+      <p class="subtitle">Watch the animations of the LED Hexahedron.</p>
     </header>
 
-    <div class="video-list">
+    <div class="columns is-multiline">
       <div
-        v-for="(video, index) in videos"
-        :key="index"
-        class="video-item"
-        @click="openVideo(video)"
+        v-for="video in videos"
+        :key="video.id"
+        class="column is-one-third-desktop is-half-tablet"
       >
-        <div class="play-button">▶</div>
+        <div class="card video-card" @click="openVideo(video)">
+          <div class="card-content has-text-centered">
+            <div class="play-button">▶</div>
 
-        <div class="video-details">
-          <h3>{{ video.title }}</h3>
-          <span>{{ video.size }}</span>
+            <h3 class="title is-5">
+              {{ video.title }}
+            </h3>
+
+            <p class="has-text-grey">
+              {{ video.size }}
+            </p>
+          </div>
         </div>
-
-        <div class="arrow">›</div>
       </div>
     </div>
 
@@ -38,22 +41,24 @@
         <div class="video-wrapper">
           <iframe
             :src="`https://drive.google.com/file/d/${selectedVideo.id}/preview`"
-            width="100%"
-            height="100%"
             allow="autoplay; fullscreen"
             allowfullscreen
             frameborder="0"
-          >
-          </iframe>
+          />
         </div>
 
         <div class="video-modal-info">
-          <h2>{{ selectedVideo.title }}</h2>
-          <span>{{ selectedVideo.size }}</span>
+          <h2 class="title is-4">
+            {{ selectedVideo.title }}
+          </h2>
+
+          <p class="has-text-grey">
+            {{ selectedVideo.size }}
+          </p>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -73,7 +78,7 @@ const videos: Video[] = [
   },
   {
     title: "Cubemap: Forbidden City",
-    id: "OJdT4Tdh1CGSh54Fl66vdq2O4f1pnRZl",
+    id: "1OJdT4Tdh1CGSh54Fl66vdq2O4f1pnRZl",
     size: "43.1 MB",
   },
   {
@@ -145,114 +150,51 @@ function closeVideo() {
 </script>
 
 <style scoped>
-.video-gallery {
-  padding: 30px 20px;
-  max-width: 900px;
-  margin: 0 auto;
-  font-family:
-    system-ui,
-    -apple-system,
-    sans-serif;
-  background-color: #0f172a;
-  color: #f8fafc;
-  min-height: 100vh;
-}
-
 .gallery-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 2rem;
 }
 
-.gallery-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-  color: #38bdf8;
-}
-
-.gallery-header p {
-  color: #94a3b8;
-}
-
-/* Video list */
-
-.video-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.video-item {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  padding: 16px 20px;
-  background: #1e293b;
-  border: 1px solid #334155;
-  border-radius: 10px;
+.video-card {
+  height: 100%;
   cursor: pointer;
   transition:
     transform 0.15s ease,
-    background-color 0.15s ease,
-    border-color 0.15s ease;
+    box-shadow 0.15s ease;
 }
 
-.video-item:hover {
-  transform: translateX(4px);
-  background-color: #263449;
-  border-color: #38bdf8;
+.video-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
-
-/* Play button */
 
 .play-button {
-  width: 42px;
-  height: 42px;
-  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+
+  margin: 0 auto 1rem;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background-color: #38bdf8;
-  color: #0f172a;
-
   border-radius: 50%;
-  font-size: 17px;
-  padding-left: 2px;
+
+  border: 2px solid #128408;
+  color: #128408;
+  background: transparent;
+
+  font-size: 24px;
+
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
 }
 
-/* Video information */
-
-.video-details {
-  flex: 1;
-  min-width: 0;
+.video-card:hover .play-button {
+  background-color: #128408;
+  color: white;
 }
-
-.video-details h3 {
-  margin: 0 0 5px;
-  font-size: 1.05rem;
-  font-weight: 500;
-  color: #f1f5f9;
-}
-
-.video-details span {
-  font-size: 0.85rem;
-  color: #94a3b8;
-}
-
-/* Arrow */
-
-.arrow {
-  font-size: 30px;
-  color: #64748b;
-  transition: color 0.15s ease;
-}
-
-.video-item:hover .arrow {
-  color: #38bdf8;
-}
-
-/* Video overlay */
 
 .video-overlay {
   position: fixed;
@@ -263,113 +205,61 @@ function closeVideo() {
   align-items: center;
   justify-content: center;
 
-  padding: 30px;
+  padding: 20px;
 
-  background-color: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.75);
 }
-
-/* Video modal */
 
 .video-modal {
   position: relative;
+
   width: min(1100px, 100%);
-  background-color: #1e293b;
-  border: 1px solid #334155;
+
+  background: white;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
 }
 
 .video-wrapper {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: min(80vh, 900px);
+
+  background: black;
 }
 
 .video-wrapper iframe {
-  display: block;
-  width: 100%;
+  width: auto;
   height: 100%;
-  border: none;
+  max-width: 100%;
+
+  aspect-ratio: 9 / 16;
 }
 
-/* Close button */
+.video-modal-info {
+  padding: 1rem 1.5rem;
+}
 
 .close-button {
   position: absolute;
   top: 10px;
   right: 10px;
+
   z-index: 10;
 
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
 
   border: none;
   border-radius: 50%;
 
-  background-color: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.7);
   color: white;
 
   font-size: 28px;
-  line-height: 1;
 
   cursor: pointer;
 }
-
-.close-button:hover {
-  background-color: rgba(0, 0, 0, 0.9);
-}
-
-/* Modal information */
-
-.video-modal-info {
-  padding: 15px 20px;
-}
-
-.video-modal-info h2 {
-  margin: 0 0 5px;
-  font-size: 1.2rem;
-  color: #f1f5f9;
-}
-
-.video-modal-info span {
-  font-size: 0.85rem;
-  color: #94a3b8;
-}
-
-/* Mobile */
-
-@media (max-width: 600px) {
-  .video-gallery {
-    padding: 20px 12px;
-  }
-
-  .gallery-header h1 {
-    font-size: 2rem;
-  }
-
-  .video-item {
-    padding: 13px 14px;
-    gap: 12px;
-  }
-
-  .play-button {
-    width: 36px;
-    height: 36px;
-    font-size: 14px;
-  }
-
-  .video-details h3 {
-    font-size: 0.95rem;
-  }
-
-  .video-overlay {
-    padding: 10px;
-  }
-
-  .video-modal-info {
-    padding: 12px 15px;
-  }
-}
 </style>
-```
