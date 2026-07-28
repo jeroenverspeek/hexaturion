@@ -19,13 +19,20 @@ It is developed on the VUE-3 platform, in typescript.
 Scan the QR-code that is shown on startup of the cube, or manually start a
 client in a webbrowser:
 
-[http://hexaturion.com](http://hexaturion.com)
+[https://hexaturion.com](https://hexaturion.com)
 
 On the raspberry pi a server is automatically run at startup.
 
 The IP address of the raspberry pi is fixed in the Hexaturion software to be
 192.168.1.136.
 
+## For development
+
+For testing and development of the GUI you can use the following setup:
+
+### On the server side (the cube)
+
+On the raspberry pi a server is automatically run at startup.
 If needed, you can manually start the server from the command line:
 
     ssh <username>@192.168.1.136
@@ -35,32 +42,11 @@ If needed, you can manually start the server from the command line:
 Raspberrypi listening to Hexaturion on
 [port 3000](http://localhost:3000)
 
-## For development
+### On the client side (your PC/laptop/mobile phone)
 
-Install nodemon on the raspberry pi. The nodemon command simplifies the
-development process by automatically reloading the application (restarting
-the server) whenever you make changes to the code.
+Clone the repository to your computer:
 
-    sudo npm install -g nodemon
-
-Start the server:
-
-    sudo nodemon server.js
-
-this gives the message:
-
-    Listening on http://localhost:3000/
-
-To open the Hexaturion GUI start
-[http://localhost:3000](http://localhost:3000) in a webbrowser.
-
-For debugging use the right mouse button -> Inspect -> Console
-
-## Testing Hexaturion on your computer
-
-Clone repository to you computer:
-
-    cd {$GITDIR}/hexaturion
+    cd {$GITDIR}/hexaturion/
     git clone git@github.com:jeroenverspeek/hexaturion.git
 
 Install all node-modules:
