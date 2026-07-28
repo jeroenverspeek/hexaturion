@@ -112,7 +112,7 @@ const videos: Video[] = [
     size: "181.3 MB",
   },
   {
-    title: "Rubik's Cube 9x9",
+    title: "Rubik's Cube 8x8",
     id: "1b5_qe9qlMvDLGwXk9Xsuyw-8PD3UZv8s",
     size: "515 MB",
   },

@@ -12,7 +12,7 @@ The name Hexaturion is chosen in analogy with the Roman centurion
 
 ## Software platform
 
-It is written in VUE-3, in typescript and javascript
+It is developed on the VUE-3 platform, in typescript.
 
 ## How to use
 
