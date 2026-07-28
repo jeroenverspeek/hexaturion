@@ -12,6 +12,7 @@
   "devDependencies": {
     "@vueuse/nuxt": "^10.7.0",
     "bulma": "^1.0.4",
+    "markdownlint-cli": "^0.49.1",
     "nuxt": "^3.21.9",
     "sass": "npm:sass-embedded",
     "typescript": "^5.4.5",
