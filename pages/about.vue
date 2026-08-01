@@ -2,30 +2,28 @@
 const { version } = useConfig();
 </script>
 
-<style lang="scss" scoped></style>
-
 <template>
-  <div>
+  <div class="container">
     <h1 class="title">About Hexaturion</h1>
     <h2 class="subtitle">version {{ version }}</h2>
-    <h3>Commander of the six faces</h3>
-    <br />
 
-    <h4>
-      <div>
-        <img
-          src="/gallery/cube_rubikscube_pattern.jpg"
-          alt="image not found"
-          width="300"
-          height="300"
-        />
-      </div>
+    <h3 class="title is-4">Commander of the six faces</h3>
 
-      A Verspeek production<br /><br />
-      Contact: hexaturion@gmail.com<br /><br />
-    </h4>
+    <figure>
+      <img
+        src="/gallery/cube_rubikscube_pattern.jpg"
+        alt="Hexaturion cube"
+        width="300"
+        height="300"
+      />
+    </figure>
 
-    <nuxt-link to="/">Back to Home page</nuxt-link>
-    <br />
+    <div class="content">
+      <p>A Verspeek production</p>
+      <p>Contact: hexaturion@gmail.com</p>
+      <p>
+        <NuxtLink to="/">Back to Home page</NuxtLink>
+      </p>
+    </div>
   </div>
 </template>

@@ -26,7 +26,7 @@ const patternImage = computed<string>(() => {
 const slidingPuzzleCubeAppCommand = computed<string[]>(() => {
   // Build command and command line options
   const command: string[] = [
-    "ts-node",
+    "node_modules/.bin/tsx",
     appSrcDir + "rubiksQube/slidingPuzzleSolve.ts",
   ];
 

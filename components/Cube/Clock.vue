@@ -19,7 +19,7 @@ const { start, stop } = useAPI();
 const cubeAppCommand = computed<string[]>(() => {
   if (clockType.value === "digital" && showBackground.value) {
     const command: string[] = [
-      "ts-node",
+      "node_modules/.bin/tsx",
       appSrcDir + "celestialBodies/showDayNightMap.ts",
     ];
 
@@ -32,7 +32,7 @@ const cubeAppCommand = computed<string[]>(() => {
     return command;
   } else {
     const command: string[] = [
-      "ts-node",
+      "node_modules/.bin/tsx",
       appSrcDir + "smartClock/smartClock.ts",
     ];
 

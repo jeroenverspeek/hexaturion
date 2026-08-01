@@ -25,12 +25,9 @@ const cubeAppCommand = computed<string[]>(() => {
   // Build command and command line options
   if (celestialBody.value === "earth.jpg" && showDayNight.value) {
     const command: string[] = [
-      "ts-node",
+      "node_modules/.bin/tsx",
       appSrcDir + "celestialBodies/showDayNightMap.ts",
     ];
-
-    // command.push('-i')
-    // command.push(celestialBody.value)
 
     command.push("--fixedSun");
 
@@ -42,7 +39,7 @@ const cubeAppCommand = computed<string[]>(() => {
     return command;
   } else {
     const command: string[] = [
-      "ts-node",
+      "node_modules/.bin/tsx",
       appSrcDir + "celestialBodies/showCubeLatLonMap.ts",
     ];
 

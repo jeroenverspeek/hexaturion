@@ -9,7 +9,7 @@ const { start, stop } = useAPI();
 const cubeAppCommand = computed<string[]>(() => {
   // Build command and command line options
   const command: string[] = [
-    "ts-node",
+    "node_modules/.bin/tsx",
     appSrcDir + "stockMarketQuotes/showStockMarketQuotes.ts",
   ];
 

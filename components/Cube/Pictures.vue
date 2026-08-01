@@ -25,7 +25,7 @@ const cubePicturesAppCommand = computed<string[]>(() => {
   let command: string[];
 
   if (loop.value) {
-    command = ["ts-node", appSrcDir + "cubePictures/showBufferImage.ts"];
+    command = ["node_modules/.bin/tsx", appSrcDir + "cubePictures/showBufferImage.ts"];
 
     if (cubePictureDir.value) {
       command.push("--cubePictureDir");
@@ -38,7 +38,7 @@ const cubePicturesAppCommand = computed<string[]>(() => {
     command.push("--showTime");
     command.push("20");
   } else {
-    command = ["ts-node", appSrcDir + "cubePictures/showCubePictures.ts"];
+    command = ["node_modules/.bin/tsx", appSrcDir + "cubePictures/showCubePictures.ts"];
 
     if (cubePictureDir.value) {
       command.push("--cubePictureDir");
@@ -53,7 +53,7 @@ const cubePicturesAppCommand = computed<string[]>(() => {
 });
 
 const cubeMapAppCommand = computed<string[]>(() => {
-  const command: string[] = ["ts-node", appSrcDir + "cubemap/showCubemap.ts"];
+  const command: string[] = ["node_modules/.bin/tsx", appSrcDir + "cubemap/showCubemap.ts"];
 
   let cubemapLayout: CubemapLayout | undefined;
 

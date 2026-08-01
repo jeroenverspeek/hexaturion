@@ -21,7 +21,7 @@ const patternImage = computed<string>(() => {
 const solveCubeAppCommand = computed<string[]>(() => {
   // Build command and command line options
   const command: string[] = [
-    "ts-node",
+    "node_modules/.bin/tsx",
     appSrcDir + "rubiksCube/scrambeSolveRubiksCube.ts",
   ];
 
@@ -42,7 +42,7 @@ const solveCubeAppCommand = computed<string[]>(() => {
 const scrambleCubeAppCommand = computed<string[]>(() => {
   // Build command and command line options
   const command: string[] = [
-    "ts-node",
+    "node_modules/.bin/tsx",
     appSrcDir + "rubiksCube/scrambleSolveRubiksCube.ts",
   ];
 
@@ -64,7 +64,7 @@ const scrambleCubeAppCommand = computed<string[]>(() => {
 const patternCubeAppCommand = computed<string[]>(() => {
   // Build command and command line options
   const command: string[] = [
-    "ts-node",
+    "node_modules/.bin/tsx",
     appSrcDir + "rubiksCube/showRubiksCubePattern.ts",
   ];
 
@@ -88,7 +88,7 @@ const patternCubeAppCommand = computed<string[]>(() => {
 const pseudoSolveCubeAppCommand = computed<string[]>(() => {
   // Build command and command line options
   const command: string[] = [
-    "ts-node",
+    "node_modules/.bin/tsx",
     appSrcDir + "pseudoRubiksCube/pseudoSolveRubiksCube.ts",
   ];
 

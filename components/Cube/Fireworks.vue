@@ -8,7 +8,7 @@ const { start, stop } = useAPI();
 const cubeAppCommandFireworks = computed<string[]>(() => {
   // Build command and command line options
   const command: string[] = [
-    "ts-node",
+    "node_modules/.bin/tsx",
     appSrcDir + "fireworks/showFireworks.ts",
   ];
 
@@ -17,14 +17,14 @@ const cubeAppCommandFireworks = computed<string[]>(() => {
 
 const cubeAppCommandSprinkle = computed<string[]>(() => {
   // Build command and command line options
-  const command: string[] = ["ts-node", appSrcDir + "sprinkle/showSprinkle.ts"];
+  const command: string[] = ["node_modules/.bin/tsx", appSrcDir + "sprinkle/showSprinkle.ts"];
 
   return command;
 });
 
 const cubeAppCommandSparkle = computed<string[]>(() => {
   // Build command and command line options
-  const command: string[] = ["ts-node", appSrcDir + "sparkle/showSparkle.ts"];
+  const command: string[] = ["node_modules/.bin/tsx", appSrcDir + "sparkle/showSparkle.ts"];
 
   return command;
 });

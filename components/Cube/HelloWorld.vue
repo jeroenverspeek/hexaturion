@@ -8,7 +8,7 @@ const { start, stop } = useAPI();
 
 const cubeAppCommand = computed<string[]>(() => {
   // Build command and command line options
-  const command: string[] = ["ts-node", appSrcDir + "sprites/helloWorld.ts"];
+  const command: string[] = ["node_modules/.bin/tsx", appSrcDir + "sprites/helloWorld.ts"];
 
   command.push("--finalMessage");
   command.push(finalMessage.value);
