@@ -1,129 +1,42 @@
 <script setup lang="ts">
-const currentTab = ref("clock");
+import { apps, categories } from "~/catalog";
+
+const shelves = categories
+  .map((category) => ({
+    ...category,
+    apps: apps.filter((app) => app.category === category.id),
+  }))
+  .filter((shelf) => shelf.apps.length > 0);
 </script>
 
 <template>
-  <div class="box">
-    <hr />
-    <div class="tabs is-boxed">
-      <ol>
-        <ul>
-          <li :class="{ 'is-active': currentTab === 'clock' }">
-            <a @click="currentTab = 'clock'">
-              <span class="icon is-small"
-                ><i class="fa-solid fa-clock"></i
-              ></span>
-              <span>Clock</span>
-            </a>
-          </li>
-          <li :class="{ 'is-active': currentTab === 'video' }">
-            <a @click="currentTab = 'video'">
-              <span class="icon is-small"
-                ><i class="fa-solid fa-video"></i
-              ></span>
-              <span>Video</span>
-            </a>
-          </li>
-          <li :class="{ 'is-active': currentTab === 'pictures' }">
-            <a @click="currentTab = 'pictures'">
-              <span class="icon is-small"
-                ><i class="fa-solid fa-image"></i
-              ></span>
-              <span>Pictures</span>
-            </a>
-          </li>
-          <li :class="{ 'is-active': currentTab === 'rubiksCube' }">
-            <a @click="currentTab = 'rubiksCube'">
-              <span class="icon is-small"
-                ><i class="fa-solid fa-cube"></i
-              ></span>
-              <span>Rubik's cube</span>
-            </a>
-          </li>
-          <li :class="{ 'is-active': currentTab === 'slidingPuzzle' }">
-            <a @click="currentTab = 'slidingPuzzle'">
-              <span class="icon is-small"
-                ><i class="fa-solid fa-cube"></i
-              ></span>
-              <span>Sliding puzzle</span>
-            </a>
-          </li>
-          <li :class="{ 'is-active': currentTab === 'celestialBodies' }">
-            <a @click="currentTab = 'celestialBodies'">
-              <span class="icon is-small"
-                ><i class="fa-solid fa-earth-europe"></i
-              ></span>
-              <span>Celestial bodies</span>
-            </a>
-          </li>
-        </ul>
-        <ul>
-          <li :class="{ 'is-active': currentTab === 'stockMarketQuotes' }">
-            <a @click="currentTab = 'stockMarketQuotes'">
-              <span class="icon is-small"
-                ><i class="fa-solid fa-money-bill-trend-up"></i
-              ></span>
-              <span>Stock market</span>
-            </a>
-          </li>
-          <li :class="{ 'is-active': currentTab === 'helloWorld' }">
-            <a @click="currentTab = 'helloWorld'">
-              <span class="icon is-small"
-                ><i class="fa-solid fa-door-open"></i
-              ></span>
-              <span>Hello world</span>
-            </a>
-          </li>
-          <li :class="{ 'is-active': currentTab === 'demo' }">
-            <a @click="currentTab = 'demo'">
-              <span class="icon is-small"
-                ><i class="fa-solid fa-cube"></i
-              ></span>
-              <span>Demo</span>
-            </a>
-          </li>
-          <li :class="{ 'is-active': currentTab === 'fireworks' }">
-            <a @click="currentTab = 'fireworks'">
-              <span class="icon is-small"
-                ><i class="fa-solid fa-wand-magic-sparkles"></i
-              ></span>
-              <span>Fireworks</span>
-            </a>
-          </li>
-          <li :class="{ 'is-active': currentTab === 'superDemo' }">
-            <a @click="currentTab = 'superDemo'">
-              <span class="icon is-small"
-                ><i class="fa-solid fa-cube"></i
-              ></span>
-              <span>Super demo</span>
-            </a>
-          </li>
-          <li :class="{ 'is-active': currentTab === 'boss' }">
-            <a @click="currentTab = 'boss'">
-              <span class="icon is-small"
-                ><i class="fa-solid fa-cube"></i
-              ></span>
-              <span>BOSS</span>
-            </a>
-          </li>
-        </ul>
-      </ol>
+  <div>
+    <div class="level is-mobile">
+      <div class="level-left">
+        <h1 class="title is-4">Apps</h1>
+      </div>
+      <div class="level-right">
+        <StopButton />
+      </div>
     </div>
-    <div>
-      <CubeClock v-if="currentTab === 'clock'" />
-      <CubeVideo v-if="currentTab === 'video'" />
-      <CubePictures v-if="currentTab === 'pictures'" />
-      <CubeRubiksCube v-if="currentTab === 'rubiksCube'" />
-      <CubeSlidingPuzzle v-if="currentTab === 'slidingPuzzle'" />
-      <CubeCelestialBodies v-if="currentTab === 'celestialBodies'" />
-      <CubeStockMarketQuotes v-if="currentTab === 'stockMarketQuotes'" />
-      <CubeHelloWorld v-if="currentTab === 'helloWorld'" />
-      <CubeDemo v-if="currentTab === 'demo'" />
-      <CubeFireworks v-if="currentTab === 'fireworks'" />
-      <CubeSuperDemo v-if="currentTab === 'superDemo'" />
-      <CubeBoss v-if="currentTab === 'boss'" />
-    </div>
+
+    <section v-for="shelf in shelves" :key="shelf.id" class="shelf">
+      <h2 class="subtitle is-6 has-text-weight-semibold">{{ shelf.title }}</h2>
+      <div class="app-grid">
+        <AppTile v-for="app in shelf.apps" :key="app.id" :app="app" />
+      </div>
+    </section>
   </div>
 </template>
 
-<style lang="scss"></style>
+<style scoped lang="scss">
+.shelf {
+  margin-bottom: 2rem;
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  gap: 0.75rem;
+}
+</style>

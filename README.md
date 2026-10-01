@@ -26,6 +26,15 @@ On the raspberry pi a server is automatically run at startup.
 The IP address of the raspberry pi is fixed in the Hexaturion software to be
 192.168.1.136.
 
+## The apps
+
+The home page shows a tile for every app, and each app has a page of its own
+with its options. Both follow from the app catalog in `catalog/`: to add an
+app, describe it in a file in `catalog/apps/` and list it in
+`catalog/index.ts`.
+
+[PLAN.md](PLAN.md) tells where this is heading.
+
 ## For development
 
 For testing and development of the GUI you can use the following setup:
@@ -63,6 +72,18 @@ this gives the message:
 
 To open the Hexaturion GUI start
 [http://localhost:3000](http://localhost:3000) in a webbrowser.
+
+### Without the cube
+
+The server and the apps also run on a PC, drawing to a browser instead of
+the LED panels. In led-hexahedron:
+
+    npm run simulator
+    PORT=3478 LEDCUBE_SIMULATE=1 node server.js
+
+and here, pointing the GUI at that server:
+
+    NUXT_PUBLIC_API_BASE_URL=http://localhost:3478 npm run dev
 
 Note that [https://hexaturion.com](https://hexaturion.com) is not suited for
 testing purposes, as committed changes will take some time to be reflected

@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { apps } from "./catalog";
+
 export default defineNuxtConfig({
   compatibilityDate: "2026-07-26",
   devtools: { enabled: true },
@@ -33,4 +35,10 @@ export default defineNuxtConfig({
     },
   },
   ssr: false,
+  nitro: {
+    prerender: {
+      // a page per app, so that its address also works when opened directly
+      routes: apps.map((app) => `/apps/${app.id}`),
+    },
+  },
 });

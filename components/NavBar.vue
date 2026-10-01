@@ -50,6 +50,15 @@
           </nuxt-link>
 
           <nuxt-link
+            to="/settings"
+            class="navbar-item"
+            exact-active-class="is-active"
+            @click="showMenu = false"
+          >
+            Settings
+          </nuxt-link>
+
+          <nuxt-link
             to="/about"
             class="navbar-item"
             exact-active-class="is-active"
