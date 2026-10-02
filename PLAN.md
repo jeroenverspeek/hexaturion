@@ -139,17 +139,17 @@ answer.
 
 ## Going live on the panel
 
-Until this is done the site says that the panel does not answer when
-turned to it.
+Done on 2026-10-02: both buttons of the switcher have a device behind them.
 
-- [x] hexaturion.com has the device list and the switcher (2026-10-02)
+- [x] hexaturion.com has the device list and the switcher
 - [x] led-tetragon: `main` on GitHub has the server, the manifests, and
       the QR code to Hexaturion in `apps/square_pictures/qr`
-- [ ] On the panel's Pi (192.168.1.225, which was off on 2026-10-02):
-      `git pull` in `~/led-tetragon`
-- [ ] `square.service` there as in led-tetragon's install notes: the QR
-      code for 20 seconds once the Pi has started, then `node server.ts`.
-      Today it starts only an app
+- [x] The panel's Pi (ledsquare64@192.168.1.225, a Pi 4, node v24.18) has
+      it
+- [x] `square.service` there is the one of led-tetragon's install notes:
+      the QR code for 20 seconds once the Pi has started, then
+      `node server.ts`. The one it had, which started only the debug app,
+      is kept next to it as `square.service.bak`
 
 ## server.ts
 
