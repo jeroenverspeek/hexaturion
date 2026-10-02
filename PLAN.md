@@ -107,15 +107,28 @@ In led-hexahedron and here. Can be developed on a PC with `--simulate`.
       cube as an app of its own, no Rubik's cube or cube maps. Its settings
       go by the manifests, as on the cube. `npm run testCatalog` runs the
       same five tests there
-- [ ] 3.2b Snake on the cube needs a manifest too: it is on
-      led-hexahedron's `main`, which `app-catalog` has not got yet, so that
-      takes merging `main` into the branch first
+- [x] 3.2b Snake on the cube has its manifest too: led-hexahedron's `main`
+      (with Snake) and `app-catalog` are merged, and `main` has it all
 - [x] 3.2c The GUI calls the device what its catalog calls it: "the panel
       does not answer", "Reboot panel". One that has not said so yet is
       taken for the cube
 - [ ] 3.3 A list of devices and their addresses, kept in the browser,
       instead of the fixed `API_BASE_URL`
 - [ ] 3.4 A device switcher in the navbar
+
+## Going live on the cube
+
+Everything up to here has only run in the simulator. The old GUI cannot
+start apps on the new server, nor the new GUI on the old one, so the last
+two go together.
+
+- [x] led-hexahedron: `main` on GitHub has the catalog, the server and
+      Snake's manifest
+- [ ] On the cube's Pi: `git pull` in `~/led-hexahedron`, then
+      `sudo systemctl restart cube`; `curl http://192.168.1.136:3000/apps`
+      should then answer with the catalog
+- [ ] hexaturion: merge `app-catalog` into `main` and push, which publishes
+      hexaturion.com
 
 ## Later
 
