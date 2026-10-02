@@ -63,9 +63,18 @@ In led-hexahedron and here. Can be developed on a PC with `--simulate`.
       a lock - anyone on the home network can still ask the server directly.
       **The cube and the GUI now have to go live together**: the GUI as it
       is deployed sends commands, which the new server refuses
-- [ ] 2.5 `GET /status`, and a "now playing" bar with Stop on every page
-- [ ] 2.6 `GET` and `PUT /settings`, kept in `ledcube.local.json`: zenith,
-      weather location and units, clock language, stock tickers
+- [x] 2.5 `GET /status`, and a "now playing" bar with Stop on every page:
+      which app runs and for how long, asked every 3 seconds while the page
+      is looked at. It also says when the cube does not answer, and when the
+      app started last stopped with an error. Only apps started through the
+      server are known to it
+- [x] 2.6 `GET` and `PUT /settings`, kept in `ledcube.local.json`: zenith
+      (all 26 points of the cube), weather location and units, clock
+      language, stock tickers. Which settings there are is part of the
+      catalog (`apps/src/catalog/settings.ts`), for 2.7 to make its page
+      from. Of these the apps themselves read only the zenith so far; the
+      others reach an app through the GUI (2.7), not when it is started from
+      a terminal or by the super demo
 - [ ] 2.7 Settings page for these; the app pages take them as defaults
 - [ ] 2.8 The GUI fetches the catalog; `catalog/` and `utils/buildCommand.ts`
       go

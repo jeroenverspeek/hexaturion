@@ -13,6 +13,8 @@ function reasonOf(e: unknown): string {
 }
 
 export const useAPI = () => {
+  const { refresh } = useCubeStatus();
+
   const post = async (url: string, body?: Record<string, unknown>): Promise<APIResponse> => {
     try {
       return await useCustomFetch<unknown>(url, {
@@ -23,6 +25,9 @@ export const useAPI = () => {
       console.error(e);
       alert(reasonOf(e));
       throw e;
+    } finally {
+      // whatever was asked, and whether or not it was done: what runs now may have changed
+      void refresh();
     }
   };
 

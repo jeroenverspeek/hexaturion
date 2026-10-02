@@ -11,14 +11,7 @@ const shelves = categories
 
 <template>
   <div>
-    <div class="level is-mobile">
-      <div class="level-left">
-        <h1 class="title is-4">Apps</h1>
-      </div>
-      <div class="level-right">
-        <StopButton />
-      </div>
-    </div>
+    <h1 class="title is-4">Apps</h1>
 
     <section v-for="shelf in shelves" :key="shelf.id" class="shelf">
       <h2 class="subtitle is-6 has-text-weight-semibold">{{ shelf.title }}</h2>
