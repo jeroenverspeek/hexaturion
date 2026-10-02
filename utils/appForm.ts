@@ -7,7 +7,10 @@ import type {
   ParamDefinition,
   ParamValue,
   ParamValues,
-} from "../catalog/types";
+} from "../types/catalog";
+
+/** The cube's settings as they are now, by their id - or nothing, while the cube has not told them. */
+export type CubeSettings = Record<string, unknown> | null | undefined;
 
 /** A parameter of an action, with the flag that action sends it under. */
 export interface ActionParam {
@@ -32,8 +35,16 @@ export function isEmpty(value: ParamValue | undefined): boolean {
   return false;
 }
 
-/** What there is to choose from for a parameter, given the other values. */
-export function choicesFor(param: ParamDefinition, values: ParamValues): Choice[] {
+/**
+ What there is to choose from for a parameter, given the other values - and
+ the cube's settings, for a multiselect that goes by one: that setting's
+ list is then what there is, under the names the catalog has for them.
+*/
+export function choicesFor(param: ParamDefinition, values: ParamValues, settings?: CubeSettings): Choice[] {
+  const set = param.setting === undefined ? undefined : settings?.[param.setting];
+  if (param.type === "multiselect" && Array.isArray(set)) {
+    return set.map((value: string) => param.choices?.find((choice) => choice.value === value) ?? { value });
+  }
   if (param.choicesBy) {
     return param.choicesBy.choices[String(values[param.choicesBy.param])] ?? [];
   }
@@ -78,10 +89,10 @@ function hasRightType(param: ParamDefinition, value: unknown): value is ParamVal
  Needed when one parameter's choices depend on another (the Rubik's
  patterns on the size), and for values remembered from an earlier visit.
 */
-export function outOfChoice(app: AppDefinition, values: ParamValues): ParamValues {
+export function outOfChoice(app: AppDefinition, values: ParamValues, settings?: CubeSettings): ParamValues {
   const fixes: ParamValues = {};
   for (const param of app.params) {
-    const offered = choicesFor(param, { ...values, ...fixes }).map((choice) => choice.value);
+    const offered = choicesFor(param, { ...values, ...fixes }, settings).map((choice) => choice.value);
     const value = values[param.id];
     if (param.type === "select") {
       if (offered.some((one) => one === value)) continue;
@@ -97,15 +108,18 @@ export function outOfChoice(app: AppDefinition, values: ParamValues): ParamValue
 
 /**
  The values an app's page starts with: its defaults, with what was
- remembered from the last visit laid over them where that still fits.
+ remembered from the last visit laid over them where that still fits. A
+ parameter that goes by a setting of the cube starts at what is set there
+ instead, every time - what was on the page the last time does not count
+ for it.
 */
-export function initialValues(app: AppDefinition, remembered: Record<string, unknown> = {}): ParamValues {
+export function initialValues(app: AppDefinition, remembered: Record<string, unknown> = {}, settings?: CubeSettings): ParamValues {
   const values: ParamValues = {};
   for (const param of app.params) {
-    const kept = remembered[param.id];
+    const kept = param.setting === undefined ? remembered[param.id] : settings?.[param.setting];
     values[param.id] = hasRightType(param, kept) ? kept : param.default ?? emptyValue(param);
   }
-  return { ...values, ...outOfChoice(app, values) };
+  return { ...values, ...outOfChoice(app, values, settings) };
 }
 
 function outOfRange(param: ParamDefinition, value: ParamValue | undefined): boolean {

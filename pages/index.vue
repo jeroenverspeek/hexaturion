@@ -1,17 +1,21 @@
 <script setup lang="ts">
-import { apps, categories } from "~/catalog";
+const { catalog } = useCatalog();
 
-const shelves = categories
-  .map((category) => ({
-    ...category,
-    apps: apps.filter((app) => app.category === category.id),
-  }))
-  .filter((shelf) => shelf.apps.length > 0);
+const shelves = computed(() =>
+  (catalog.value?.categories ?? [])
+    .map((category) => ({
+      ...category,
+      apps: catalog.value!.apps.filter((app) => app.category === category.id),
+    }))
+    .filter((shelf) => shelf.apps.length > 0),
+);
 </script>
 
 <template>
   <div>
     <h1 class="title is-4">Apps</h1>
+
+    <CatalogMissing v-if="!catalog" />
 
     <section v-for="shelf in shelves" :key="shelf.id" class="shelf">
       <h2 class="subtitle is-6 has-text-weight-semibold">{{ shelf.title }}</h2>

@@ -10,7 +10,7 @@ tick an item off when it is done.
 - Every app is described as data, in an **app catalog**; one generic page
   renders an app from its description.
 - The catalog lives **on the device**, next to each app, and is served by
-  `server.js`. Until phase 2 it sits in `catalog/` here.
+  `server.js`.
 - The GUI no longer starts hzeller's binaries (demo, video-viewer,
   led-image-viewer): Life and Video are TypeScript apps now.
 - Settings that live on the device, to begin with: zenith, weather location
@@ -75,9 +75,19 @@ In led-hexahedron and here. Can be developed on a PC with `--simulate`.
       from. Of these the apps themselves read only the zenith so far; the
       others reach an app through the GUI (2.7), not when it is started from
       a terminal or by the super demo
-- [ ] 2.7 Settings page for these; the app pages take them as defaults
-- [ ] 2.8 The GUI fetches the catalog; `catalog/` and `utils/buildCommand.ts`
-      go
+- [x] 2.7 Settings page for these, made from what the cube says there is
+      to set; the app pages take them as defaults. A parameter names the
+      setting it goes by (`setting: "location"`): its page starts at what is
+      set, every time, rather than at what was on it the last time. The
+      ticker symbols that are set are what the stock market offers, so ones
+      the catalog does not list can be followed too
+- [x] 2.8 The GUI fetches the catalog from the cube (`/apps`); its own
+      `catalog/` and `utils/buildCommand.ts` are gone, and a new app on the
+      cube shows up without a change here. The catalog of the last time is
+      kept in the browser, so the tiles are there at once and while the cube
+      does not answer. An app's page is `/app?id=clock` now, one page that
+      static hosting can serve for every app. The command under "Advanced" is
+      asked of the cube (`POST /command`)
 
 ## Phase 3 - the panel (led-tetragon)
 

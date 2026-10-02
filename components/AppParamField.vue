@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Choice, ParamDefinition, ParamValue } from "~/catalog/types";
+import type { Choice, ParamDefinition, ParamValue } from "~/types/catalog";
 
 const props = defineProps<{
   param: ParamDefinition;

@@ -1,7 +1,8 @@
 /**
  The app catalog: every app of the cube described as data, so that one page
- can show any of them. It holds nothing but plain values - no functions - so
- that the cube can serve it as JSON later on (see PLAN.md, phase 2).
+ can show any of them. The cube has it - a manifest.ts next to each app in
+ led-hexahedron, apps/src/catalog/ - and its server hands it out at /apps;
+ these are the types of what arrives.
 */
 
 export type ParamValue = string | number | boolean | string[] | null;
@@ -44,6 +45,14 @@ export interface ParamDefinition {
   showIf?: Condition;
   /** The app cannot be started while this is empty. */
   required?: boolean;
+  /**
+   The setting of the cube this one goes by (see settings.ts): the page
+   starts at what is set there, rather than at the default or at what it
+   was the last time. For a multiselect the setting is a list, and that
+   list is what there is to choose from, all of it picked at the start;
+   the choices here are for a cube whose settings cannot be read.
+  */
+  setting?: string;
 
   /** boolean: sent after the flag when on, e.g. --background earth. Default: the flag alone. */
   value?: string;
@@ -90,10 +99,8 @@ export interface ActionDefinition {
   preview?: string;
 }
 
-export type CategoryId = "info" | "puzzles" | "worlds" | "effects" | "media" | "demo";
-
 export interface Category {
-  id: CategoryId;
+  id: string;
   title: string;
 }
 
@@ -105,35 +112,54 @@ export interface AppDefinition {
   description: string;
   /** A Font Awesome solid icon, without the fa- in front. */
   icon: string;
-  category: CategoryId;
+  /** The id of its category. */
+  category: string;
   params: ParamDefinition[];
   /** At least one. */
   actions: ActionDefinition[];
 }
 
-/** An app with a single script that takes all of its parameters. */
-export type SingleActionApp = Omit<AppDefinition, "actions"> & {
-  script: string;
-  runner?: ActionDefinition["runner"];
-  args?: string[];
-  /** On the start button. Default: Start. */
-  startLabel?: string;
-  preview?: string;
-};
+export type SettingType = "select" | "text" | "list";
 
-export function defineApp(app: AppDefinition | SingleActionApp): AppDefinition {
-  if ("actions" in app) return app;
-  const { script, runner, args, startLabel, preview, ...rest } = app;
-  return {
-    ...rest,
-    actions: [{
-      id: "start",
-      label: startLabel ?? "Start",
-      script,
-      runner,
-      args,
-      preview,
-      params: app.params.map((param) => param.id),
-    }],
-  };
+/**
+ A setting of the cube: something that is set once and seldom changes, such
+ as which way up it stands. The settings are kept in ledcube.local.json,
+ each under its id.
+*/
+export interface SettingDefinition {
+  /** Its key in ledcube.local.json. */
+  id: string;
+  label: string;
+  type: SettingType;
+  /** What holds while it is not set. */
+  default: string | number | string[];
+  help?: string;
+  /** Under which heading it comes on the settings page. */
+  group: string;
+
+  /** select: what there is to choose from. */
+  choices?: Choice[];
+
+  /** text: how long it may be. list: how long each one in it may be. */
+  maxLength?: number;
+  /** text, list: shown while empty. */
+  placeholder?: string;
+  /** list: what each one in it has to look like, as a regular expression - and that in words. */
+  pattern?: string;
+  patternHelp?: string;
+  /** list: how many there may be. */
+  maxItems?: number;
+}
+
+export type SettingValue = string | number | string[];
+export type SettingValues = Record<string, SettingValue>;
+
+/** What the cube's server hands out at /apps. */
+export interface Catalog {
+  /** In the order they come on the home page. */
+  categories: Category[];
+  /** In the order they come within their category. */
+  apps: AppDefinition[];
+  /** What can be set once for the cube. */
+  settings: SettingDefinition[];
 }

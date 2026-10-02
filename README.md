@@ -29,9 +29,12 @@ The IP address of the raspberry pi is fixed in the Hexaturion software to be
 ## The apps
 
 The home page shows a tile for every app, and each app has a page of its own
-with its options. Both follow from the app catalog in `catalog/`: to add an
-app, describe it in a file in `catalog/apps/` and list it in
-`catalog/index.ts`.
+with its options. Hexaturion has no code of its own for any of them: both
+follow from the app catalog, which the cube keeps (a `manifest.ts` next to
+each app in led-hexahedron, see `apps/src/catalog/README.md` there) and its
+server hands out. A new app on the cube shows up here without a change to
+Hexaturion. The catalog of the last time is kept in the browser, so the
+tiles are there at once.
 
 [PLAN.md](PLAN.md) tells where this is heading.
 

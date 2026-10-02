@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { AppDefinition } from "~/catalog/types";
+import type { AppDefinition } from "~/types/catalog";
 
 defineProps<{ app: AppDefinition }>();
 </script>
 
 <template>
-  <NuxtLink :to="`/apps/${app.id}`" class="box app-tile">
+  <NuxtLink :to="{ path: '/app', query: { id: app.id } }" class="box app-tile">
     <span class="icon is-large has-text-primary">
       <i class="fa-solid fa-2x" :class="`fa-${app.icon}`"></i>
     </span>

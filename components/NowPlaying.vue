@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { findApp } from "~/catalog";
-
+const { findApp } = useCatalog();
 const { status, reachable, refresh } = useCubeStatus();
 
 // Asked every few seconds, for as long as the page is looked at: an app can
@@ -35,14 +34,14 @@ const runningFor = computed(() => {
         <template v-if="running">
           <span :key="icon" class="icon has-text-primary"><i class="fa-solid" :class="`fa-${icon}`"></i></span>
           <span class="now-playing-text">
-            <NuxtLink :to="`/apps/${running.app}`" class="has-text-weight-bold">{{ running.title }}</NuxtLink>
+            <NuxtLink :to="{ path: '/app', query: { id: running.app } }" class="has-text-weight-bold">{{ running.title }}</NuxtLink>
             <span class="now-playing-aside now-playing-time">{{ runningFor }}</span>
           </span>
         </template>
         <template v-else-if="failed">
           <span class="icon has-text-warning"><i class="fa-solid fa-triangle-exclamation"></i></span>
           <span class="now-playing-text">
-            <NuxtLink :to="`/apps/${failed.app}`" class="has-text-weight-bold">{{ failed.title }}</NuxtLink>
+            <NuxtLink :to="{ path: '/app', query: { id: failed.app } }" class="has-text-weight-bold">{{ failed.title }}</NuxtLink>
             stopped with an error
           </span>
         </template>

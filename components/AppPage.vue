@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { findApp } from "~/catalog";
-import type { ParamValues } from "~/catalog/types";
+import type { AppDefinition, ParamValues } from "~/types/catalog";
 
-const route = useRoute();
-const found = findApp(String(route.params.id));
-if (!found) {
-  throw createError({ statusCode: 404, statusMessage: "There is no such app", fatal: true });
-}
-const app = found;
+/** The page of one app: its options, as the catalog describes them, and Start. */
+const props = defineProps<{ app: AppDefinition }>();
+// the page is made anew for another app (it is keyed by the app's id), so this one stays
+const app = props.app;
 
 useHead({ title: app.title });
 
@@ -19,7 +16,23 @@ const remembered = useLocalStorage<{ action?: string; values?: Record<string, un
   {},
 );
 
-const values = reactive<ParamValues>(initialValues(app, remembered.value.values));
+// The cube's settings: the parameters that go by one start at what is set there.
+const { values: cubeSettings, load: loadSettings } = useCubeSettings();
+// when the cube does not tell them, the page goes by the catalog's defaults
+loadSettings().catch(() => {});
+
+const values = reactive<ParamValues>(initialValues(app, remembered.value.values, cubeSettings.value));
+
+// The settings may come in after the page is there, or differ from what was
+// known: the parameters that go by one move along, unless they were touched.
+watch(cubeSettings, (now, before) => {
+  const fresh = initialValues(app, {}, now);
+  const stale = initialValues(app, {}, before);
+  for (const param of app.params) {
+    if (param.setting === undefined) continue;
+    if (JSON.stringify(values[param.id]) === JSON.stringify(stale[param.id])) values[param.id] = fresh[param.id] ?? null;
+  }
+});
 const actionId = ref(
   app.actions.some((action) => action.id === remembered.value.action)
     ? remembered.value.action!
@@ -31,7 +44,7 @@ watch(
   [values, actionId],
   () => {
     // a parameter's choices can depend on another one: the Rubik's patterns on the size
-    Object.assign(values, outOfChoice(app, values));
+    Object.assign(values, outOfChoice(app, values, cubeSettings.value));
     remembered.value = { action: actionId.value, values: { ...values } };
   },
   { deep: true },
@@ -41,12 +54,37 @@ const shown = computed(() => actionParams(app, action.value, values).map(({ para
 const mainParams = computed(() => shown.value.filter((param) => !param.advanced));
 const advancedParams = computed(() => shown.value.filter((param) => param.advanced));
 
-/** The command as the cube's server will make it, to show under "Advanced". */
-const command = computed(() => buildCommand(app, action.value, values));
 /** What is sent to have it started: the values of the parameters that apply now. */
 const params = computed<ParamValues>(() =>
   Object.fromEntries(shown.value.map((param) => [param.id, values[param.id] ?? null])),
 );
+
+// The command the cube's server would run for what is on the page - or why it
+// would not - asked of the server itself, while "Advanced" is open.
+const advancedOpen = ref(false);
+const command = ref("");
+const commandRefused = ref("");
+const askForCommand = useDebounceFn(async () => {
+  const asked = JSON.stringify([actionId.value, params.value]);
+  try {
+    const { data } = await useCustomFetch<{ command: string[] }>("/command", {
+      method: "POST",
+      body: { app: app.id, action: actionId.value, params: params.value },
+      timeout: 4000,
+    });
+    // the page may have changed while the cube was asked: then this answer is not for it
+    if (asked !== JSON.stringify([actionId.value, params.value])) return;
+    command.value = data.command.join(" ");
+    commandRefused.value = "";
+  } catch (e) {
+    if (asked !== JSON.stringify([actionId.value, params.value])) return;
+    command.value = "";
+    commandRefused.value = reasonOf(e);
+  }
+}, 300);
+watch([advancedOpen, actionId, params], () => {
+  if (advancedOpen.value) void askForCommand();
+});
 const canStart = computed(() => unmetParams(app, action.value, values).length === 0);
 
 const preview = computed(() => previewUrl(action.value, values));
@@ -70,7 +108,7 @@ async function startApp(): Promise<void> {
 }
 
 function reset(): void {
-  Object.assign(values, initialValues(app));
+  Object.assign(values, initialValues(app, {}, cubeSettings.value));
 }
 </script>
 
@@ -109,25 +147,26 @@ function reset(): void {
         :key="param.id"
         v-model="values[param.id]!"
         :param="param"
-        :choices="choicesFor(param, values)"
+        :choices="choicesFor(param, values, cubeSettings)"
       />
 
       <figure v-if="preview && preview !== brokenPreview" class="image preview">
         <img :src="preview" alt="" @error="brokenPreview = preview" />
       </figure>
 
-      <details v-if="advancedParams.length > 0" class="advanced">
+      <details class="advanced" @toggle="advancedOpen = ($event.target as HTMLDetailsElement).open">
         <summary>Advanced</summary>
         <AppParamField
           v-for="param in advancedParams"
           :key="param.id"
           v-model="values[param.id]!"
           :param="param"
-          :choices="choicesFor(param, values)"
+          :choices="choicesFor(param, values, cubeSettings)"
         />
         <div class="field">
           <label class="label">Command</label>
-          <pre class="command">{{ command.join(" ") }}</pre>
+          <pre v-if="command" class="command">{{ command }}</pre>
+          <p v-else-if="commandRefused" class="help is-danger">{{ commandRefused }}</p>
         </div>
         <button type="button" class="button is-small" @click="reset">Back to the defaults</button>
       </details>
