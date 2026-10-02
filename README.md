@@ -52,7 +52,7 @@ If needed, you can manually start the server from the command line:
 
     ssh <username>@192.168.1.136
     cd $lebcube
-    sudo node server.js
+    sudo node server.ts
 
 Raspberrypi listening to Hexaturion on
 [port 3000](http://localhost:3000)
@@ -85,7 +85,7 @@ The server and the apps also run on a PC, drawing to a browser instead of
 the LED panels. In led-hexahedron:
 
     npm run simulator
-    PORT=3478 LED_SIMULATE=1 node server.js
+    PORT=3478 LED_SIMULATE=1 node server.ts
 
 and here, pointing the GUI at that server:
 

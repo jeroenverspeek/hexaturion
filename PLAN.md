@@ -143,14 +143,20 @@ Until this is done the site says that the panel does not answer when
 turned to it.
 
 - [x] hexaturion.com has the device list and the switcher (2026-10-02)
-- [x] led-tetragon: `main` on GitHub has the server and the manifests
+- [x] led-tetragon: `main` on GitHub has the server, the manifests, and
+      the QR code to Hexaturion in `apps/square_pictures/qr`
 - [ ] On the panel's Pi (192.168.1.225, which was off on 2026-10-02):
       `git pull` in `~/led-tetragon`
-- [ ] `square.service` starts `node server.js` there, and an app at
-      startup as well: today it starts only an app (debug, for 15 seconds).
-      Either that app first and then the server, as the cube does with its
-      QR code - or an app that keeps running, which the server then has to
-      start itself, for the GUI to know of it and one app to run at a time
+- [ ] `square.service` there as in led-tetragon's install notes: the QR
+      code for 20 seconds once the Pi has started, then `node server.ts`.
+      Today it starts only an app
+
+## server.ts
+
+The server is TypeScript since 2026-10-02 - `server.ts`, the same file in
+led-hexahedron and led-tetragon - and node runs it as it is, without tsx or
+a build. `npm run typecheck` checks it too. The cube's service starts it by
+that name (`ExecStart=/usr/local/bin/node server.ts`).
 
 ## Later
 
