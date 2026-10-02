@@ -1,0 +1,1 @@
+import{f as n,b as a,r as c}from"./C_duNwPw.js";const f=()=>{const{refresh:e}=n(),o=async(s,r)=>{try{return await a(s,{method:"POST",body:r})}catch(t){throw console.error(t),alert(c(t)),t}finally{e()}};return{startApp:(s,r,t)=>o("/start",{app:s,action:r,params:t}),stop:()=>o("/stop"),reboot:()=>o("/reboot"),shutdown:()=>o("/shutdown")}};export{f as u};
