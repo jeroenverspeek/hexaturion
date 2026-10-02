@@ -118,17 +118,22 @@ In led-hexahedron and here. Can be developed on a PC with `--simulate`.
 
 ## Going live on the cube
 
-Everything up to here has only run in the simulator. The old GUI cannot
-start apps on the new server, nor the new GUI on the old one, so the last
-two go together.
+Done on 2026-10-02. The old GUI cannot start apps on the new server, nor
+the new GUI on the old one, so the last two went together.
 
 - [x] led-hexahedron: `main` on GitHub has the catalog, the server and
       Snake's manifest
-- [ ] On the cube's Pi: `git pull` in `~/led-hexahedron`, then
-      `sudo systemctl restart cube`; `curl http://192.168.1.136:3000/apps`
-      should then answer with the catalog
-- [ ] hexaturion: merge `app-catalog` into `main` and push, which publishes
-      hexaturion.com
+- [x] On the cube's Pi: `git pull` in `~/led-hexahedron`, then
+      `sudo systemctl restart cube`. The server reads the catalog in about
+      two seconds there (a Pi 4, node v24.18)
+- [x] hexaturion: `main` is `app-catalog` now, and hexaturion.com has it
+
+A browser asks once whether hexaturion.com may reach devices on the local
+network: without a yes, the site can only say that the cube does not
+answer.
+
+The panel (led-tetragon) is not live: its work is on `app-catalog` there,
+and its Pi still starts an app at boot rather than the server.
 
 ## Later
 
