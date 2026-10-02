@@ -3,12 +3,13 @@
 const route = useRoute();
 const { catalog, loading, findApp } = useCatalog();
 const device = useDeviceName();
+const { active } = useDevices();
 
 const app = computed(() => findApp(String(route.query.id ?? "")));
 </script>
 
 <template>
-  <AppPage v-if="app" :key="app.id" :app="app" />
+  <AppPage v-if="app" :key="`${active.id} ${app.id}`" :app="app" />
   <CatalogMissing v-else-if="!catalog" />
   <div v-else>
     <h1 class="title is-4">There is no such app</h1>

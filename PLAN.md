@@ -112,9 +112,14 @@ In led-hexahedron and here. Can be developed on a PC with `--simulate`.
 - [x] 3.2c The GUI calls the device what its catalog calls it: "the panel
       does not answer", "Reboot panel". One that has not said so yet is
       taken for the cube
-- [ ] 3.3 A list of devices and their addresses, kept in the browser,
-      instead of the fixed `API_BASE_URL`
-- [ ] 3.4 A device switcher in the navbar
+- [x] 3.3 A list of devices and their addresses, kept in the browser,
+      instead of the one fixed address. The site comes with the cube
+      (192.168.1.136) and the panel (192.168.1.225); the settings page has
+      the list, to change an address or add a device. Each device has its
+      own kept catalog and its own remembered values per app
+- [x] 3.4 A device switcher in the navbar: a button per device, there on
+      every page. Turning to another device brings its apps, its bar and
+      its settings
 
 ## Going live on the cube
 
@@ -133,7 +138,8 @@ network: without a yes, the site can only say that the cube does not
 answer.
 
 The panel (led-tetragon) is not live: its work is on `app-catalog` there,
-and its Pi still starts an app at boot rather than the server.
+and its Pi still starts an app at boot rather than the server. Until it is,
+the site says that the panel does not answer when turned to it.
 
 ## Later
 

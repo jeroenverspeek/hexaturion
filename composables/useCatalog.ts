@@ -1,11 +1,12 @@
 import type { AppDefinition, Catalog } from "~/types/catalog";
 
-const storageKey = "hexaturion.catalog";
+/** Each device has its own catalog, kept under its id. */
+const storageKey = (): string => `hexaturion.catalog.${useDevices().active.value.id}`;
 
-/** The catalog as the cube gave it the last time, kept in the browser. */
+/** The catalog as the device gave it the last time, kept in the browser. */
 function keptCatalog(): Catalog | null {
   try {
-    const kept = JSON.parse(localStorage.getItem(storageKey) ?? "null");
+    const kept = JSON.parse(localStorage.getItem(storageKey()) ?? "null");
     return Array.isArray(kept?.apps) && Array.isArray(kept?.categories) ? kept : null;
   } catch {
     return null;
@@ -27,22 +28,32 @@ export const useCatalog = () => {
   const load = async (): Promise<void> => {
     if (loading.value) return;
     loading.value = true;
+    const asked = deviceStamp();
     try {
-      catalog.value = (await useCustomFetch<Catalog>("/apps", { timeout: 6000 })).data;
+      const { data } = await useCustomFetch<Catalog>("/apps", { timeout: 6000 });
+      if (asked !== deviceStamp()) return;
+      catalog.value = data;
       problem.value = "";
       try {
-        localStorage.setItem(storageKey, JSON.stringify(catalog.value));
+        localStorage.setItem(storageKey(), JSON.stringify(data));
       } catch {
         // a browser that keeps nothing: it is fetched again the next time
       }
     } catch (e) {
-      problem.value = reasonOf(e);
+      if (asked === deviceStamp()) problem.value = reasonOf(e);
     } finally {
-      loading.value = false;
+      if (asked === deviceStamp()) loading.value = false;
     }
+  };
+
+  /** The GUI has turned to another device: what is known is that one's catalog of the last time, if any. */
+  const reset = (): void => {
+    catalog.value = keptCatalog();
+    problem.value = "";
+    loading.value = false;
   };
 
   const findApp = (id: string): AppDefinition | undefined => catalog.value?.apps.find((app) => app.id === id);
 
-  return { catalog, problem, loading, load, findApp };
+  return { catalog, problem, loading, load, reset, findApp };
 };

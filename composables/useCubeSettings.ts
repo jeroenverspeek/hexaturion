@@ -21,15 +21,25 @@ export const useCubeSettings = () => {
     values.value = answer.values;
   };
 
-  /** Asks the cube for its settings. Leaves what was known as it is when that fails, and throws. */
+  /** Asks the device for its settings. Leaves what was known as it is when that fails, and throws. */
   const load = async (): Promise<void> => {
-    take((await useCustomFetch<SettingsAnswer>("/settings", { timeout: 4000 })).data);
+    const asked = deviceStamp();
+    const { data } = await useCustomFetch<SettingsAnswer>("/settings", { timeout: 4000 });
+    if (asked === deviceStamp()) take(data);
   };
 
   /** Changes settings: the ones named, with null for one to go back to its default. */
   const save = async (changes: Record<string, SettingValue | null>): Promise<void> => {
-    take((await useCustomFetch<SettingsAnswer>("/settings", { method: "PUT", body: changes })).data);
+    const asked = deviceStamp();
+    const { data } = await useCustomFetch<SettingsAnswer>("/settings", { method: "PUT", body: changes });
+    if (asked === deviceStamp()) take(data);
   };
 
-  return { definitions, values, load, save };
+  /** The GUI has turned to another device: that one's settings are not known yet. */
+  const reset = (): void => {
+    definitions.value = null;
+    values.value = null;
+  };
+
+  return { definitions, values, load, save, reset };
 };

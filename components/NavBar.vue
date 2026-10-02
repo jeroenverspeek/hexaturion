@@ -11,6 +11,8 @@
           <b class="title is-6 has-text-primary ml-2">HEXATURION</b>
         </nuxt-link>
 
+        <DeviceSwitcher />
+
         <a
           role="button"
           class="navbar-burger"
@@ -87,3 +89,10 @@
 <script lang="ts" setup>
 const showMenu = ref(false);
 </script>
+
+<style scoped>
+/* the switcher takes the room between the name and the menu button, and sits next to the button */
+:deep(.device-switcher) + .navbar-burger {
+  margin-left: 0;
+}
+</style>

@@ -12,7 +12,8 @@ const { startApp: askToStart } = useAPI();
 
 /** What was on this app's page the last time, kept in the browser. */
 const remembered = useLocalStorage<{ action?: string; values?: Record<string, unknown> }>(
-  `hexaturion.app.${app.id}`,
+  // per device: the cube's clock and the panel's are not the same app
+  `hexaturion.app.${useDevices().active.value.id}.${app.id}`,
   {},
 );
 

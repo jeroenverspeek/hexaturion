@@ -23,8 +23,11 @@ client in a webbrowser:
 
 On the raspberry pi a server is automatically run at startup.
 
-The IP address of the raspberry pi is fixed in the Hexaturion software to be
-192.168.1.136.
+Hexaturion talks to the cube at 192.168.1.136 and to the single panel
+(led-tetragon) at 192.168.1.225, each on port 3000: the two buttons at the
+top choose between them. The settings page has the list of devices, where
+an address can be changed and a device added. That list is kept in the
+browser, so each phone has its own.
 
 ## The apps
 
@@ -87,6 +90,9 @@ the LED panels. In led-hexahedron:
 and here, pointing the GUI at that server:
 
     NUXT_PUBLIC_API_BASE_URL=http://localhost:3478 npm run dev
+
+`NUXT_PUBLIC_PANEL_BASE_URL` does the same for the panel, with led-tetragon's
+server on another port.
 
 Note that [https://hexaturion.com](https://hexaturion.com) is not suited for
 testing purposes, as committed changes will take some time to be reflected

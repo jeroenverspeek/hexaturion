@@ -7,6 +7,7 @@ import type { SettingDefinition, SettingValue } from "~/types/catalog";
 
 const { definitions, values, load, save } = useCubeSettings();
 const device = useDeviceName();
+const { active } = useDevices();
 
 /** The settings as they stand on the page, to be saved. */
 const form = reactive<Record<string, SettingValue>>({});
@@ -32,6 +33,15 @@ async function fetchSettings(): Promise<void> {
   }
 }
 onMounted(fetchSettings);
+// another device has settings of its own
+watch(
+  () => `${active.value.id} ${active.value.address}`,
+  () => {
+    for (const id of Object.keys(form)) delete form[id];
+    saved.value = false;
+    void fetchSettings();
+  },
+);
 
 /** The settings under their headings, in the order the cube gives them. */
 const groups = computed(() => {
@@ -98,7 +108,7 @@ async function power(action: PowerAction): Promise<void> {
 
 <template>
   <div class="settings-page">
-    <h1 class="title is-4">Settings</h1>
+    <h1 class="title is-4">Settings of the {{ device }}</h1>
 
     <div v-if="problem" class="notification is-danger is-light">
       {{ problem }}
@@ -135,6 +145,11 @@ async function power(action: PowerAction): Promise<void> {
       </div>
     </form>
     <p v-else-if="loading" class="has-text-grey mb-5">Asking the {{ device }} for its settings...</p>
+
+    <section class="box">
+      <h2 class="title is-5">Devices</h2>
+      <DeviceList />
+    </section>
 
     <section class="box">
       <h2 class="title is-5">Power</h2>

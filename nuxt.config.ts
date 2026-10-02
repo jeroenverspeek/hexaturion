@@ -6,8 +6,10 @@ export default defineNuxtConfig({
   modules: ["@vueuse/nuxt"],
   runtimeConfig: {
     public: {
-      API_BASE_URL: "http://192.168.1.136:3000",
-      //API_BASE_URL: 'https://cors-anywhere.herokuapp.com/http://192.168.1.136:3000'
+      // Where the devices are at home: the list the site comes with, which
+      // each browser can change on the settings page (composables/useDevices.ts).
+      API_BASE_URL: "http://192.168.1.136:3000", // the cube
+      PANEL_BASE_URL: "http://192.168.1.225:3000",
     },
   },
   app: {

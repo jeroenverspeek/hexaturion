@@ -32,17 +32,27 @@ export const useCubeStatus = () => {
     // one at a time: a cube that is off takes its time not to answer
     if (asking.value) return;
     asking.value = true;
+    const asked = deviceStamp();
     try {
       const response = await useCustomFetch<CubeStatus>("/status", { timeout: 4000 });
+      if (asked !== deviceStamp()) return;
       status.value = response.data;
       reachable.value = true;
     } catch {
+      if (asked !== deviceStamp()) return;
       status.value = null;
       reachable.value = false;
     } finally {
-      asking.value = false;
+      if (asked === deviceStamp()) asking.value = false;
     }
   };
 
-  return { status, reachable, refresh };
+  /** The GUI has turned to another device: nothing is known of what that one does. */
+  const reset = (): void => {
+    status.value = null;
+    reachable.value = null;
+    asking.value = false;
+  };
+
+  return { status, reachable, refresh, reset };
 };
