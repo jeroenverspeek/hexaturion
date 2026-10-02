@@ -91,9 +91,28 @@ In led-hexahedron and here. Can be developed on a PC with `--simulate`.
 
 ## Phase 3 - the panel (led-tetragon)
 
-- [ ] 3.1 Its `server.js` cannot start (`require` in an ES module): give it
-      the same server as the cube
-- [ ] 3.2 Manifests for its apps
+- [x] 3.1 Its `server.js` could not start (`require` in an ES module): it
+      has the same server as the cube now, and the same catalog files
+      (`types.ts`, `startCommand.ts`, `localSettings.ts`, `listCatalog.ts`),
+      kept the same by hand - `testSharedFiles.ts` in both holds them
+      against each other. What differs is in each one's catalog: the catalog
+      says which device it is (`device`: cube or panel) and where its
+      settings are kept (`ledsquare.local.json`; a panel has no zenith).
+      The server's own names no longer say cube: `LED_SIMULATE`,
+      `LED_SETTINGS`, `LED_ALLOWED_ORIGINS`. The panel's catalog has no apps
+      yet
+- [x] 3.2 Manifests for its 19 apps, Snake included, adapted to what the
+      panel's apps take: no zenith anywhere, a colour for the clock, the
+      sliding puzzle with numbers or a picture from 2x2, the pseudo Rubik's
+      cube as an app of its own, no Rubik's cube or cube maps. Its settings
+      go by the manifests, as on the cube. `npm run testCatalog` runs the
+      same five tests there
+- [ ] 3.2b Snake on the cube needs a manifest too: it is on
+      led-hexahedron's `main`, which `app-catalog` has not got yet, so that
+      takes merging `main` into the branch first
+- [x] 3.2c The GUI calls the device what its catalog calls it: "the panel
+      does not answer", "Reboot panel". One that has not said so yet is
+      taken for the cube
 - [ ] 3.3 A list of devices and their addresses, kept in the browser,
       instead of the fixed `API_BASE_URL`
 - [ ] 3.4 A device switcher in the navbar

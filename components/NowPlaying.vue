@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { findApp } = useCatalog();
 const { status, reachable, refresh } = useCubeStatus();
+const device = useDeviceName();
 
 // Asked every few seconds, for as long as the page is looked at: an app can
 // end by itself, or be started from another phone.
@@ -27,7 +28,7 @@ const runningFor = computed(() => {
     <div class="container now-playing-row">
       <template v-if="!reachable">
         <span class="icon has-text-warning"><i class="fa-solid fa-plug-circle-xmark"></i></span>
-        <span class="now-playing-text">The cube does not answer</span>
+        <span class="now-playing-text">The {{ device }} does not answer</span>
       </template>
 
       <template v-else>

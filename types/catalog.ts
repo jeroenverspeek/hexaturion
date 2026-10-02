@@ -154,8 +154,16 @@ export interface SettingDefinition {
 export type SettingValue = string | number | string[];
 export type SettingValues = Record<string, SettingValue>;
 
+/** What the catalog is the catalog of: the cube, or the single panel. */
+export interface DeviceInfo {
+  kind: "cube" | "panel";
+  /** What to call it in a sentence: "the cube does not answer". */
+  name: string;
+}
+
 /** What the cube's server hands out at /apps. */
 export interface Catalog {
+  device: DeviceInfo;
   /** In the order they come on the home page. */
   categories: Category[];
   /** In the order they come within their category. */

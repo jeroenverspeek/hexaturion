@@ -3,9 +3,10 @@ useHead({ title: "Settings" });
 
 import type { SettingDefinition, SettingValue } from "~/types/catalog";
 
-// --- The cube's settings: which there are and what they are is the cube's to tell
+// --- The device's settings: which there are and what they are is the device's to tell
 
 const { definitions, values, load, save } = useCubeSettings();
+const device = useDeviceName();
 
 /** The settings as they stand on the page, to be saved. */
 const form = reactive<Record<string, SettingValue>>({});
@@ -74,15 +75,15 @@ const api = useAPI();
 
 type PowerAction = "reboot" | "shutdown";
 
-const powerQuestions: Record<PowerAction, string> = {
-  reboot: "Reboot the cube?",
-  shutdown: "Shut the cube down? It takes the power switch to start it again.",
-};
+const powerQuestions = computed<Record<PowerAction, string>>(() => ({
+  reboot: `Reboot the ${device.value}?`,
+  shutdown: `Shut the ${device.value} down? It takes the power switch to start it again.`,
+}));
 
 const busy = ref<PowerAction>();
 
 async function power(action: PowerAction): Promise<void> {
-  if (!window.confirm(powerQuestions[action])) return;
+  if (!window.confirm(powerQuestions.value[action])) return;
   busy.value = action;
   try {
     const response = await api[action]();
@@ -129,11 +130,11 @@ async function power(action: PowerAction): Promise<void> {
             <span>Save</span>
           </button>
         </p>
-        <p v-if="saved" class="has-text-success">Saved on the cube</p>
+        <p v-if="saved" class="has-text-success">Saved on the {{ device }}</p>
         <p v-else-if="changed" class="has-text-grey">Not saved yet</p>
       </div>
     </form>
-    <p v-else-if="loading" class="has-text-grey mb-5">Asking the cube for its settings...</p>
+    <p v-else-if="loading" class="has-text-grey mb-5">Asking the {{ device }} for its settings...</p>
 
     <section class="box">
       <h2 class="title is-5">Power</h2>
@@ -147,7 +148,7 @@ async function power(action: PowerAction): Promise<void> {
             @click="power('reboot')"
           >
             <span class="icon"><i class="fa-solid fa-rotate-right"></i></span>
-            <span>Reboot cube</span>
+            <span>Reboot {{ device }}</span>
           </button>
         </p>
         <p class="control">
@@ -159,7 +160,7 @@ async function power(action: PowerAction): Promise<void> {
             @click="power('shutdown')"
           >
             <span class="icon"><i class="fa-solid fa-power-off"></i></span>
-            <span>Shut down cube</span>
+            <span>Shut down {{ device }}</span>
           </button>
         </p>
       </div>

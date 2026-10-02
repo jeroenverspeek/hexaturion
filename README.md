@@ -82,7 +82,7 @@ The server and the apps also run on a PC, drawing to a browser instead of
 the LED panels. In led-hexahedron:
 
     npm run simulator
-    PORT=3478 LEDCUBE_SIMULATE=1 node server.js
+    PORT=3478 LED_SIMULATE=1 node server.js
 
 and here, pointing the GUI at that server:
 
