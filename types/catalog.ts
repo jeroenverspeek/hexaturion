@@ -110,6 +110,8 @@ export interface AppDefinition {
   title: string;
   /** One line, for the tile and the top of the page. */
   description: string;
+  /** The app in Dutch (catalog/dutch.ts on the device): Hexaturion shows it when Dutch is chosen. */
+  nl?: { title: string; description: string };
   /** A Font Awesome solid icon, without the fa- in front. */
   icon: string;
   /** The id of its category. */

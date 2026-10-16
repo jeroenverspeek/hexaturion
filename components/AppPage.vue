@@ -6,10 +6,10 @@ const props = defineProps<{ app: AppDefinition }>();
 // the page is made anew for another app (it is keyed by the app's id), so this one stays
 const app = props.app;
 
-useHead({ title: app.title });
 
 const { startApp: askToStart } = useAPI();
-const { t } = useLanguage();
+const { t, appText } = useLanguage();
+useHead({ title: () => appText(app).title });
 
 /** What was on this app's page the last time, kept in the browser. */
 const remembered = useLocalStorage<{ action?: string; values?: Record<string, unknown> }>(
@@ -130,8 +130,8 @@ function reset(): void {
         </span>
       </div>
       <div class="media-content">
-        <h1 class="title is-4">{{ app.title }}</h1>
-        <p class="subtitle is-6">{{ app.description }}</p>
+        <h1 class="title is-4">{{ appText(app).title }}</h1>
+        <p class="subtitle is-6">{{ appText(app).description }}</p>
       </div>
     </div>
 

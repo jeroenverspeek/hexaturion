@@ -2,6 +2,7 @@
 import type { AppDefinition } from "~/types/catalog";
 
 defineProps<{ app: AppDefinition }>();
+const { appText } = useLanguage();
 </script>
 
 <template>
@@ -9,8 +10,8 @@ defineProps<{ app: AppDefinition }>();
     <span class="icon is-large has-text-primary">
       <i class="fa-solid fa-2x" :class="`fa-${app.icon}`"></i>
     </span>
-    <span class="app-tile-title">{{ app.title }}</span>
-    <span class="app-tile-description">{{ app.description }}</span>
+    <span class="app-tile-title">{{ appText(app).title }}</span>
+    <span class="app-tile-description">{{ appText(app).description }}</span>
   </NuxtLink>
 </template>
 

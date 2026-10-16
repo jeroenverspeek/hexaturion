@@ -1,7 +1,13 @@
 <script setup lang="ts">
 const { findApp } = useCatalog();
 const { status, reachable, refresh } = useCubeStatus();
-const { t } = useLanguage();
+const { t, appText } = useLanguage();
+
+/** What an app is called in the language spoken: as the device said it, for one this GUI does not know yet. */
+const titleOf = (one: { app: string; title: string }): string => {
+  const known = findApp(one.app);
+  return known ? appText(known).title : one.title;
+};
 
 // Asked every few seconds, for as long as the page is looked at: an app can
 // end by itself, or be started from another phone.
@@ -35,14 +41,14 @@ const runningFor = computed(() => {
         <template v-if="running">
           <span :key="icon" class="icon has-text-primary"><i class="fa-solid" :class="`fa-${icon}`"></i></span>
           <span class="now-playing-text">
-            <NuxtLink :to="{ path: '/app', query: { id: running.app } }" class="has-text-weight-bold">{{ running.title }}</NuxtLink>
+            <NuxtLink :to="{ path: '/app', query: { id: running.app } }" class="has-text-weight-bold">{{ titleOf(running) }}</NuxtLink>
             <span class="now-playing-aside now-playing-time">{{ runningFor }}</span>
           </span>
         </template>
         <template v-else-if="failed">
           <span class="icon has-text-warning"><i class="fa-solid fa-triangle-exclamation"></i></span>
           <span class="now-playing-text">
-            <NuxtLink :to="{ path: '/app', query: { id: failed.app } }" class="has-text-weight-bold">{{ failed.title }}</NuxtLink>
+            <NuxtLink :to="{ path: '/app', query: { id: failed.app } }" class="has-text-weight-bold">{{ titleOf(failed) }}</NuxtLink>
             {{ t("playing.failed") }}
           </span>
         </template>

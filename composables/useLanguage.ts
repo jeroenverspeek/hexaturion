@@ -1,3 +1,4 @@
+import type { AppDefinition } from "~/types/catalog";
 import { dutch, dutchArticle, english, languages, type Language, type TextKey } from "~/utils/texts";
 
 const languageKey = "hexaturion.language";
@@ -51,5 +52,9 @@ export const useLanguage = () => {
     return text.replace(/\{(\w+)\}/g, (whole, name: string) => (name in all ? String(all[name]) : whole));
   };
 
-  return { language, choose, t };
+  /** An app's title and description in the language spoken: its Dutch, where the device gives it one. */
+  const appText = (app: AppDefinition): { title: string; description: string } =>
+    language.value === "nl" && app.nl ? app.nl : { title: app.title, description: app.description };
+
+  return { language, choose, t, appText };
 };
