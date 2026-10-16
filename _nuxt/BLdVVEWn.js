@@ -1,1 +1,0 @@
-import{g as n,c as a,r as c}from"./DJc-A7c7.js";const b=()=>{const{refresh:e}=n(),o=async(s,r)=>{try{return await a(s,{method:"POST",body:r})}catch(t){throw console.error(t),alert(c(t)),t}finally{e()}};return{startApp:(s,r,t)=>o("/start",{app:s,action:r,params:t}),stop:()=>o("/stop"),reboot:()=>o("/reboot"),shutdown:()=>o("/shutdown")}};export{b as u};
