@@ -172,4 +172,6 @@ export interface Catalog {
   apps: AppDefinition[];
   /** What can be set once for the cube. */
   settings: SettingDefinition[];
+  /** The Dutch of the texts of the apps' options and buttons and of the settings, by their English. */
+  nl?: Record<string, string>;
 }

@@ -56,5 +56,11 @@ export const useLanguage = () => {
   const appText = (app: AppDefinition): { title: string; description: string } =>
     language.value === "nl" && app.nl ? app.nl : { title: app.title, description: app.description };
 
-  return { language, choose, t, appText };
+  /** A text the device gave - an option, a choice, a button, a setting - in the language spoken: its Dutch, where the device gives that. */
+  const dt = <T extends string | undefined>(text: T): T => {
+    if (language.value !== "nl" || !text) return text;
+    return (useCatalog().catalog.value?.nl?.[text] ?? text) as T;
+  };
+
+  return { language, choose, t, appText, dt };
 };

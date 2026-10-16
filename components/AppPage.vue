@@ -8,7 +8,7 @@ const app = props.app;
 
 
 const { startApp: askToStart } = useAPI();
-const { t, appText } = useLanguage();
+const { t, appText, dt } = useLanguage();
 useHead({ title: () => appText(app).title });
 
 /** What was on this app's page the last time, kept in the browser. */
@@ -138,7 +138,7 @@ function reset(): void {
     <div v-if="app.actions.length > 1" class="tabs is-toggle is-small">
       <ul>
         <li v-for="one in app.actions" :key="one.id" :class="{ 'is-active': one.id === actionId }">
-          <a @click="actionId = one.id">{{ one.label }}</a>
+          <a @click="actionId = one.id">{{ dt(one.label) }}</a>
         </li>
       </ul>
     </div>
@@ -182,7 +182,7 @@ function reset(): void {
             :disabled="!canStart"
           >
             <span class="icon"><i class="fa-solid fa-play"></i></span>
-            <span>{{ action.label }}</span>
+            <span>{{ dt(action.label) }}</span>
           </button>
         </p>
         <p class="control">

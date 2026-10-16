@@ -8,6 +8,7 @@ const props = defineProps<{
 }>();
 
 const model = defineModel<ParamValue>({ required: true });
+const { dt } = useLanguage();
 
 /** The choices under their group headings, those without a group first. */
 const groups = computed(() => {
@@ -37,25 +38,25 @@ function toggle(value: string): void {
     <template v-if="param.type === 'boolean'">
       <label class="checkbox">
         <input v-model="model" type="checkbox" />
-        {{ param.label }}
+        {{ dt(param.label) }}
       </label>
     </template>
 
     <template v-else>
-      <label class="label" :for="`param-${param.id}`">{{ param.label }}</label>
+      <label class="label" :for="`param-${param.id}`">{{ dt(param.label) }}</label>
 
       <div v-if="param.type === 'select'" class="control">
         <div class="select">
           <select :id="`param-${param.id}`" v-model="model">
             <template v-for="group in groups" :key="group.name">
-              <optgroup v-if="group.name" :label="group.name">
+              <optgroup v-if="group.name" :label="dt(group.name)">
                 <option v-for="choice in group.choices" :key="choice.value" :value="choice.value">
-                  {{ choice.label ?? choice.value }}
+                  {{ dt(choice.label) ?? choice.value }}
                 </option>
               </optgroup>
               <template v-else>
                 <option v-for="choice in group.choices" :key="choice.value" :value="choice.value">
-                  {{ choice.label ?? choice.value }}
+                  {{ dt(choice.label) ?? choice.value }}
                 </option>
               </template>
             </template>
@@ -73,7 +74,7 @@ function toggle(value: string): void {
           :aria-pressed="picked.includes(String(choice.value))"
           @click="toggle(String(choice.value))"
         >
-          {{ choice.label ?? choice.value }}
+          {{ dt(choice.label) ?? choice.value }}
         </button>
       </div>
 
@@ -88,11 +89,11 @@ function toggle(value: string): void {
             :min="param.min"
             :max="param.max"
             :step="param.step"
-            :placeholder="param.placeholder"
+            :placeholder="dt(param.placeholder)"
           />
         </div>
         <div v-if="param.unit" class="control">
-          <span class="button is-static">{{ param.unit }}</span>
+          <span class="button is-static">{{ dt(param.unit) }}</span>
         </div>
       </div>
 
@@ -103,12 +104,12 @@ function toggle(value: string): void {
           class="input"
           type="text"
           :maxlength="param.maxLength"
-          :placeholder="param.placeholder"
+          :placeholder="dt(param.placeholder)"
         />
       </div>
     </template>
 
-    <p v-if="param.help" class="help">{{ param.help }}</p>
+    <p v-if="param.help" class="help">{{ dt(param.help) }}</p>
   </div>
 </template>
 

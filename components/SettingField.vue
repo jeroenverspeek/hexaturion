@@ -4,7 +4,7 @@ import type { ParamDefinition, ParamValue, SettingDefinition, SettingValue } fro
 const props = defineProps<{ setting: SettingDefinition }>();
 
 const model = defineModel<SettingValue>({ required: true });
-const { t } = useLanguage();
+const { t, dt } = useLanguage();
 
 /** A choice or a text is shown as a parameter of an app is. */
 const asParam = computed<ParamDefinition>(() => ({
@@ -36,7 +36,7 @@ function add(): void {
   const one = adding.value.trim();
   if (one === "") return;
   if (props.setting.pattern !== undefined && !new RegExp(props.setting.pattern).test(one)) {
-    refusal.value = t("setting.not", { what: props.setting.patternHelp ?? t("setting.notAddable") });
+    refusal.value = t("setting.not", { what: dt(props.setting.patternHelp) ?? t("setting.notAddable") });
     return;
   }
   if (list.value.includes(one)) {
@@ -57,7 +57,7 @@ function remove(one: string): void {
   <AppParamField v-if="setting.type !== 'list'" v-model="single" :param="asParam" :choices="setting.choices ?? []" />
 
   <div v-else class="field">
-    <label class="label" :for="`setting-${setting.id}`">{{ setting.label }}</label>
+    <label class="label" :for="`setting-${setting.id}`">{{ dt(setting.label) }}</label>
 
     <div class="tags">
       <span v-for="one in list" :key="one" class="tag is-medium">
@@ -78,7 +78,7 @@ function remove(one: string): void {
           autocapitalize="characters"
           autocomplete="off"
           :maxlength="setting.maxLength"
-          :placeholder="setting.placeholder"
+          :placeholder="dt(setting.placeholder)"
           :disabled="full"
           @input="refusal = ''"
           @keydown.enter.prevent="add"
@@ -91,6 +91,6 @@ function remove(one: string): void {
 
     <p v-if="refusal" class="help is-danger">{{ refusal }}</p>
     <p v-else-if="full" class="help">{{ t("setting.full", { max: setting.maxItems ?? "" }) }}</p>
-    <p v-else-if="setting.help" class="help">{{ setting.help }}</p>
+    <p v-else-if="setting.help" class="help">{{ dt(setting.help) }}</p>
   </div>
 </template>

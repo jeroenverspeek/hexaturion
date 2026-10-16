@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { t } = useLanguage();
+const { t, dt } = useLanguage();
 useHead({ title: () => t("settings.title") });
 
 import type { SettingDefinition, SettingValue } from "~/types/catalog";
@@ -119,7 +119,7 @@ async function power(action: PowerAction): Promise<void> {
 
     <form v-if="groups.length > 0" @submit.prevent="saveSettings">
       <section v-for="group in groups" :key="group.title" class="box">
-        <h2 class="title is-5">{{ group.title }}</h2>
+        <h2 class="title is-5">{{ dt(group.title) }}</h2>
         <div v-for="setting in group.settings" :key="setting.id" class="setting">
           <SettingField v-model="form[setting.id]!" :setting="setting" />
           <button
