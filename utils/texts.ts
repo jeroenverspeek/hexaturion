@@ -185,5 +185,19 @@ export const dutch: Record<TextKey, string> = {
   "gallery.close": "Video sluiten",
 };
 
+/**
+ The headings of the apps' categories in Dutch, by the category's id: the
+ cube and the panel give them in English. One that is not here keeps the
+ device's own heading.
+*/
+export const dutchCategories: Record<string, string> = {
+  info: "Klok en nieuws",
+  puzzles: "Puzzels en spellen",
+  worlds: "Werelden",
+  effects: "Effecten",
+  media: "Foto's en video",
+  demo: "Demo",
+};
+
 /** The Dutch article of the devices the site knows: "de kubus", "het paneel". */
 export const dutchArticle: Record<string, string> = { kubus: "de", paneel: "het" };

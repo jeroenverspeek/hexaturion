@@ -1,6 +1,12 @@
 <script setup lang="ts">
+import { dutchCategories } from "~/utils/texts";
+
 const { catalog } = useCatalog();
-const { t } = useLanguage();
+const { language, t } = useLanguage();
+
+/** A category's heading in the language spoken: the device's own in English. */
+const titleOf = (category: { id: string; title: string }): string =>
+  (language.value === "nl" && dutchCategories[category.id]) || category.title;
 
 const shelves = computed(() =>
   (catalog.value?.categories ?? [])
@@ -19,7 +25,7 @@ const shelves = computed(() =>
     <CatalogMissing v-if="!catalog" />
 
     <section v-for="shelf in shelves" :key="shelf.id" class="shelf">
-      <h2 class="subtitle is-6 has-text-weight-semibold">{{ shelf.title }}</h2>
+      <h2 class="subtitle is-6 has-text-weight-semibold">{{ titleOf(shelf) }}</h2>
       <div class="app-grid">
         <AppTile v-for="app in shelf.apps" :key="app.id" :app="app" />
       </div>
