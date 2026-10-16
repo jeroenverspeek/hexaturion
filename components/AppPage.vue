@@ -9,6 +9,7 @@ const app = props.app;
 useHead({ title: app.title });
 
 const { startApp: askToStart } = useAPI();
+const { t } = useLanguage();
 
 /** What was on this app's page the last time, kept in the browser. */
 const remembered = useLocalStorage<{ action?: string; values?: Record<string, unknown> }>(
@@ -118,7 +119,7 @@ function reset(): void {
     <p class="mb-4">
       <NuxtLink to="/">
         <span class="icon is-small"><i class="fa-solid fa-chevron-left"></i></span>
-        All apps
+        {{ t("apps.all") }}
       </NuxtLink>
     </p>
 
@@ -156,7 +157,7 @@ function reset(): void {
       </figure>
 
       <details class="advanced" @toggle="advancedOpen = ($event.target as HTMLDetailsElement).open">
-        <summary>Advanced</summary>
+        <summary>{{ t("app.advanced") }}</summary>
         <AppParamField
           v-for="param in advancedParams"
           :key="param.id"
@@ -165,11 +166,11 @@ function reset(): void {
           :choices="choicesFor(param, values, cubeSettings)"
         />
         <div class="field">
-          <label class="label">Command</label>
+          <label class="label">{{ t("app.command") }}</label>
           <pre v-if="command" class="command">{{ command }}</pre>
           <p v-else-if="commandRefused" class="help is-danger">{{ commandRefused }}</p>
         </div>
-        <button type="button" class="button is-small" @click="reset">Back to the defaults</button>
+        <button type="button" class="button is-small" @click="reset">{{ t("app.defaults") }}</button>
       </details>
 
       <div class="field is-grouped mt-5">

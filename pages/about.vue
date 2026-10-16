@@ -1,28 +1,29 @@
 <script setup lang="ts">
 const { version } = useConfig();
+const { t } = useLanguage();
 </script>
 
 <template>
   <div class="container">
-    <h1 class="title">About Hexaturion</h1>
-    <h2 class="subtitle">version {{ version }}</h2>
+    <h1 class="title">{{ t("about.title") }}</h1>
+    <h2 class="subtitle">{{ t("about.version", { version }) }}</h2>
 
-    <h3 class="title is-4">Commander of the six faces</h3>
+    <h3 class="title is-4">{{ t("about.motto") }}</h3>
 
     <figure>
       <img
         src="/gallery/cube_rubikscube_pattern.jpg"
-        alt="Hexaturion cube"
+        :alt="t('about.picture')"
         width="300"
         height="300"
       />
     </figure>
 
     <div class="content">
-      <p>A Verspeek production</p>
-      <p>Contact: hexaturion@gmail.com</p>
+      <p>{{ t("about.production") }}</p>
+      <p>{{ t("about.contact", { address: "hexaturion@gmail.com" }) }}</p>
       <p>
-        <NuxtLink to="/">Back to Home page</NuxtLink>
+        <NuxtLink to="/">{{ t("about.back") }}</NuxtLink>
       </p>
     </div>
   </div>

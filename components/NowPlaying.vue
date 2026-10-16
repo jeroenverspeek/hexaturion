@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { findApp } = useCatalog();
 const { status, reachable, refresh } = useCubeStatus();
-const device = useDeviceName();
+const { t } = useLanguage();
 
 // Asked every few seconds, for as long as the page is looked at: an app can
 // end by itself, or be started from another phone.
@@ -17,9 +17,9 @@ const icon = computed(() => (running.value && findApp(running.value.app)?.icon) 
 
 const runningFor = computed(() => {
   const minutes = Math.floor((running.value?.runningFor ?? 0) / 60);
-  if (minutes < 1) return "just started";
-  if (minutes < 60) return `for ${minutes} min`;
-  return `for ${Math.floor(minutes / 60)} h ${minutes % 60} min`;
+  if (minutes < 1) return t("playing.justStarted");
+  if (minutes < 60) return t("playing.minutes", { minutes });
+  return t("playing.hours", { hours: Math.floor(minutes / 60), minutes: minutes % 60 });
 });
 </script>
 
@@ -28,7 +28,7 @@ const runningFor = computed(() => {
     <div class="container now-playing-row">
       <template v-if="!reachable">
         <span class="icon has-text-warning"><i class="fa-solid fa-plug-circle-xmark"></i></span>
-        <span class="now-playing-text">The {{ device }} does not answer</span>
+        <span class="now-playing-text">{{ t("playing.noAnswer") }}</span>
       </template>
 
       <template v-else>
@@ -43,10 +43,10 @@ const runningFor = computed(() => {
           <span class="icon has-text-warning"><i class="fa-solid fa-triangle-exclamation"></i></span>
           <span class="now-playing-text">
             <NuxtLink :to="{ path: '/app', query: { id: failed.app } }" class="has-text-weight-bold">{{ failed.title }}</NuxtLink>
-            stopped with an error
+            {{ t("playing.failed") }}
           </span>
         </template>
-        <span v-else class="now-playing-text now-playing-aside">Nothing is running</span>
+        <span v-else class="now-playing-text now-playing-aside">{{ t("playing.nothing") }}</span>
 
         <StopButton small />
       </template>

@@ -2,6 +2,7 @@
 defineProps<{ small?: boolean }>();
 
 const { stop } = useAPI();
+const { t } = useLanguage();
 const stopping = ref(false);
 
 async function stopApp(): Promise<void> {
@@ -24,6 +25,6 @@ async function stopApp(): Promise<void> {
     @click="stopApp"
   >
     <span class="icon"><i class="fa-solid fa-stop"></i></span>
-    <span>Stop</span>
+    <span>{{ t("stop") }}</span>
   </button>
 </template>

@@ -15,6 +15,10 @@
 // the catalog of now, for every page: until it is there the pages go by the one kept from the last time
 const { load } = useCatalog();
 onMounted(load);
+
+// the page in the language spoken, for the browser and screen readers
+const { language } = useLanguage();
+useHead({ htmlAttrs: { lang: language } });
 </script>
 
 <style lang="scss">

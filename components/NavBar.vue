@@ -8,10 +8,11 @@
       <div class="navbar-brand">
         <nuxt-link class="navbar-item" to="/">
           <img src="~assets/img/logo.svg" />
-          <b class="title is-6 has-text-primary ml-2">HEXATURION</b>
+          <b class="title is-6 has-text-primary ml-2 brand-name">HEXATURION</b>
         </nuxt-link>
 
         <DeviceSwitcher />
+        <LanguageSwitcher />
 
         <a
           role="button"
@@ -39,7 +40,7 @@
             exact-active-class="is-active"
             @click="showMenu = false"
           >
-            Home
+            {{ t("nav.home") }}
           </nuxt-link>
 
           <nuxt-link
@@ -48,7 +49,7 @@
             exact-active-class="is-active"
             @click="showMenu = false"
           >
-            Gallery
+            {{ t("nav.gallery") }}
           </nuxt-link>
 
           <nuxt-link
@@ -57,7 +58,7 @@
             exact-active-class="is-active"
             @click="showMenu = false"
           >
-            Settings
+            {{ t("nav.settings") }}
           </nuxt-link>
 
           <nuxt-link
@@ -66,7 +67,7 @@
             exact-active-class="is-active"
             @click="showMenu = false"
           >
-            About
+            {{ t("nav.about") }}
           </nuxt-link>
         </div>
 
@@ -88,11 +89,19 @@
 
 <script lang="ts" setup>
 const showMenu = ref(false);
+const { t } = useLanguage();
 </script>
 
 <style scoped>
-/* the switcher takes the room between the name and the menu button, and sits next to the button */
-:deep(.device-switcher) + .navbar-burger {
+/* on a phone the logo alone: the device and language switchers need the room, the menu button too */
+@media (max-width: 480px) {
+  .brand-name {
+    display: none;
+  }
+}
+
+/* the switchers take the room between the name and the menu button, and sit next to the button */
+:deep(.language-switcher) + .navbar-burger {
   margin-left: 0;
 }
 </style>

@@ -4,6 +4,7 @@ import type { ParamDefinition, ParamValue, SettingDefinition, SettingValue } fro
 const props = defineProps<{ setting: SettingDefinition }>();
 
 const model = defineModel<SettingValue>({ required: true });
+const { t } = useLanguage();
 
 /** A choice or a text is shown as a parameter of an app is. */
 const asParam = computed<ParamDefinition>(() => ({
@@ -35,11 +36,11 @@ function add(): void {
   const one = adding.value.trim();
   if (one === "") return;
   if (props.setting.pattern !== undefined && !new RegExp(props.setting.pattern).test(one)) {
-    refusal.value = `Not ${props.setting.patternHelp ?? "one that can be added"}`;
+    refusal.value = t("setting.not", { what: props.setting.patternHelp ?? t("setting.notAddable") });
     return;
   }
   if (list.value.includes(one)) {
-    refusal.value = `${one} is in the list already`;
+    refusal.value = t("setting.twice", { name: one });
     return;
   }
   model.value = [...list.value, one];
@@ -61,9 +62,9 @@ function remove(one: string): void {
     <div class="tags">
       <span v-for="one in list" :key="one" class="tag is-medium">
         {{ one }}
-        <button type="button" class="delete is-small" :aria-label="`Remove ${one}`" @click="remove(one)"></button>
+        <button type="button" class="delete is-small" :aria-label="t('setting.remove', { name: one })" @click="remove(one)"></button>
       </span>
-      <span v-if="list.length === 0" class="has-text-grey">None</span>
+      <span v-if="list.length === 0" class="has-text-grey">{{ t("setting.none") }}</span>
     </div>
 
     <div class="field has-addons">
@@ -84,12 +85,12 @@ function remove(one: string): void {
         />
       </div>
       <div class="control">
-        <button type="button" class="button" :disabled="full || adding.trim() === ''" @click="add">Add</button>
+        <button type="button" class="button" :disabled="full || adding.trim() === ''" @click="add">{{ t("setting.add") }}</button>
       </div>
     </div>
 
     <p v-if="refusal" class="help is-danger">{{ refusal }}</p>
-    <p v-else-if="full" class="help">That is as many as there can be: {{ setting.maxItems }}.</p>
+    <p v-else-if="full" class="help">{{ t("setting.full", { max: setting.maxItems ?? "" }) }}</p>
     <p v-else-if="setting.help" class="help">{{ setting.help }}</p>
   </div>
 </template>

@@ -1,8 +1,8 @@
 <template>
   <section class="gallery">
     <header class="gallery-header">
-      <h1 class="title">Hexaturion Video Gallery</h1>
-      <p class="subtitle">Watch the animations of the LED Hexahedron.</p>
+      <h1 class="title">{{ t("gallery.title") }}</h1>
+      <p class="subtitle">{{ t("gallery.subtitle") }}</p>
     </header>
 
     <div class="columns is-multiline">
@@ -16,7 +16,7 @@
             <div class="play-button">▶</div>
 
             <h3 class="title is-5">
-              {{ video.title }}
+              {{ titleOf(video) }}
             </h3>
 
             <p class="has-text-grey">
@@ -32,7 +32,7 @@
       <div class="video-modal">
         <button
           class="close-button"
-          aria-label="Close video"
+          :aria-label="t('gallery.close')"
           @click="closeVideo"
         >
           ×
@@ -49,7 +49,7 @@
 
         <div class="video-modal-info">
           <h2 class="title is-4">
-            {{ selectedVideo.title }}
+            {{ titleOf(selectedVideo) }}
           </h2>
 
           <p class="has-text-grey">
@@ -66,6 +66,8 @@ import { ref } from "vue";
 
 interface Video {
   title: string;
+  /** The title in Dutch. */
+  dutchTitle: string;
   id: string;
   size: string;
 }
@@ -73,70 +75,86 @@ interface Video {
 const videos: Video[] = [
   {
     title: "Celestial Bodies: Jupiter",
+    dutchTitle: "Hemellichamen: Jupiter",
     id: "12jZdjlQLvf5jy5DRpLzWe_hIguLuOZcw",
     size: "58 MB",
   },
   {
     title: "Cubemap: Forbidden City",
+    dutchTitle: "Kubuskaart: de Verboden Stad",
     id: "1OJdT4Tdh1CGSh54Fl66vdq2O4f1pnRZl",
     size: "43.1 MB",
   },
   {
     title: "Digital Clock (Realtime World)",
+    dutchTitle: "Digitale klok (de wereld van nu)",
     id: "1_O_8C5F1btuvEDW8TS-zIzGOtIvqxC24",
     size: "61.4 MB",
   },
   {
     title: "Emojis",
+    dutchTitle: "Emoji's",
     id: "1YRq2j5NtgXcjn-hwmXBmBvkKw6T_mcx6",
     size: "12.5 MB",
   },
   {
     title: "Fireworks",
+    dutchTitle: "Vuurwerk",
     id: "1cWmhQfFZwhXBh3axkupWuLeHqN0lHEiQ",
     size: "83.4 MB",
   },
   {
     title: "Hello",
+    dutchTitle: "Hallo",
     id: "1BaKKe_RiCXiJIzAi2rqiF3kARFj-kjnc",
     size: "335.8 MB",
   },
   {
     title: "Rotating Globe",
+    dutchTitle: "Draaiende wereldbol",
     id: "1e2XqlYYaasvL5V_xy5Emhh1jwqWfL7e6",
     size: "128 MB",
   },
   {
     title: "Rubik's Cube 4x4",
+    dutchTitle: "Rubik's kubus 4x4",
     id: "1pGpAPtWd0DFBK_1RkMpqSzsyiPCe02pL",
     size: "181.3 MB",
   },
   {
     title: "Rubik's Cube 8x8",
+    dutchTitle: "Rubik's kubus 8x8",
     id: "1b5_qe9qlMvDLGwXk9Xsuyw-8PD3UZv8s",
     size: "515 MB",
   },
   {
     title: "Rubik's Sliding Puzzle",
+    dutchTitle: "Rubik's schuifpuzzel",
     id: "1h2zFDap3Dl9OdIpaJQjzZ3eV8Fcbd3EL",
     size: "459.5 MB",
   },
   {
     title: "Stock Market Quotes",
+    dutchTitle: "Beurskoersen",
     id: "1RlnMkBNmHkizXOPRebCXZdqZIzbf_FSc",
     size: "188.1 MB",
   },
   {
     title: "Trippy Video 2",
+    dutchTitle: "Trippy video 2",
     id: "1o8e3U2VorGj_rH5TcOahowjOY_kfk2TG",
     size: "38.7 MB",
   },
   {
     title: "Word Clock (Dutch)",
+    dutchTitle: "Woordklok (Nederlands)",
     id: "1Oc7L3mlL9v5JRDXOYo9tGFsfs2mw-OfU",
     size: "64.3 MB",
   },
 ];
+
+const { language, t } = useLanguage();
+const titleOf = (video: Video): string => (language.value === "nl" ? video.dutchTitle : video.title);
 
 const selectedVideo = ref<Video | null>(null);
 

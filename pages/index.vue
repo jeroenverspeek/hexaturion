@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { catalog } = useCatalog();
+const { t } = useLanguage();
 
 const shelves = computed(() =>
   (catalog.value?.categories ?? [])
@@ -13,7 +14,7 @@ const shelves = computed(() =>
 
 <template>
   <div>
-    <h1 class="title is-4">Apps</h1>
+    <h1 class="title is-4">{{ t("apps.title") }}</h1>
 
     <CatalogMissing v-if="!catalog" />
 

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-useHead({ title: "Settings" });
+const { t } = useLanguage();
+useHead({ title: () => t("settings.title") });
 
 import type { SettingDefinition, SettingValue } from "~/types/catalog";
 
 // --- The device's settings: which there are and what they are is the device's to tell
 
 const { definitions, values, load, save } = useCubeSettings();
-const device = useDeviceName();
 const { active } = useDevices();
 
 /** The settings as they stand on the page, to be saved. */
@@ -86,8 +86,8 @@ const api = useAPI();
 type PowerAction = "reboot" | "shutdown";
 
 const powerQuestions = computed<Record<PowerAction, string>>(() => ({
-  reboot: `Reboot the ${device.value}?`,
-  shutdown: `Shut the ${device.value} down? It takes the power switch to start it again.`,
+  reboot: t("settings.rebootQuestion"),
+  shutdown: t("settings.shutdownQuestion"),
 }));
 
 const busy = ref<PowerAction>();
@@ -108,12 +108,12 @@ async function power(action: PowerAction): Promise<void> {
 
 <template>
   <div class="settings-page">
-    <h1 class="title is-4">Settings of the {{ device }}</h1>
+    <h1 class="title is-4">{{ t("settings.of") }}</h1>
 
     <div v-if="problem" class="notification is-danger is-light">
       {{ problem }}
       <button v-if="!definitions" type="button" class="button is-small ml-2" :class="{ 'is-loading': loading }" @click="fetchSettings">
-        Try again
+        {{ t("apps.tryAgain") }}
       </button>
     </div>
 
@@ -128,7 +128,7 @@ async function power(action: PowerAction): Promise<void> {
             class="button is-ghost is-small back-to-default"
             @click="form[setting.id] = copy(setting.default)"
           >
-            Back to the default
+            {{ t("settings.default") }}
           </button>
         </div>
       </section>
@@ -137,22 +137,22 @@ async function power(action: PowerAction): Promise<void> {
         <p class="control">
           <button type="submit" class="button is-primary" :class="{ 'is-loading': saving }" :disabled="!changed">
             <span class="icon"><i class="fa-solid fa-floppy-disk"></i></span>
-            <span>Save</span>
+            <span>{{ t("settings.save") }}</span>
           </button>
         </p>
-        <p v-if="saved" class="has-text-success">Saved on the {{ device }}</p>
-        <p v-else-if="changed" class="has-text-grey">Not saved yet</p>
+        <p v-if="saved" class="has-text-success">{{ t("settings.saved") }}</p>
+        <p v-else-if="changed" class="has-text-grey">{{ t("settings.notSaved") }}</p>
       </div>
     </form>
-    <p v-else-if="loading" class="has-text-grey mb-5">Asking the {{ device }} for its settings...</p>
+    <p v-else-if="loading" class="has-text-grey mb-5">{{ t("settings.asking") }}</p>
 
     <section class="box">
-      <h2 class="title is-5">Devices</h2>
+      <h2 class="title is-5">{{ t("settings.devices") }}</h2>
       <DeviceList />
     </section>
 
     <section class="box">
-      <h2 class="title is-5">Power</h2>
+      <h2 class="title is-5">{{ t("settings.power") }}</h2>
       <div class="field is-grouped">
         <p class="control">
           <button
@@ -163,7 +163,7 @@ async function power(action: PowerAction): Promise<void> {
             @click="power('reboot')"
           >
             <span class="icon"><i class="fa-solid fa-rotate-right"></i></span>
-            <span>Reboot {{ device }}</span>
+            <span>{{ t("settings.reboot") }}</span>
           </button>
         </p>
         <p class="control">
@@ -175,7 +175,7 @@ async function power(action: PowerAction): Promise<void> {
             @click="power('shutdown')"
           >
             <span class="icon"><i class="fa-solid fa-power-off"></i></span>
-            <span>Shut down {{ device }}</span>
+            <span>{{ t("settings.shutdown") }}</span>
           </button>
         </p>
       </div>
