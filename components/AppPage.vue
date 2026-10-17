@@ -190,6 +190,8 @@ function reset(): void {
         </p>
       </div>
     </form>
+
+    <SolveStats :app="app" :action="action" :values="values" />
   </div>
 </template>
 

@@ -38,6 +38,13 @@ export const english = {
   "app.command": "Command",
   "app.defaults": "Back to the defaults",
 
+  "stats.title": "Solve statistics",
+  "stats.solves": "Solves",
+  "stats.solved": "Solved",
+  "stats.moves": "Moves",
+  "stats.time": "Time",
+  "stats.note": "Of the last {window} solves of each: how many succeeded, and the moves and the time on average of those that did. The time is the solver's thinking, not the moves shown afterwards.",
+
   "playing.noAnswer": "{TheDevice} does not answer",
   "playing.justStarted": "just started",
   "playing.minutes": "for {minutes} min",
@@ -125,6 +132,13 @@ export const dutch: Record<TextKey, string> = {
   "app.advanced": "Geavanceerd",
   "app.command": "Opdracht",
   "app.defaults": "Terug naar de standaardwaarden",
+
+  "stats.title": "Oplosstatistieken",
+  "stats.solves": "Keer",
+  "stats.solved": "Opgelost",
+  "stats.moves": "Zetten",
+  "stats.time": "Tijd",
+  "stats.note": "Van de laatste {window} keer van elk: hoe vaak het lukte, en de zetten en de tijd gemiddeld van de keren dat het lukte. De tijd is het denkwerk van de oplosser, niet het tonen van de zetten daarna.",
 
   "playing.noAnswer": "{TheDevice} antwoordt niet",
   "playing.justStarted": "net gestart",
