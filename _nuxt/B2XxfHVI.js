@@ -1,1 +1,0 @@
-import{b as a,a as n,r as c}from"./5FxB4YSs.js";const w=()=>{const{refresh:e}=a(),o=async(s,r)=>{try{return await n(s,{method:"POST",body:r})}catch(t){throw console.error(t),alert(c(t)),t}finally{e()}};return{startApp:(s,r,t)=>o("/start",{app:s,action:r,params:t}),stop:()=>o("/stop"),reboot:()=>o("/reboot"),shutdown:()=>o("/shutdown")}};export{w as u};
