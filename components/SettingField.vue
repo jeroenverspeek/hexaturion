@@ -51,6 +51,49 @@ function add(): void {
 function remove(one: string): void {
   model.value = list.value.filter((other) => other !== one);
 }
+
+// --- ready lists to add at once, where the device has them (the setting's `lists`)
+
+interface ReadyList {
+  id: string;
+  label: string;
+  nl?: string;
+}
+const { language } = useLanguage();
+const readyLists = ref<ReadyList[]>([]);
+const picked = ref("");
+/** What came of adding a list: how many were added, or why none could be. */
+const listNote = ref("");
+const fetching = ref(false);
+
+onMounted(async () => {
+  if (!props.setting.lists) return;
+  try {
+    readyLists.value = (await useCustomFetch<ReadyList[]>(props.setting.lists, { timeout: 4000 })).data;
+  } catch {
+    // an older device has none: the field is as it was
+  }
+});
+
+/** The symbols of the list picked, those that are not in the list yet, as long as there is room. */
+async function addList(): Promise<void> {
+  const id = picked.value;
+  if (!id || !props.setting.lists) return;
+  fetching.value = true;
+  listNote.value = "";
+  try {
+    const { data } = await useCustomFetch<{ symbols: string[]; source: string }>(`${props.setting.lists}/${id}`, { timeout: 30000 });
+    const room = props.setting.maxItems === undefined ? Infinity : props.setting.maxItems - list.value.length;
+    const adding = data.symbols.filter((one) => !list.value.includes(one)).slice(0, Math.max(0, room));
+    model.value = [...list.value, ...adding];
+    listNote.value = t("setting.added", { count: adding.length, source: data.source });
+  } catch (e) {
+    listNote.value = reasonOf(e);
+  } finally {
+    fetching.value = false;
+    picked.value = "";
+  }
+}
 </script>
 
 <template>
@@ -88,6 +131,21 @@ function remove(one: string): void {
         <button type="button" class="button" :disabled="full || adding.trim() === ''" @click="add">{{ t("setting.add") }}</button>
       </div>
     </div>
+
+    <div v-if="readyLists.length" class="field is-grouped">
+      <div class="control">
+        <div class="select" :class="{ 'is-loading': fetching }">
+          <select v-model="picked" :disabled="full || fetching" @change="addList">
+            <option value="">{{ fetching ? t("setting.fetching") : t("setting.addList") }}</option>
+            <option v-for="one in readyLists" :key="one.id" :value="one.id">{{ language === "nl" && one.nl ? one.nl : one.label }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="control">
+        <button type="button" class="button" :disabled="list.length === 0" @click="model = []">{{ t("setting.clear") }}</button>
+      </div>
+    </div>
+    <p v-if="listNote" class="help">{{ listNote }}</p>
 
     <p v-if="refusal" class="help is-danger">{{ refusal }}</p>
     <p v-else-if="full" class="help">{{ t("setting.full", { max: setting.maxItems ?? "" }) }}</p>

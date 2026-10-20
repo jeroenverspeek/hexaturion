@@ -151,6 +151,12 @@ export interface SettingDefinition {
   patternHelp?: string;
   /** list: how many there may be. */
   maxItems?: number;
+  /**
+   list: where the device's server has ready lists to add from, such as the
+   stock market's /tickerLists: the path gives [{ id, label, nl }], and the
+   path with /id after it { symbols, source } for one of them.
+  */
+  lists?: string;
 }
 
 export type SettingValue = string | number | string[];

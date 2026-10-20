@@ -73,6 +73,10 @@ export const english = {
   "setting.not": "Not {what}",
   "setting.notAddable": "one that can be added",
   "setting.twice": "{name} is in the list already",
+  "setting.addList": "Add a ready list...",
+  "setting.fetching": "Fetching the list...",
+  "setting.added": "{count} added, from {source}",
+  "setting.clear": "Empty the list",
 
   "devices.needsName": "A device needs a name.",
   "devices.needsAddress": "{name} needs an address, such as 192.168.1.136",
@@ -168,6 +172,10 @@ export const dutch: Record<TextKey, string> = {
   "setting.not": "Niet {what}",
   "setting.notAddable": "iets dat erbij kan",
   "setting.twice": "{name} staat al in de lijst",
+  "setting.addList": "Een kant-en-klare lijst toevoegen...",
+  "setting.fetching": "De lijst ophalen...",
+  "setting.added": "{count} toegevoegd, uit {source}",
+  "setting.clear": "De lijst leegmaken",
 
   "devices.needsName": "Een apparaat heeft een naam nodig.",
   "devices.needsAddress": "{name} heeft een adres nodig, zoals 192.168.1.136",
