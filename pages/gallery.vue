@@ -81,7 +81,7 @@ const videos: Video[] = [
   },
   {
     title: "Cubemap: Forbidden City",
-    dutchTitle: "Kubuskaart: de Verboden Stad",
+    dutchTitle: "Kubusafbeelding: de Verboden Stad",
     id: "1OJdT4Tdh1CGSh54Fl66vdq2O4f1pnRZl",
     size: "43.1 MB",
   },
