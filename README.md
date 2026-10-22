@@ -39,8 +39,6 @@ server hands out. A new app on the cube shows up here without a change to
 Hexaturion. The catalog of the last time is kept in the browser, so the
 tiles are there at once.
 
-[PLAN.md](PLAN.md) tells where this is heading.
-
 ## For development
 
 For testing and development of the GUI you can use the following setup:
