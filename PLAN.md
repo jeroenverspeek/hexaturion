@@ -160,7 +160,7 @@ that name (`ExecStart=/usr/local/bin/node server.ts`).
 
 ## Later
 
-- [ ] Interactive apps from the GUI: Asteroids, the manual Rubik's and
+- [x] Interactive apps from the GUI: Asteroids, the manual Rubik's and
       sliding puzzle solvers (changes `server.js`)
   - [x] The way for it, with the panel's sliding puzzle first: an action's
         `controls` in the catalog name its buttons; the server starts such
@@ -206,8 +206,10 @@ that name (`ExecStart=/usr/local/bin/node server.ts`).
       `--nRubik 3` every pattern of that size alone (cross, greenMamba,
       smiley, ...) was refused as unknown. It is `type: 'int'` now; the cube
       needs this change before those patterns start from the GUI
-- [ ] `smartClock.ts` accepts `'Français '` with a trailing space, so
-      `--language Français` is refused (the GUI sends `French` meanwhile)
-- [ ] `superDemo.py` starts `rubiksQube/slidingPuzzleImageSolve.ts`, which
-      does not exist
-- [ ] `superDemo.py` has `/home/ledcube64/...` paths written into it
+- [x] `smartClock.ts` accepts `'Français '` with a trailing space, so
+      `--language Français` is refused (the GUI sends `French` meanwhile).
+      Gone by 2026-10-22: both clocks take `Français` as it is
+- [x] `superDemo.py` starts `rubiksQube/slidingPuzzleImageSolve.ts`, which
+      does not exist. Gone by 2026-10-22: nothing names it any more
+- [x] `superDemo.py` has `/home/ledcube64/...` paths written into it.
+      Gone by 2026-10-22, with the merge into one repository
