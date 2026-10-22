@@ -184,6 +184,12 @@ that name (`ExecStart=/usr/local/bin/node server.ts`).
         passes on when it looks like one; `controlsHelp` says on the page
         what the buttons do, for every Play. A keyboard's letters work the
         moves too, Shift for the other way
+  - [x] "By hand" among the solvers too, next to the Play tab: the Solve
+        action has the buttons, each with the condition solver: manual
+  - [x] The other apps that take keys - gravity, the hourglass, the light
+        that listens - have their buttons whenever they run. A button of an
+        app's own has a text on it and a key (gravity's Shake, space); the
+        cross has only the rows it uses
 
 ## Found along the way, in led-hexahedron
 

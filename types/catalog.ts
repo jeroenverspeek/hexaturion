@@ -104,9 +104,11 @@ export interface ActionDefinition {
    Any other is a button with its name on it: the Rubik's cube's moves, F, F'.
    One with a condition is only there when the values the app is started
    with meet it; the device's server sorts that out, and /status gives the
-   buttons of the app that runs as plain names.
+   buttons of the app that runs as plain names. One can have a text on it
+   (label) and a key of a keyboard that works it (key, as KeyboardEvent.key
+   has it: " ", "Enter", "r").
   */
-  controls?: (string | { button: string; showIf: Condition })[];
+  controls?: (string | { button: string; showIf?: Condition; label?: string; key?: string })[];
   /** With controls: a field to type a move in as well, for what has no button (3R, 2f'). */
   typed?: boolean;
   /** With controls: what the buttons do, to show with them. */

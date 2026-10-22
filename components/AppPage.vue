@@ -101,8 +101,16 @@ const playing = computed(() => {
   const running = status.value?.running;
   return running?.app === app.id && running.controls?.length ? running : null;
 });
+const playingAction = computed(() => app.actions.find((one) => one.id === playing.value?.action));
 /** What the buttons do, as the catalog says it for the action that runs. */
-const controlsHelp = computed(() => dt(app.actions.find((one) => one.id === playing.value?.action)?.controlsHelp));
+const controlsHelp = computed(() => dt(playingAction.value?.controlsHelp));
+/** The texts on the buttons that have one, and the keys that work them, by button. */
+const buttonLabels = computed(() => Object.fromEntries(
+  (playingAction.value?.controls ?? []).flatMap((one) => (typeof one !== "string" && one.label ? [[one.button, dt(one.label)]] : [])),
+));
+const buttonKeys = computed(() => Object.fromEntries(
+  (playingAction.value?.controls ?? []).flatMap((one) => (typeof one !== "string" && one.key ? [[one.key, one.button]] : [])),
+));
 const pad = ref<HTMLElement>();
 watch(pad, (shown) => shown?.scrollIntoView({ behavior: "smooth", block: "center" }));
 
@@ -155,7 +163,13 @@ function reset(): void {
     </div>
 
     <div v-if="playing" ref="pad">
-      <GamePad :controls="playing.controls!" :typed="playing.typed" :help="controlsHelp" />
+      <GamePad
+        :controls="playing.controls!"
+        :typed="playing.typed"
+        :help="controlsHelp"
+        :labels="buttonLabels"
+        :keys="buttonKeys"
+      />
     </div>
 
     <form class="box" @submit.prevent="startApp">

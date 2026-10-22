@@ -6,11 +6,20 @@ import type { Button } from "~/composables/useCubeStatus";
  A game's are laid out as a game pad: the arrows in a cross, and fire, start
  and pause under them, of those the app has; each tells when it goes down
  and when it comes up again, and the app says what that does. Any other
- button has its name on it - the Rubik's cube's moves, F, F' - and is one
- tap each; an app that takes a typed move (typed) has a field for that.
- A keyboard works them too: the arrow keys, and the letter of a move.
+ button has its name on it - the Rubik's cube's moves, F, F' - or the text
+ the app gives it (gravity's Shake), and is one tap each; an app that takes
+ a typed move (typed) has a field for that. A keyboard works them too: the
+ arrow keys, the letter of a move, and the key the app gives a button.
 */
-const props = defineProps<{ controls: string[]; typed?: boolean; help?: string }>();
+const props = defineProps<{
+  controls: string[];
+  typed?: boolean;
+  help?: string;
+  /** The text on a button that has one other than its name (gravity's Shake), by button. */
+  labels?: Record<string, string>;
+  /** The button a key works, for one with a key of its own (space for Shake), by KeyboardEvent.key. */
+  keys?: Record<string, string>;
+}>();
 
 const { control } = useAPI();
 const { t } = useLanguage();
@@ -30,6 +39,23 @@ const gameButtons: string[] = [...arrows, ...others].map((one) => one.button);
 const has = (button: string): boolean => props.controls.includes(button);
 const shownArrows = computed(() => arrows.filter((one) => has(one.button)));
 const shownOthers = computed(() => others.filter((one) => has(one.button)));
+/** What the keyboard does, said over the buttons: the arrow keys, the letters of the moves, or the buttons alone. */
+const hint = computed(() => {
+  if (shownArrows.value.length) return t("pad.hint");
+  // a button with its own name on it is a move, such as the Rubik's cube's F
+  if (named.value.some((button) => !props.labels?.[button])) return t("pad.hintKeys");
+  return t("pad.hintButtons");
+});
+
+/** The cross, with only the rows it uses: gravity on the panel has left and right alone. */
+const crossStyle = computed(() => {
+  const rows = [
+    has("up") ? '". up ."' : "",
+    has("left") || has("right") ? '"left . right"' : "",
+    has("down") ? '". down ."' : "",
+  ].filter((row) => row);
+  return { gridTemplateAreas: rows.join(" "), gridTemplateRows: `repeat(${rows.length}, 4.5rem)` };
+});
 /** The buttons that are not a game's, in the order the app gives them. */
 const named = computed(() => props.controls.filter((button) => !gameButtons.includes(button)));
 
@@ -105,6 +131,8 @@ function buttonOf(event: KeyboardEvent): string | undefined {
   const target = event.target as HTMLElement | null;
   if (target?.closest("input, select, textarea, [contenteditable]")) return undefined;
   if ((event.key === " " || event.key === "Enter") && target?.closest("button, a, summary")) return undefined;
+  const own = props.keys?.[event.key.length === 1 ? event.key.toLowerCase() : event.key];
+  if (own && has(own)) return own;
   const button = keys[event.key.length === 1 ? event.key.toLowerCase() : event.key];
   if (button && has(button)) return button;
   const move = moveOf(event);
@@ -142,10 +170,10 @@ function sendTyped(): void {
 <template>
   <section class="box game-pad">
     <h2 class="title is-6 mb-2">{{ t("pad.title") }}</h2>
-    <p class="help mb-2">{{ shownArrows.length ? t("pad.hint") : t("pad.hintKeys") }}</p>
+    <p class="help mb-2">{{ hint }}</p>
     <p v-if="help" class="help mb-4">{{ help }}</p>
     <div class="pad-row">
-      <div v-if="shownArrows.length" class="pad-cross">
+      <div v-if="shownArrows.length" class="pad-cross" :style="crossStyle">
         <button
           v-for="one in shownArrows"
           :key="one.button"
@@ -185,12 +213,12 @@ function sendTyped(): void {
           :key="button"
           type="button"
           class="button pad-name"
-          :class="{ 'is-primary': down.has(button) }"
+          :class="{ 'is-primary': down.has(button), 'is-word': labels?.[button] }"
           @pointerdown.prevent="pointerDown(button, $event)"
           @click="clicked(button, $event)"
           @contextmenu.prevent
         >
-          {{ button }}
+          {{ labels?.[button] ?? button }}
         </button>
       </div>
       <form v-if="typed" class="pad-typed" @submit.prevent="sendTyped">
@@ -229,12 +257,8 @@ function sendTyped(): void {
 
 .pad-cross {
   display: grid;
-  grid-template-areas:
-    ". up ."
-    "left . right"
-    ". down .";
+  // the rows are the ones it uses (crossStyle)
   grid-template-columns: repeat(3, 4.5rem);
-  grid-template-rows: repeat(3, 4.5rem);
   gap: 0.4rem;
 }
 
@@ -280,6 +304,12 @@ function sendTyped(): void {
   padding: 0;
   border-radius: 0.75rem;
   font-weight: 600;
+}
+
+// a word on it rather than a move: a row of its own for each, as wide as the moves
+.pad-name.is-word {
+  grid-column: span 3;
+  padding: 0 0.5rem;
 }
 
 .pad-typed .input {
