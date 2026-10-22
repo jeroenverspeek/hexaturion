@@ -174,7 +174,9 @@ that name (`ExecStart=/usr/local/bin/node server.ts`).
   - [x] Snake, on the cube and the panel: a Play action (`--remote`, the
         page's buttons into its Controls; arrows, start and pause) next to
         "Watch the autopilot" (`--demo`, what the super demo shows)
-  - [ ] Tetris and Asteroids, the same way
+  - [x] Tetris and Asteroids, the same way, on both: all seven buttons
+        (Tetris drops with fire; Asteroids turns and thrusts for as long as
+        a button is held)
   - [ ] The cube's sliding puzzle and the manual Rubik's cube
 
 ## Found along the way, in led-hexahedron
