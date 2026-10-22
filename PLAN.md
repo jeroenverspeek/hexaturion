@@ -162,6 +162,18 @@ that name (`ExecStart=/usr/local/bin/node server.ts`).
 
 - [ ] Interactive apps from the GUI: Asteroids, the manual Rubik's and
       sliding puzzle solvers (changes `server.js`)
+  - [x] The way for it, with the panel's sliding puzzle first: an action's
+        `controls` in the catalog name its buttons; the server starts such
+        an app with a pipe for its stdin, tells its buttons in `/status`, and
+        passes `POST /control { button, how }` on to it as a line
+        (`press up`), which `common/src/games/remote.ts` reads. The app's
+        page shows the buttons while it runs (`GamePad.vue`), and the arrow
+        keys of a keyboard work them too. The sliding puzzle has a Play
+        action (`--solver manual`), which also ran into the end of the
+        program straight away, from a terminal too: mended
+  - [ ] Snake, Tetris and Asteroids: `listenToRemote` into their Controls,
+        and `controls` on an action without the autopilot
+  - [ ] The cube's sliding puzzle and the manual Rubik's cube
 
 ## Found along the way, in led-hexahedron
 

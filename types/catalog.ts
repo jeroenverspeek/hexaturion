@@ -97,6 +97,12 @@ export interface ActionDefinition {
   params: (string | ParamRef)[];
   /** An image to go with the values: a URL with {parameter} in it, e.g. /images/{nRubik}.png. */
   preview?: string;
+  /**
+   It is played from here: the buttons to show while it runs - up, down,
+   left, right, fire, start, pause - whose presses the device's server
+   passes on to it (POST /control). None for an app that is only looked at.
+  */
+  controls?: string[];
 }
 
 export interface Category {

@@ -95,6 +95,15 @@ const brokenPreview = ref<string>();
 
 const starting = ref(false);
 
+// While this app runs to be played from here: its buttons, in sight.
+const { status } = useCubeStatus();
+const controls = computed(() => {
+  const running = status.value?.running;
+  return running?.app === app.id && running.controls?.length ? running.controls : null;
+});
+const pad = ref<HTMLElement>();
+watch(pad, (shown) => shown?.scrollIntoView({ behavior: "smooth", block: "center" }));
+
 async function startApp(): Promise<void> {
   // enter in a field submits the form too, whatever the button says
   if (!canStart.value) return;
@@ -141,6 +150,10 @@ function reset(): void {
           <a @click="actionId = one.id">{{ dt(one.label) }}</a>
         </li>
       </ul>
+    </div>
+
+    <div v-if="controls" ref="pad">
+      <GamePad :controls="controls" />
     </div>
 
     <form class="box" @submit.prevent="startApp">

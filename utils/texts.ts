@@ -51,6 +51,16 @@ export const english = {
   "playing.hours": "for {hours} h {minutes} min",
   "playing.failed": "stopped with an error",
   "playing.nothing": "Nothing is running",
+
+  "pad.title": "Play",
+  "pad.hint": "Play on {theDevice} with these buttons, or with the arrow keys of a keyboard.",
+  "pad.up": "Up",
+  "pad.down": "Down",
+  "pad.left": "Left",
+  "pad.right": "Right",
+  "pad.fire": "Fire",
+  "pad.start": "Start",
+  "pad.pause": "Pause",
   "stop": "Stop",
 
   "settings.title": "Settings",
@@ -150,6 +160,16 @@ export const dutch: Record<TextKey, string> = {
   "playing.hours": "al {hours} u {minutes} min",
   "playing.failed": "is gestopt met een fout",
   "playing.nothing": "Er draait niets",
+
+  "pad.title": "Spelen",
+  "pad.hint": "Speel op {theDevice} met deze knoppen, of met de pijltjestoetsen van een toetsenbord.",
+  "pad.up": "Omhoog",
+  "pad.down": "Omlaag",
+  "pad.left": "Links",
+  "pad.right": "Rechts",
+  "pad.fire": "Vuur",
+  "pad.start": "Start",
+  "pad.pause": "Pauze",
   "stop": "Stop",
 
   "settings.title": "Instellingen",
