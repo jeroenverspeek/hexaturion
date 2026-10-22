@@ -1,8 +1,9 @@
 /**
- The app catalog: every app of the cube described as data, so that one page
- can show any of them. The cube has it - a manifest.ts next to each app in
- led-hexahedron, apps/src/catalog/ - and its server hands it out at /apps;
- these are the types of what arrives.
+ The app catalog: every app of the device described as data, so that one
+ page can show any of them. The device has it - a manifest.ts next to each
+ app in led-hexahedron, gathered in cube/src/catalog/ or panel/src/catalog/ -
+ and its server hands it out at /apps; these are the types of what arrives,
+ as common/src/catalog/types.ts there has them.
 */
 
 export type ParamValue = string | number | boolean | string[] | null;
@@ -87,7 +88,7 @@ export interface ActionDefinition {
   id: string;
   /** On the start button, and on the tab when the app has several actions. */
   label: string;
-  /** The script, relative to apps/src/ on the device. */
+  /** The script, relative to cube/src/ or panel/src/ on the device. */
   script: string;
   /** What runs the script. Default: tsx. */
   runner?: "tsx" | "python3";
@@ -140,12 +141,12 @@ export interface AppDefinition {
 export type SettingType = "select" | "text" | "list";
 
 /**
- A setting of the cube: something that is set once and seldom changes, such
- as which way up it stands. The settings are kept in ledcube.local.json,
- each under its id.
+ A setting of the device: something that is set once and seldom changes,
+ such as which way up it stands. The settings are kept in the device's
+ settings file (ledcube.local.json, ledsquare.local.json), each under its id.
 */
 export interface SettingDefinition {
-  /** Its key in ledcube.local.json. */
+  /** Its key in the settings file. */
   id: string;
   label: string;
   type: SettingType;

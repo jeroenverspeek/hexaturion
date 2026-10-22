@@ -3,7 +3,7 @@ export type SolveOptions = Record<string, string | number>;
 
 /**
  How an app that solves a puzzle by itself has done lately with one set of
- options, as the device counts it (apps/src/catalog/solveStats.ts there):
+ options, as the device counts it (common/src/catalog/solveStats.ts there):
  moving averages, of its last few solves.
 */
 export interface SolveStat {
