@@ -102,8 +102,11 @@ export interface ActionDefinition {
    left, right, fire, start, pause - whose presses the device's server
    passes on to it (POST /control). None for an app that is only looked at.
    Any other is a button with its name on it: the Rubik's cube's moves, F, F'.
+   One with a condition is only there when the values the app is started
+   with meet it; the device's server sorts that out, and /status gives the
+   buttons of the app that runs as plain names.
   */
-  controls?: string[];
+  controls?: (string | { button: string; showIf: Condition })[];
   /** With controls: a field to type a move in as well, for what has no button (3R, 2f'). */
   typed?: boolean;
   /** With controls: what the buttons do, to show with them. */
