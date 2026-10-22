@@ -177,7 +177,13 @@ that name (`ExecStart=/usr/local/bin/node server.ts`).
   - [x] Tetris and Asteroids, the same way, on both: all seven buttons
         (Tetris drops with fire; Asteroids turns and thrusts for as long as
         a button is held)
-  - [ ] The cube's sliding puzzle and the manual Rubik's cube
+  - [x] The cube's sliding puzzle (its Play, as the panel's) and the
+        manual Rubik's cube: a button is any name, so the Rubik's cube's
+        are its moves (F, F', ... x, x'), shown with their names on them;
+        `typed` adds a field for any other move (3R, 2f'), which the server
+        passes on when it looks like one; `controlsHelp` says on the page
+        what the buttons do, for every Play. A keyboard's letters work the
+        moves too, Shift for the other way
 
 ## Found along the way, in led-hexahedron
 

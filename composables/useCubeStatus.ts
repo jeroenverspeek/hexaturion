@@ -6,12 +6,12 @@ interface StatusApp {
   title: string;
 }
 
-/** The buttons an app can be played with from here, as the device's server names them (games/Controls.ts there). */
+/** A game's buttons, as the device's server names them (games/Controls.ts there): the pad has a place for each. */
 export type Button = "up" | "down" | "left" | "right" | "fire" | "start" | "pause";
 
 export interface CubeStatus {
   /** The app that runs now, if it was started from the GUI. */
-  running: (StatusApp & { pid: number; runningFor: number; controls?: string[] }) | null;
+  running: (StatusApp & { pid: number; runningFor: number; controls?: string[]; typed?: boolean }) | null;
   /**
    When nothing runs: the app that was started last, and whether it failed -
    ended by itself, other than by being done. Its code is null when it was

@@ -97,10 +97,12 @@ const starting = ref(false);
 
 // While this app runs to be played from here: its buttons, in sight.
 const { status } = useCubeStatus();
-const controls = computed(() => {
+const playing = computed(() => {
   const running = status.value?.running;
-  return running?.app === app.id && running.controls?.length ? running.controls : null;
+  return running?.app === app.id && running.controls?.length ? running : null;
 });
+/** What the buttons do, as the catalog says it for the action that runs. */
+const controlsHelp = computed(() => dt(app.actions.find((one) => one.id === playing.value?.action)?.controlsHelp));
 const pad = ref<HTMLElement>();
 watch(pad, (shown) => shown?.scrollIntoView({ behavior: "smooth", block: "center" }));
 
@@ -152,8 +154,8 @@ function reset(): void {
       </ul>
     </div>
 
-    <div v-if="controls" ref="pad">
-      <GamePad :controls="controls" />
+    <div v-if="playing" ref="pad">
+      <GamePad :controls="playing.controls!" :typed="playing.typed" :help="controlsHelp" />
     </div>
 
     <form class="box" @submit.prevent="startApp">

@@ -101,8 +101,13 @@ export interface ActionDefinition {
    It is played from here: the buttons to show while it runs - up, down,
    left, right, fire, start, pause - whose presses the device's server
    passes on to it (POST /control). None for an app that is only looked at.
+   Any other is a button with its name on it: the Rubik's cube's moves, F, F'.
   */
   controls?: string[];
+  /** With controls: a field to type a move in as well, for what has no button (3R, 2f'). */
+  typed?: boolean;
+  /** With controls: what the buttons do, to show with them. */
+  controlsHelp?: string;
 }
 
 export interface Category {

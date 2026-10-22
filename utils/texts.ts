@@ -54,6 +54,10 @@ export const english = {
 
   "pad.title": "Play",
   "pad.hint": "Play on {theDevice} with these buttons, or with the arrow keys of a keyboard.",
+  "pad.hintKeys": "Play on {theDevice} with these buttons, or with the keys of a keyboard: the letter for a move, with Shift the other way.",
+  "pad.typed": "Another move",
+  "pad.typedPlaceholder": "e.g. 3R",
+  "pad.turn": "Turn",
   "pad.up": "Up",
   "pad.down": "Down",
   "pad.left": "Left",
@@ -163,6 +167,10 @@ export const dutch: Record<TextKey, string> = {
 
   "pad.title": "Spelen",
   "pad.hint": "Speel op {theDevice} met deze knoppen, of met de pijltjestoetsen van een toetsenbord.",
+  "pad.hintKeys": "Speel op {theDevice} met deze knoppen, of met de toetsen van een toetsenbord: de letter voor een zet, met Shift de andere kant op.",
+  "pad.typed": "Een andere zet",
+  "pad.typedPlaceholder": "bijv. 3R",
+  "pad.turn": "Draai",
   "pad.up": "Omhoog",
   "pad.down": "Omlaag",
   "pad.left": "Links",

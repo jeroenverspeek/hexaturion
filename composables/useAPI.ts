@@ -1,5 +1,4 @@
 import type { ParamValues } from "~/types/catalog";
-import type { Button } from "~/composables/useCubeStatus";
 
 type APIResponse = {
   data: unknown;
@@ -39,7 +38,7 @@ export const useAPI = () => {
    (release): the server passes it on to the app. Not told with an alert, as
    a press is one of many: one the app has ended for makes the bar look again.
   */
-  const control = async (button: Button, how: "press" | "release" | "tap"): Promise<void> => {
+  const control = async (button: string, how: "press" | "release" | "tap"): Promise<void> => {
     try {
       await useCustomFetch("/control", { method: "POST", body: { button, how }, timeout: 3000 });
     } catch (e) {
