@@ -154,6 +154,8 @@ export interface SettingDefinition {
   help?: string;
   /** Under which heading it comes on the settings page. */
   group: string;
+  /** The app it is set with: then it is on that app's page rather than on the settings page. */
+  app?: string;
 
   /** select: what there is to choose from. */
   choices?: Choice[];

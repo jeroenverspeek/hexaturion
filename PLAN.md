@@ -191,6 +191,15 @@ that name (`ExecStart=/usr/local/bin/node server.ts`).
         app's own has a text on it and a key (gravity's Shake, space); the
         cross has only the rows it uses
 
+## Settings with their app
+
+- [x] The stock market's ticker symbols, band by band, are set on the
+      stock market's own page instead of the settings page, with all they
+      had there (typing one, ready lists, emptying, back to the default)
+      and saved on the device as before: a setting names the app it
+      belongs with (`app`), and one form (`SettingsForm.vue`) serves both
+      pages
+
 ## Found along the way, in led-hexahedron
 
 - [x] `showRubiksCubePattern.ts` read `--nRubik` as text, so with

@@ -37,6 +37,7 @@ export const english = {
   "app.advanced": "Advanced",
   "app.command": "Command",
   "app.defaults": "Back to the defaults",
+  "app.settings": "Settings, kept on {theDevice}",
 
   "stats.title": "Solve statistics",
   "stats.solves": "Solves",
@@ -151,6 +152,7 @@ export const dutch: Record<TextKey, string> = {
   "app.advanced": "Geavanceerd",
   "app.command": "Opdracht",
   "app.defaults": "Terug naar de standaardwaarden",
+  "app.settings": "Instellingen, bewaard op {theDevice}",
 
   "stats.title": "Oplosstatistieken",
   "stats.solves": "Keer",

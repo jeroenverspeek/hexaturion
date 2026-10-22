@@ -132,7 +132,8 @@ async function addList(): Promise<void> {
       </div>
     </div>
 
-    <div v-if="readyLists.length" class="field is-grouped">
+    <!-- multiline: on a phone "Empty the list" goes under the ready lists rather than past the edge -->
+    <div v-if="readyLists.length" class="field is-grouped is-grouped-multiline">
       <div class="control">
         <div class="select" :class="{ 'is-loading': fetching }">
           <select v-model="picked" :disabled="full || fetching" @change="addList">

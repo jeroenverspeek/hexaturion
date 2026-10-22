@@ -220,6 +220,9 @@ function reset(): void {
       </div>
     </form>
 
+    <!-- what is set on the device for this app: the stock market's ticker symbols -->
+    <SettingsForm :app="app.id" :heading="t('app.settings')" />
+
     <SolveStats :app="app" :action="action" :values="values" />
   </div>
 </template>
