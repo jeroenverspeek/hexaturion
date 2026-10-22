@@ -171,8 +171,10 @@ that name (`ExecStart=/usr/local/bin/node server.ts`).
         keys of a keyboard work them too. The sliding puzzle has a Play
         action (`--solver manual`), which also ran into the end of the
         program straight away, from a terminal too: mended
-  - [ ] Snake, Tetris and Asteroids: `listenToRemote` into their Controls,
-        and `controls` on an action without the autopilot
+  - [x] Snake, on the cube and the panel: a Play action (`--remote`, the
+        page's buttons into its Controls; arrows, start and pause) next to
+        "Watch the autopilot" (`--demo`, what the super demo shows)
+  - [ ] Tetris and Asteroids, the same way
   - [ ] The cube's sliding puzzle and the manual Rubik's cube
 
 ## Found along the way, in led-hexahedron

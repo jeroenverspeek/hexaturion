@@ -146,12 +146,12 @@ onBeforeUnmount(() => [...down].forEach(release));
 </template>
 
 <style scoped lang="scss">
+// the others in a row under the arrows: side by side they would not fit on a phone
 .pad-row {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 2rem;
+  gap: 1.25rem;
 }
 
 .pad-cross {
@@ -172,7 +172,6 @@ onBeforeUnmount(() => [...down].forEach(release));
 
 .pad-others {
   display: flex;
-  flex-direction: column;
   gap: 0.6rem;
 }
 
