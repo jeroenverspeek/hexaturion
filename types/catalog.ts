@@ -169,6 +169,8 @@ export interface SettingDefinition {
   patternHelp?: string;
   /** list: how many there may be. */
   maxItems?: number;
+  /** text, list: kept in capitals, however it is typed - ticker symbols, msft is MSFT. */
+  upperCase?: boolean;
   /**
    list: where the device's server has ready lists to add from, such as the
    stock market's /tickerLists: the path gives [{ id, label, nl }], and the

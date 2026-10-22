@@ -33,7 +33,9 @@ const refusal = ref("");
 const full = computed(() => props.setting.maxItems !== undefined && list.value.length >= props.setting.maxItems);
 
 function add(): void {
-  const one = adding.value.trim();
+  // msft is MSFT, for a setting kept in capitals: the field shows it so as it is typed
+  const typed = adding.value.trim();
+  const one = props.setting.upperCase ? typed.toUpperCase() : typed;
   if (one === "") return;
   if (props.setting.pattern !== undefined && !new RegExp(props.setting.pattern).test(one)) {
     refusal.value = t("setting.not", { what: dt(props.setting.patternHelp) ?? t("setting.notAddable") });
@@ -116,7 +118,7 @@ async function addList(): Promise<void> {
           :id="`setting-${setting.id}`"
           v-model="adding"
           class="input"
-          :class="{ 'is-danger': refusal }"
+          :class="{ 'is-danger': refusal, 'is-upper-case': setting.upperCase }"
           type="text"
           autocapitalize="characters"
           autocomplete="off"
@@ -153,3 +155,14 @@ async function addList(): Promise<void> {
     <p v-else-if="setting.help" class="help">{{ dt(setting.help) }}</p>
   </div>
 </template>
+
+<style scoped>
+/* what is typed in a field kept in capitals shows so at once - the placeholder as it is */
+.is-upper-case {
+  text-transform: uppercase;
+}
+
+.is-upper-case::placeholder {
+  text-transform: none;
+}
+</style>
