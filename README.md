@@ -24,7 +24,7 @@ client in a webbrowser:
 On the raspberry pi a server is automatically run at startup.
 
 Hexaturion talks to the cube at 192.168.1.136 and to the single panel
-(led-tetragon) at 192.168.1.225, each on port 3000: the two buttons at the
+(`panel/` in led-hexahedron) at 192.168.1.225, each on port 3000: the two buttons at the
 top choose between them. The settings page has the list of devices, where
 an address can be changed and a device added. That list is kept in the
 browser, so each phone has its own.
@@ -34,10 +34,13 @@ browser, so each phone has its own.
 The home page shows a tile for every app, and each app has a page of its own
 with its options. Hexaturion has no code of its own for any of them: both
 follow from the app catalog, which the cube keeps (a `manifest.ts` next to
-each app in led-hexahedron, see `apps/src/catalog/README.md` there) and its
+each app in led-hexahedron, see `cube/src/catalog/README.md` there) and its
 server hands out. A new app on the cube shows up here without a change to
 Hexaturion. The catalog of the last time is kept in the browser, so the
 tiles are there at once.
+
+[ARCHITECTURE.md](ARCHITECTURE.md) describes how it works: the manifests,
+the catalog, the server's requests and the pages made from them.
 
 ## For development
 
@@ -83,14 +86,14 @@ The server and the apps also run on a PC, drawing to a browser instead of
 the LED panels. In led-hexahedron:
 
     npm run simulator
-    PORT=3478 LED_SIMULATE=1 node server.ts
+    PORT=3478 LED_SIMULATE=1 LED_DEVICE=cube node server.ts
 
 and here, pointing the GUI at that server:
 
     NUXT_PUBLIC_API_BASE_URL=http://localhost:3478 npm run dev
 
-`NUXT_PUBLIC_PANEL_BASE_URL` does the same for the panel, with led-tetragon's
-server on another port.
+`NUXT_PUBLIC_PANEL_BASE_URL` does the same for the panel, with a second
+server (`LED_DEVICE=panel`) on another port.
 
 Note that [https://hexaturion.com](https://hexaturion.com) is not suited for
 testing purposes, as committed changes will take some time to be reflected
