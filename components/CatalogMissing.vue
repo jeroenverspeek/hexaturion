@@ -5,9 +5,12 @@ const { t } = useLanguage();
 </script>
 
 <template>
-  <p v-if="loading" class="has-text-grey">{{ t("apps.asking") }}</p>
-  <div v-else class="notification is-warning is-light">
-    <p>{{ t("apps.theirs", { problem }) }}</p>
-    <button type="button" class="button is-small mt-3" @click="load">{{ t("apps.tryAgain") }}</button>
+  <div>
+    <p v-if="loading" class="has-text-grey">{{ t("apps.asking") }}</p>
+    <div v-else class="notification is-warning is-light">
+      <p>{{ t("apps.theirs", { problem }) }}</p>
+      <button type="button" class="button is-small mt-3" @click="load">{{ t("apps.tryAgain") }}</button>
+    </div>
+    <DevicePicture />
   </div>
 </template>

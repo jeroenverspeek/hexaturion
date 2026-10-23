@@ -26,6 +26,8 @@ export const english = {
   "device.panel": "panel",
   "device.label.cube": "Cube",
   "device.label.panel": "Panel",
+  "device.picture.cube": "The LED cube, showing a Rubik's cube pattern",
+  "device.picture.panel": "The LED panel on its stand",
 
   "apps.title": "Apps",
   "apps.all": "All apps",
@@ -144,6 +146,8 @@ export const dutch: Record<TextKey, string> = {
   "device.panel": "paneel",
   "device.label.cube": "Kubus",
   "device.label.panel": "Paneel",
+  "device.picture.cube": "De LED-kubus, met een patroon van de Rubiks kubus",
+  "device.picture.panel": "Het LED-paneel op zijn standaard",
 
   "apps.title": "Apps",
   "apps.all": "Alle apps",

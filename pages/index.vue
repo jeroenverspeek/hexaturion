@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { dutchCategories } from "~/utils/texts";
 
-const { catalog } = useCatalog();
+const { catalog, load } = useCatalog();
+const { reachable, refresh } = useCubeStatus();
 const { language, t } = useLanguage();
 
 /** A category's heading in the language spoken: the device's own in English. */
@@ -23,6 +24,14 @@ const shelves = computed(() =>
     <h1 class="title is-4">{{ t("apps.title") }}</h1>
 
     <CatalogMissing v-if="!catalog" />
+    <!-- the apps of the last time are shown below, but the device is not there to start them -->
+    <div v-else-if="reachable === false" class="mb-5">
+      <div class="notification is-warning is-light">
+        <p>{{ t("problem.noAnswer") }}</p>
+        <button type="button" class="button is-small mt-3" @click="refresh(); load()">{{ t("apps.tryAgain") }}</button>
+      </div>
+      <DevicePicture />
+    </div>
 
     <section v-for="shelf in shelves" :key="shelf.id" class="shelf">
       <h2 class="subtitle is-6 has-text-weight-semibold">{{ titleOf(shelf) }}</h2>
