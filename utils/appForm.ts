@@ -116,7 +116,9 @@ export function outOfChoice(app: AppDefinition, values: ParamValues, settings?: 
 export function initialValues(app: AppDefinition, remembered: Record<string, unknown> = {}, settings?: CubeSettings): ParamValues {
   const values: ParamValues = {};
   for (const param of app.params) {
-    const kept = param.setting === undefined ? remembered[param.id] : settings?.[param.setting];
+    let kept = param.setting === undefined ? remembered[param.id] : settings?.[param.setting];
+    // a field left empty the last time, before it had a forever: that is what forever is now
+    if (param.forever && kept === "") kept = null;
     values[param.id] = hasRightType(param, kept) ? kept : param.default ?? emptyValue(param);
   }
   return { ...values, ...outOfChoice(app, values, settings) };
@@ -127,12 +129,18 @@ function outOfRange(param: ParamDefinition, value: ParamValue | undefined): bool
   return (param.min !== undefined && value < param.min) || (param.max !== undefined && value > param.max);
 }
 
-/** The parameters that stand in the way of starting the action: left empty though required, or out of range. */
+/**
+ The parameters that stand in the way of starting the action: left empty
+ though required, or out of range - or a number that can be forever, with
+ forever unticked and the field emptied (null is forever, "" a field
+ cleared to type in).
+*/
 export function unmetParams(app: AppDefinition, action: ActionDefinition, values: ParamValues): ParamDefinition[] {
   return actionParams(app, action, values)
     .map(({ param }) => param)
     .filter((param) => {
       const value = values[param.id];
+      if (param.forever && value !== null && isEmpty(value)) return true;
       return isEmpty(value) ? param.required === true : outOfRange(param, value);
     });
 }

@@ -81,6 +81,13 @@ export interface ParamDefinition {
   max?: number;
   step?: number;
   unit?: string;
+  /**
+   number: a tick box with this label next to the field - "forever" - for
+   no number at all: ticked (the value null), the field is greyed out and
+   nothing is sent. Unticked, the field gets back the number it had, or
+   else `otherwise`.
+  */
+  forever?: { label: string; otherwise: number };
 
   /** text */
   maxLength?: number;

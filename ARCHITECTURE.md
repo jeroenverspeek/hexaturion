@@ -61,6 +61,10 @@ export default defineApp({
   show while it runs, with `typed` and `controlsHelp`.
 - **`preview`**: a picture to go with the values, a URL with
   `{parameter}` in it.
+- **`forever`** on a number: a tick box next to the field ("forever")
+  for no number at all - the field greyed out, nothing sent, which leaves
+  it to the app. "Stop after" of every app has it, and the pictures'
+  "Show for".
 - **`upload`** on a select: pictures can be uploaded from the page to
   become choices of it (the cube map's, the pictures'), and deleted again.
 

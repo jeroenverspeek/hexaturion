@@ -46,6 +46,20 @@ const groups = computed(() => {
 
 const picked = computed<string[]>(() => (Array.isArray(model.value) ? model.value : []));
 
+/** A number that can be forever (its forever): ticked while it is null, the field greyed out then. */
+const forever = computed(() => props.param.forever !== undefined && model.value === null);
+/** The number the field had before forever was ticked, to have back when it is unticked. */
+let before: number | undefined;
+
+function setForever(on: boolean): void {
+  if (on) {
+    if (typeof model.value === "number") before = model.value;
+    model.value = null;
+  } else {
+    model.value = before ?? props.param.forever!.otherwise;
+  }
+}
+
 /** Picks or drops one choice of a multiselect, keeping the order of the choices. */
 function toggle(value: string): void {
   const next = picked.value.includes(value)
@@ -100,23 +114,30 @@ function toggle(value: string): void {
         </button>
       </div>
 
-      <div v-else-if="param.type === 'number'" class="field has-addons">
-        <div class="control">
-          <input
-            :id="`param-${param.id}`"
-            v-model.number="model"
-            class="input number-input"
-            type="number"
-            inputmode="decimal"
-            :min="param.min"
-            :max="param.max"
-            :step="param.step"
-            :placeholder="dt(param.placeholder)"
-          />
+      <div v-else-if="param.type === 'number'" class="number-field">
+        <div class="field has-addons mb-0">
+          <div class="control">
+            <input
+              :id="`param-${param.id}`"
+              v-model.number="model"
+              class="input number-input"
+              type="number"
+              inputmode="decimal"
+              :min="param.min"
+              :max="param.max"
+              :step="param.step"
+              :placeholder="dt(param.placeholder)"
+              :disabled="forever"
+            />
+          </div>
+          <div v-if="param.unit" class="control">
+            <span class="button is-static">{{ dt(param.unit) }}</span>
+          </div>
         </div>
-        <div v-if="param.unit" class="control">
-          <span class="button is-static">{{ dt(param.unit) }}</span>
-        </div>
+        <label v-if="param.forever" class="checkbox">
+          <input type="checkbox" :checked="forever" @change="setForever(($event.target as HTMLInputElement).checked)" />
+          {{ dt(param.forever.label) }}
+        </label>
       </div>
 
       <div v-else class="control">
@@ -156,5 +177,12 @@ function toggle(value: string): void {
 <style scoped>
 .number-input {
   width: 8rem;
+}
+
+.number-field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
 }
 </style>
