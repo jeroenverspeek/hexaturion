@@ -52,6 +52,8 @@ export interface ParamDefinition {
    was the last time. For a multiselect the setting is a list, and that
    list is what there is to choose from, all of it picked at the start;
    the choices here are for a cube whose settings cannot be read.
+   Starting the app sets the setting to what it was started with, the
+   multiselect's list excepted (AppPage.vue's keepSettings).
   */
   setting?: string;
 

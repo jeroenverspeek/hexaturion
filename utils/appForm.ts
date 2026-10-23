@@ -111,7 +111,7 @@ export function outOfChoice(app: AppDefinition, values: ParamValues, settings?: 
  remembered from the last visit laid over them where that still fits. A
  parameter that goes by a setting of the cube starts at what is set there
  instead, every time - what was on the page the last time does not count
- for it.
+ for it, but what the app was started with does: Start sets the setting.
 */
 export function initialValues(app: AppDefinition, remembered: Record<string, unknown> = {}, settings?: CubeSettings): ParamValues {
   const values: ParamValues = {};

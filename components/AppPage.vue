@@ -19,7 +19,7 @@ const remembered = useLocalStorage<{ action?: string; values?: Record<string, un
 );
 
 // The cube's settings: the parameters that go by one start at what is set there.
-const { values: cubeSettings, load: loadSettings } = useCubeSettings();
+const { definitions: settingDefinitions, values: cubeSettings, load: loadSettings, save: saveSettings } = useCubeSettings();
 // when the cube does not tell them, the page goes by the catalog's defaults
 loadSettings().catch(() => {});
 
@@ -121,10 +121,35 @@ async function startApp(): Promise<void> {
   try {
     const response = await askToStart(app.id, action.value.id, params.value);
     console.log(response.data);
+    await keepSettings();
   } catch {
     // useAPI has told the user already
   } finally {
     starting.value = false;
+  }
+}
+
+/**
+ What it was started with, kept as the device's settings where a parameter
+ goes by one: the page starts there the next time, and so does the
+ operational mode when the device starts it by itself. Not a multiselect:
+ its setting is the list there is to choose from, not what was picked; nor
+ a boolean, which no setting is.
+*/
+async function keepSettings(): Promise<void> {
+  const set = cubeSettings.value;
+  if (!set) return;
+  const changes = Object.fromEntries(shown.value
+    .filter((param) => param.setting !== undefined && ["select", "text", "number"].includes(param.type))
+    .filter((param) => settingDefinitions.value?.some((setting) => setting.id === param.setting))
+    .filter((param) => !isEmpty(params.value[param.id]) && JSON.stringify(params.value[param.id]) !== JSON.stringify(set[param.setting!]))
+    .map((param) => [param.setting!, params.value[param.id] as (typeof set)[string]]));
+  if (Object.keys(changes).length === 0) return;
+  try {
+    await saveSettings(changes);
+  } catch (e) {
+    // it has started all the same; only the next time starts where it was
+    console.error("The settings could not be kept:", e);
   }
 }
 
