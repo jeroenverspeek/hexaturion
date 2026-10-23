@@ -8,7 +8,7 @@
     </div>
     <site-footer />
     <NowPlaying />
-    <StartupSplash />
+    <DeviceSplash />
   </div>
 </template>
 
