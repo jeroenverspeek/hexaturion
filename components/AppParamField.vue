@@ -5,10 +5,32 @@ const props = defineProps<{
   param: ParamDefinition;
   /** What there is to choose from, for a select or multiselect. */
   choices: Choice[];
+  /** A picture is being uploaded for it, or deleted. */
+  busy?: boolean;
+}>();
+
+const emit = defineEmits<{
+  /** A picture was picked to upload, for a parameter that takes them. */
+  upload: [file: File];
+  /** The choice that was uploaded, to be deleted. */
+  delete: [choice: Choice];
 }>();
 
 const model = defineModel<ParamValue>({ required: true });
-const { dt } = useLanguage();
+const { t, dt } = useLanguage();
+
+/** The choice now, when it is one that was uploaded: one that can be deleted. */
+const uploaded = computed(() =>
+  props.param.upload ? props.choices.find((choice) => choice.value === model.value && choice.group === props.param.upload!.group) : undefined,
+);
+
+function pictureChosen(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  const file = input.files?.[0];
+  // the same picture picked again is a change too
+  input.value = "";
+  if (file) emit("upload", file);
+}
 
 /** The choices under their group headings, those without a group first. */
 const groups = computed(() => {
@@ -110,6 +132,24 @@ function toggle(value: string): void {
     </template>
 
     <p v-if="param.help" class="help">{{ dt(param.help) }}</p>
+
+    <div v-if="param.upload" class="buttons mt-2">
+      <label class="button is-small" :class="{ 'is-loading': busy }" :disabled="busy || undefined">
+        <input type="file" class="is-hidden" :accept="param.upload.accept" :disabled="busy" @change="pictureChosen" />
+        <span class="icon"><i class="fa-solid fa-upload"></i></span>
+        <span>{{ t("upload.add") }}</span>
+      </label>
+      <button
+        v-if="uploaded"
+        type="button"
+        class="button is-small is-danger is-outlined"
+        :disabled="busy"
+        @click="emit('delete', uploaded)"
+      >
+        <span class="icon"><i class="fa-solid fa-trash"></i></span>
+        <span>{{ t("upload.delete") }}</span>
+      </button>
+    </div>
   </div>
 </template>
 

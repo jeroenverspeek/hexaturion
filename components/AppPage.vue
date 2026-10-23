@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { AppDefinition, ParamValues } from "~/types/catalog";
+import type { AppDefinition, Choice, ParamDefinition, ParamValues } from "~/types/catalog";
 
 /** The page of one app: its options, as the catalog describes them, and Start. */
 const props = defineProps<{ app: AppDefinition }>();
@@ -7,7 +7,7 @@ const props = defineProps<{ app: AppDefinition }>();
 const app = props.app;
 
 
-const { startApp: askToStart } = useAPI();
+const { startApp: askToStart, stop, upload, deleteUpload } = useAPI();
 const { t, appText, dt } = useLanguage();
 useHead({ title: () => appText(app).title });
 
@@ -153,6 +153,46 @@ async function keepSettings(): Promise<void> {
   }
 }
 
+/** The parameter a picture is being uploaded for, or deleted. */
+const sending = ref<string>();
+
+/**
+ A picture uploaded for a parameter that takes them (the cube map's): the
+ device makes a choice of it, which is then shown at once - in place of
+ this app, when it runs already; another app that runs is left alone, as
+ Start leaves it. Then the catalog is asked again for the new choice,
+ which makes this page anew, at the values remembered: with the new one.
+*/
+async function uploadPicture(param: ParamDefinition, file: File): Promise<void> {
+  sending.value = param.id;
+  try {
+    const value = await upload(app.id, param.id, file);
+    remembered.value = { action: actionId.value, values: { ...values, [param.id]: value } };
+    if (status.value?.running?.app === app.id) await stop();
+    await askToStart(app.id, action.value.id, { ...params.value, [param.id]: value });
+  } catch {
+    // useAPI has told the user already
+  } finally {
+    sending.value = undefined;
+    await useCatalog().load();
+  }
+}
+
+/** Deletes a choice that was uploaded, once it is sure that is meant. */
+async function deletePicture(param: ParamDefinition, choice: Choice): Promise<void> {
+  if (!window.confirm(t("upload.deleteQuestion", { name: dt(choice.label) ?? String(choice.value) }))) return;
+  sending.value = param.id;
+  try {
+    await deleteUpload(app.id, param.id, String(choice.value));
+  } catch {
+    // useAPI has told the user already
+  } finally {
+    sending.value = undefined;
+    // the choice is gone: the page goes back to the default
+    await useCatalog().load();
+  }
+}
+
 function reset(): void {
   Object.assign(values, initialValues(app, {}, cubeSettings.value));
 }
@@ -204,6 +244,9 @@ function reset(): void {
         v-model="values[param.id]!"
         :param="param"
         :choices="choicesFor(param, values, cubeSettings)"
+        :busy="sending === param.id"
+        @upload="uploadPicture(param, $event)"
+        @delete="deletePicture(param, $event)"
       />
 
       <figure v-if="preview && preview !== brokenPreview" class="image preview">
@@ -218,6 +261,9 @@ function reset(): void {
           v-model="values[param.id]!"
           :param="param"
           :choices="choicesFor(param, values, cubeSettings)"
+          :busy="sending === param.id"
+          @upload="uploadPicture(param, $event)"
+          @delete="deletePicture(param, $event)"
         />
         <div class="field">
           <label class="label">{{ t("app.command") }}</label>

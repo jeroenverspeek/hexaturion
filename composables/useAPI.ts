@@ -29,6 +29,41 @@ export const useAPI = () => {
 
   const stop = (): Promise<APIResponse> => post("/stop");
 
+  /**
+   Uploads a picture for a parameter that takes them (its upload): the
+   device makes a choice of it - a cube map - and answers with its value.
+   Made small first, here on the phone.
+  */
+  const upload = async (app: string, param: string, file: File): Promise<string> => {
+    try {
+      const picture = await shrinkPicture(file);
+      const { data } = await useCustomFetch<{ value: string }>("/upload", {
+        method: "POST",
+        query: { app, param, name: file.name },
+        body: picture,
+        headers: { "Content-Type": picture.type || "image/jpeg" },
+        // the device makes a cube map of it, and reads its catalog again
+        timeout: 120000,
+      });
+      return data.value;
+    } catch (e) {
+      console.error(e);
+      alert(reasonOf(e));
+      throw e;
+    }
+  };
+
+  /** Deletes a choice that was uploaded. */
+  const deleteUpload = async (app: string, param: string, value: string): Promise<void> => {
+    try {
+      await useCustomFetch("/upload", { method: "DELETE", query: { app, param, value }, timeout: 60000 });
+    } catch (e) {
+      console.error(e);
+      alert(reasonOf(e));
+      throw e;
+    }
+  };
+
   const reboot = (): Promise<APIResponse> => post("/reboot");
 
   const shutdown = (): Promise<APIResponse> => post("/shutdown");
@@ -50,6 +85,8 @@ export const useAPI = () => {
   return {
     startApp,
     stop,
+    upload,
+    deleteUpload,
     reboot,
     shutdown,
     control,

@@ -61,6 +61,8 @@ export default defineApp({
   show while it runs, with `typed` and `controlsHelp`.
 - **`preview`**: a picture to go with the values, a URL with
   `{parameter}` in it.
+- **`upload`** on a select: pictures can be uploaded from the page to
+  become choices of it (the cube map's, the pictures'), and deleted again.
 
 Lists of what happens to be on the device - videos, picture folders, cube
 maps, Rubik's and Life patterns - are read from it by the manifests, so a
@@ -106,6 +108,8 @@ makes `/apps` answer 503 with the reason.
 | `POST /control { button, how }` | a button of the app that is played: `press`, `release` or `tap` |
 | `GET` / `PUT /settings` | the setting definitions and their values; `PUT` changes the ones named, `null` back to the default |
 | `GET /tickerLists`, `/tickerLists/:id` | ready lists of ticker symbols, for the stock market's setting |
+| `POST /upload?app=&param=&name=` | a picture (the body) for a parameter with `upload`: answers `{ value }`, the choice made of it |
+| `DELETE /upload?app=&param=&value=` | deletes a choice that was uploaded |
 | `GET /stats` | the solve statistics of the Rubik's cube and the sliding puzzle |
 | `POST /reboot`, `POST /shutdown` | the Pi |
 
@@ -166,6 +170,12 @@ the catalog's description of it changes. `components/AppPage.vue` and
   required field empty or a number out of range. Under "Advanced" the page
   shows the command, asked of the device with `/command`.
 - **The preview** is the action's `preview` with the values filled in.
+- **Uploads**: a select with `upload` has "Upload a picture" under it.
+  The picture is made small here first (`utils/shrinkPicture.ts`: at most
+  2048 pixels, a JPEG, the right way up) and sent with `/upload`; the
+  choice the device made of it is then started at once - in place of the
+  app, when it runs already - and the catalog fetched again, which brings
+  the new choice. A choice of the upload's group has "Delete" next to it.
 - **Settings of the app** - a setting with `app`, such as the stock
   market's ticker symbols - are on its page (`SettingsForm.vue`), and solve
   statistics under the form (`SolveStats.vue`, from `/stats`).

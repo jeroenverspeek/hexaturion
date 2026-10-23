@@ -38,6 +38,9 @@ export const english = {
   "app.command": "Command",
   "app.defaults": "Back to the defaults",
   "app.settings": "Settings, kept on {theDevice}",
+  "upload.add": "Upload a picture",
+  "upload.delete": "Delete",
+  "upload.deleteQuestion": "Delete {name} from {theDevice}?",
 
   "stats.title": "Solve statistics",
   "stats.solves": "Solves",
@@ -153,6 +156,9 @@ export const dutch: Record<TextKey, string> = {
   "app.command": "Opdracht",
   "app.defaults": "Terug naar de standaardwaarden",
   "app.settings": "Instellingen, bewaard op {theDevice}",
+  "upload.add": "Foto uploaden",
+  "upload.delete": "Verwijderen",
+  "upload.deleteQuestion": "{name} van {theDevice} verwijderen?",
 
   "stats.title": "Oplosstatistieken",
   "stats.solves": "Keer",

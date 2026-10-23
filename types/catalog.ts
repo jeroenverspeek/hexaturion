@@ -66,6 +66,15 @@ export interface ParamDefinition {
   choicesBy?: { param: string; choices: Record<string, Choice[]> };
   /** multiselect: sent as one argument joined by this, instead of one argument each. */
   join?: string;
+  /**
+   select: pictures can be uploaded from the page to become choices of it
+   (the cube map's): POST /upload sends one, and the device answers with
+   the value of the choice it made of it. The choices of `group` are those
+   made so, and can be deleted again: DELETE /upload. `accept` is what the
+   page offers to pick, as an <input type="file"> takes it; `script` is the
+   device's own.
+  */
+  upload?: { script: string; accept: string; group: string };
 
   /** number */
   min?: number;
