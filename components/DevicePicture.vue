@@ -1,8 +1,8 @@
 <script setup lang="ts">
 /**
- A picture of the device the GUI talks to: the cube, or the panel on its
- stand - as its catalog says what it is, or, for one that has not said so
- yet, as it is called in the list of devices.
+ A picture of the device the GUI talks to, on its stand and saying Hello
+ world: the cube, or the panel - as its catalog says what it is, or, for
+ one that has not said so yet, as it is called in the list of devices.
 */
 const { catalog } = useCatalog();
 const { active } = useDevices();
@@ -12,8 +12,8 @@ const kind = computed<"cube" | "panel">(() =>
   catalog.value?.device?.kind ?? (/panel|paneel|square|tetragon/i.test(`${active.value.id} ${active.value.label}`) ? "panel" : "cube"),
 );
 const pictures = {
-  cube: "/gallery/cube_rubikscube_pattern.jpg",
-  panel: "/gallery/led-tetragon_on_stand.png",
+  cube: "/gallery/cube_hello.png",
+  panel: "/gallery/panel_hello.png",
 };
 </script>
 
