@@ -16,8 +16,8 @@ It is developed on the VUE-3 platform, in typescript.
 
 ## How to use
 
-Scan the QR-code that is shown on startup of the cube, or manually start a
-client in a webbrowser:
+Open Hexaturion in a web browser - the cube and the panel show their IP
+address and hexaturion.com at startup, followed by an app:
 
 [https://hexaturion.com](https://hexaturion.com)
 
