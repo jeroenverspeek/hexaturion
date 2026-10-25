@@ -23,8 +23,9 @@ address and hexaturion.com at startup, followed by an app:
 
 On the raspberry pi a server is automatically run at startup.
 
-Hexaturion talks to the cube at 192.168.1.136 and to the single panel
-(`panel/` in led-hexahedron) at 192.168.1.225, each on port 3000: the two buttons at the
+Hexaturion talks to the cube at 192.168.1.136, to the single panel
+(`panel/` in led-hexahedron) at 192.168.1.225, and to the Pi 5 that is tried
+on a panel first ("Pi 5") at 192.168.1.226, each on port 3000: the buttons at the
 top choose between them. The settings page has the list of devices, where
 an address can be changed and a device added. That list is kept in the
 browser, so each phone has its own.

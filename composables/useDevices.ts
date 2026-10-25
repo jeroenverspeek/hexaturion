@@ -59,14 +59,15 @@ export function deviceAddress(typed: string): string | null {
 /**
  The devices the GUI knows, and the one it talks to now: kept in the
  browser, so that each phone remembers its own choice. Until someone
- changes the list it is the one the site comes with - the cube and the
- panel at their addresses at home.
+ changes the list it is the one the site comes with - the cube, the panel
+ and the Pi 5 on a panel, at their addresses at home.
 */
 export const useDevices = () => {
   const config = useRuntimeConfig().public;
   const defaults = (): Device[] => [
     { id: "cube", label: "Cube", address: config.API_BASE_URL },
     { id: "panel", label: "Panel", address: config.PANEL_BASE_URL },
+    { id: "panelPi5", label: "Pi 5", address: config.PANEL_PI5_BASE_URL },
   ];
 
   const devices = useState<Device[]>("devices", () => {

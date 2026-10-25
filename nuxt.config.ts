@@ -10,6 +10,7 @@ export default defineNuxtConfig({
       // each browser can change on the settings page (composables/useDevices.ts).
       API_BASE_URL: "http://192.168.1.136:3000", // the cube
       PANEL_BASE_URL: "http://192.168.1.225:3000",
+      PANEL_PI5_BASE_URL: "http://192.168.1.226:3000", // the Pi 5, tried on a panel first
     },
   },
   app: {
