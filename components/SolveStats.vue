@@ -74,7 +74,7 @@ function optionOf(row: Row, flag: string): string {
   if (value === undefined) return "";
   const values = valuesOf(row);
   const param = paramOf(flag, values);
-  const choice = (param ? choicesFor(param, values) : []).find((one) => String(one.value) === String(value));
+  const choice = (param ? choicesFor(param, values, undefined, true) : []).find((one) => String(one.value) === String(value));
   return choice ? dt(choice.label ?? String(choice.value)) : String(value);
 }
 

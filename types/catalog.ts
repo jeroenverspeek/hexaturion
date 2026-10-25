@@ -23,6 +23,8 @@ export interface Choice {
   group?: string;
   /** The arguments this choice stands for, instead of the flag and the value. */
   args?: string[];
+  /** Only on offer under this condition, or under any one of a list of them: the sliding puzzle's solvers that cannot solve a random board in time. */
+  showIf?: Condition | Condition[];
 }
 
 export type ParamType = "boolean" | "select" | "multiselect" | "number" | "text";

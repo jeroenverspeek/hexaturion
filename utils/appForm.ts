@@ -35,20 +35,28 @@ export function isEmpty(value: ParamValue | undefined): boolean {
   return false;
 }
 
+/** Whether a choice is on offer with these values: under its showIf, or any one of its list of them. */
+export function offers(choice: Choice, values: ParamValues): boolean {
+  const { showIf } = choice;
+  if (!showIf) return true;
+  return Array.isArray(showIf) ? showIf.some((one) => holds(one, values)) : holds(showIf, values);
+}
+
 /**
  What there is to choose from for a parameter, given the other values - and
  the cube's settings, for a multiselect that goes by one: that setting's
  list is then what there is, under the names the catalog has for them.
+ Only what is on offer with these values (Choice.showIf), unless `all`.
 */
-export function choicesFor(param: ParamDefinition, values: ParamValues, settings?: CubeSettings): Choice[] {
+export function choicesFor(param: ParamDefinition, values: ParamValues, settings?: CubeSettings, all = false): Choice[] {
   const set = param.setting === undefined ? undefined : settings?.[param.setting];
   if (param.type === "multiselect" && Array.isArray(set)) {
     return set.map((value: string) => param.choices?.find((choice) => choice.value === value) ?? { value });
   }
-  if (param.choicesBy) {
-    return param.choicesBy.choices[String(values[param.choicesBy.param])] ?? [];
-  }
-  return param.choices ?? [];
+  const choices = param.choicesBy
+    ? param.choicesBy.choices[String(values[param.choicesBy.param])] ?? []
+    : param.choices ?? [];
+  return all ? choices : choices.filter((choice) => offers(choice, values));
 }
 
 /** The parameters an action takes that apply with these values, in its order. */
