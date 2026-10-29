@@ -10,6 +10,10 @@ export interface Device {
 
 const devicesKey = "hexaturion.devices";
 const activeKey = "hexaturion.device";
+/** The ids of the devices the site came with when this browser's own list was last kept. */
+const offeredKey = "hexaturion.devicesOffered";
+/** What a list kept before there was an offeredKey had been offered: the cube and the panel. */
+const firstOffered = ["cube", "panel"];
 
 function kept<T>(key: string): T | null {
   try {
@@ -60,19 +64,34 @@ export function deviceAddress(typed: string): string | null {
  The devices the GUI knows, and the one it talks to now: kept in the
  browser, so that each phone remembers its own choice. Until someone
  changes the list it is the one the site comes with - the cube, the panel
- and the Pi 5 on a panel, at their addresses at home.
+ and the 128x128 panel, at their addresses at home. A device the site
+ comes with later is added to a browser's own list once: removed there, it
+ stays away.
 */
 export const useDevices = () => {
   const config = useRuntimeConfig().public;
   const defaults = (): Device[] => [
     { id: "cube", label: "Cube", address: config.API_BASE_URL },
     { id: "panel", label: "Panel", address: config.PANEL_BASE_URL },
-    { id: "panelPi5", label: "Pi 5", address: config.PANEL_PI5_BASE_URL },
+    { id: "panelPi5", label: "Panel 128", address: config.PANEL_128_BASE_URL },
   ];
+
+  /** A browser's own list, with the devices the site has come with since it was kept. */
+  const withNewDefaults = (list: Device[]): Device[] => {
+    const offered = kept<unknown>(offeredKey);
+    const seen = Array.isArray(offered) ? offered : firstOffered;
+    const same = (a: Device, b: Device) =>
+      a.id === b.id || a.address === b.address || a.label.toLowerCase() === b.label.toLowerCase();
+    const added = defaults().filter((device) => !seen.includes(device.id) && !list.some((other) => same(device, other)));
+    const now = [...list, ...added];
+    keep(devicesKey, now);
+    keep(offeredKey, defaults().map((device) => device.id));
+    return now;
+  };
 
   const devices = useState<Device[]>("devices", () => {
     const list = kept<unknown>(devicesKey);
-    return Array.isArray(list) && list.length > 0 && list.every(isDevice) ? list : defaults();
+    return Array.isArray(list) && list.length > 0 && list.every(isDevice) ? withNewDefaults(list) : defaults();
   });
   const activeId = useState<string>("activeDevice", () => {
     const id = kept<unknown>(activeKey);
@@ -108,6 +127,7 @@ export const useDevices = () => {
     devices.value = list;
     // the list the site comes with is not kept: it then follows the site's, should that change
     keep(devicesKey, areDefaults.value ? null : list);
+    keep(offeredKey, areDefaults.value ? null : defaults().map((device) => device.id));
     if (!list.some((device) => device.id === activeId.value)) {
       activeId.value = list[0]!.id;
       keep(activeKey, activeId.value);
