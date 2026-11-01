@@ -37,17 +37,24 @@ const others: { button: Button; icon: string }[] = [
   { button: "pause", icon: "pause" },
 ];
 const gameButtons: string[] = [...arrows, ...others].map((one) => one.button);
-/** A solution's show, as on a player: the device's showPace.ts says what each does. */
-const player: { button: string; icon: string; flip?: boolean }[] = [
-  { button: "toStart", icon: "backward-fast" },
-  { button: "fastRewind", icon: "backward" },
-  { button: "stepBack", icon: "backward-step" },
-  { button: "rewind", icon: "play", flip: true },
-  { button: "hold", icon: "stop" },
-  { button: "play", icon: "play" },
-  { button: "stepForward", icon: "forward-step" },
-  { button: "fastForward", icon: "forward" },
-  { button: "toEnd", icon: "forward-fast" },
+/**
+ A solution's show, as on a player: the device's showPace.ts says what each
+ does. The symbols are drawn here, triangles and bars on a square of 24, so
+ that they need no font. Each has its place in the two rows of a phone.
+*/
+const triangleLeft = (x: number): string => `M${x + 10} 5 L${x} 12 L${x + 10} 19 Z`;
+const triangleRight = (x: number): string => `M${x} 5 L${x + 10} 12 L${x} 19 Z`;
+const bar = (x: number): string => `M${x} 5 h2.5 v14 h-2.5 Z`;
+const player: { button: string; shape: string }[] = [
+  { button: "toStart", shape: bar(1.5) + triangleLeft(4.5) + triangleLeft(12.5) },
+  { button: "fastRewind", shape: triangleLeft(2.5) + triangleLeft(11.5) },
+  { button: "stepBack", shape: bar(5) + triangleLeft(8.5) },
+  { button: "rewind", shape: triangleLeft(7) },
+  { button: "hold", shape: "M6 6 h12 v12 h-12 Z" },
+  { button: "play", shape: triangleRight(7) },
+  { button: "stepForward", shape: triangleRight(5.5) + bar(16.5) },
+  { button: "fastForward", shape: triangleRight(2.5) + triangleRight(11.5) },
+  { button: "toEnd", shape: triangleRight(1.5) + triangleRight(9.5) + bar(20) },
 ];
 const playerNames: string[] = player.map((one) => one.button);
 const has = (button: string): boolean => props.controls.includes(button);
@@ -228,14 +235,14 @@ function sendTyped(): void {
           :key="one.button"
           type="button"
           class="button pad-name"
-          :class="{ 'is-primary': down.has(one.button) }"
+          :class="[`pad-${one.button}`, { 'is-primary': down.has(one.button) }]"
           :title="labels?.[one.button]"
           :aria-label="labels?.[one.button] ?? one.button"
           @pointerdown.prevent="pointerDown(one.button, $event)"
           @click="clicked(one.button, $event)"
           @contextmenu.prevent
         >
-          <span class="icon"><i class="fa-solid" :class="[`fa-${one.icon}`, { 'pad-flip': one.flip }]"></i></span>
+          <svg class="pad-symbol" viewBox="0 0 24 24" aria-hidden="true"><path :d="one.shape" /></svg>
         </button>
       </div>
       <div v-if="named.length" class="pad-named">
@@ -303,18 +310,37 @@ function sendTyped(): void {
   gap: 0.6rem;
 }
 
-// a player's buttons in a row, wide enough for a finger on a phone
+// a player's buttons in a row
 .pad-player {
   display: grid;
   grid-template-columns: repeat(9, minmax(0, 1fr));
-  gap: 0.25rem;
+  gap: 0.3rem;
   width: 100%;
-  max-width: 30rem;
+  max-width: 32rem;
 }
 
-// the play triangle, the other way round
-.pad-flip {
-  transform: scaleX(-1);
+.pad-symbol {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: currentColor;
+}
+
+// on a phone nine in a row would be too narrow for a finger: the way to play
+// in a row of six, with the steps and the square under them
+@media (max-width: 30rem) {
+  .pad-player {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .pad-toStart { order: 1; }
+  .pad-fastRewind { order: 2; }
+  .pad-rewind { order: 3; }
+  .pad-play { order: 4; }
+  .pad-fastForward { order: 5; }
+  .pad-toEnd { order: 6; }
+  .pad-stepBack { order: 7; grid-column: span 2; }
+  .pad-hold { order: 8; grid-column: span 2; }
+  .pad-stepForward { order: 9; grid-column: span 2; }
 }
 
 // a move and its other way side by side: F F' U U' R R', six to a row
