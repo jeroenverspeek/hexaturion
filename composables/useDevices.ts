@@ -72,12 +72,14 @@ export const useDevices = () => {
   const config = useRuntimeConfig().public;
   const defaults = (): Device[] => [
     { id: "cube", label: "Cube", address: config.API_BASE_URL },
-    { id: "panel", label: "Panel", address: config.PANEL_BASE_URL },
+    { id: "panel", label: "Panel 64", address: config.PANEL_BASE_URL },
     { id: "panelPi5", label: "Panel 128", address: config.PANEL_128_BASE_URL },
   ];
 
   /** A browser's own list, with the devices the site has come with since it was kept. */
-  const withNewDefaults = (list: Device[]): Device[] => {
+  const withNewDefaults = (kept_: Device[]): Device[] => {
+    // the 64x64 panel was called Panel until there was a second one: a name someone gave it stays
+    const list = kept_.map((device) => (device.id === "panel" && device.label === "Panel" ? { ...device, label: "Panel 64" } : device));
     const offered = kept<unknown>(offeredKey);
     const seen = Array.isArray(offered) ? offered : firstOffered;
     const same = (a: Device, b: Device) =>

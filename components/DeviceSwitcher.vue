@@ -5,10 +5,12 @@ import type { Device } from "~/composables/useDevices";
 const { devices, active, select, defaults } = useDevices();
 const { t } = useLanguage();
 
-/** A device by its name; the cube and the panel, as the site comes with them, by their name in the language spoken. */
+const hasName = (id: string): id is "cube" | "panel" | "panelPi5" => ["cube", "panel", "panelPi5"].includes(id);
+
+/** A device by its name; the cube and the panels, as the site comes with them, by their name in the language spoken. */
 function labelOf(device: Device): string {
   const coming = defaults().find((one) => one.id === device.id);
-  return coming?.label === device.label && (device.id === "cube" || device.id === "panel") ? t(`device.label.${device.id}`) : device.label;
+  return coming?.label === device.label && hasName(device.id) ? t(`device.label.${device.id}`) : device.label;
 }
 const route = useRoute();
 

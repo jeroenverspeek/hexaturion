@@ -25,7 +25,8 @@ export const english = {
   "device.cube": "cube",
   "device.panel": "panel",
   "device.label.cube": "Cube",
-  "device.label.panel": "Panel",
+  "device.label.panel": "Panel 64",
+  "device.label.panelPi5": "Panel 128",
   "device.picture.cube": "The LED cube on its stand, saying Hello world",
   "device.picture.panel": "The LED panel on its stand, saying Hello world",
 
@@ -145,7 +146,8 @@ export const dutch: Record<TextKey, string> = {
   "device.cube": "kubus",
   "device.panel": "paneel",
   "device.label.cube": "Kubus",
-  "device.label.panel": "Paneel",
+  "device.label.panel": "Paneel 64",
+  "device.label.panelPi5": "Paneel 128",
   "device.picture.cube": "De LED-kubus op zijn standaard, met Hello world",
   "device.picture.panel": "Het LED-paneel op zijn standaard, met Hello world",
 

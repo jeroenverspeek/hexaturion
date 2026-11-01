@@ -8,8 +8,9 @@ import type { Button } from "~/composables/useCubeStatus";
  and when it comes up again, and the app says what that does. Any other
  button has its name on it - the Rubik's cube's moves, F, F' - or the text
  the app gives it (gravity's Shake), and is one tap each; an app that takes
- a typed move (typed) has a field for that. A keyboard works them too: the
- arrow keys, the letter of a move, and the key the app gives a button.
+ a typed move (typed) has a field for that. The buttons of a solution's show
+ are drawn as those of a player. A keyboard works them too: the arrow keys,
+ the letter of a move, and the key the app gives a button.
 */
 const props = defineProps<{
   controls: string[];
@@ -36,9 +37,23 @@ const others: { button: Button; icon: string }[] = [
   { button: "pause", icon: "pause" },
 ];
 const gameButtons: string[] = [...arrows, ...others].map((one) => one.button);
+/** A solution's show, as on a player: the device's showPace.ts says what each does. */
+const player: { button: string; icon: string; flip?: boolean }[] = [
+  { button: "toStart", icon: "backward-fast" },
+  { button: "fastRewind", icon: "backward" },
+  { button: "stepBack", icon: "backward-step" },
+  { button: "rewind", icon: "play", flip: true },
+  { button: "hold", icon: "stop" },
+  { button: "play", icon: "play" },
+  { button: "stepForward", icon: "forward-step" },
+  { button: "fastForward", icon: "forward" },
+  { button: "toEnd", icon: "forward-fast" },
+];
+const playerNames: string[] = player.map((one) => one.button);
 const has = (button: string): boolean => props.controls.includes(button);
 const shownArrows = computed(() => arrows.filter((one) => has(one.button)));
 const shownOthers = computed(() => others.filter((one) => has(one.button)));
+const shownPlayer = computed(() => player.filter((one) => has(one.button)));
 /** What the keyboard does, said over the buttons: the arrow keys, the letters of the moves, or the buttons alone. */
 const hint = computed(() => {
   if (shownArrows.value.length) return t("pad.hint");
@@ -57,7 +72,7 @@ const crossStyle = computed(() => {
   return { gridTemplateAreas: rows.join(" "), gridTemplateRows: `repeat(${rows.length}, 4.5rem)` };
 });
 /** The buttons that are not a game's, in the order the app gives them. */
-const named = computed(() => props.controls.filter((button) => !gameButtons.includes(button)));
+const named = computed(() => props.controls.filter((button) => !gameButtons.includes(button) && !playerNames.includes(button)));
 
 /** The buttons that are down now, to show them pressed and to let each go once. */
 const down = reactive(new Set<string>());
@@ -207,6 +222,22 @@ function sendTyped(): void {
           <span class="icon is-medium"><i class="fa-solid fa-lg" :class="`fa-${one.icon}`"></i></span>
         </button>
       </div>
+      <div v-if="shownPlayer.length" class="pad-player">
+        <button
+          v-for="one in shownPlayer"
+          :key="one.button"
+          type="button"
+          class="button pad-name"
+          :class="{ 'is-primary': down.has(one.button) }"
+          :title="labels?.[one.button]"
+          :aria-label="labels?.[one.button] ?? one.button"
+          @pointerdown.prevent="pointerDown(one.button, $event)"
+          @click="clicked(one.button, $event)"
+          @contextmenu.prevent
+        >
+          <span class="icon"><i class="fa-solid" :class="[`fa-${one.icon}`, { 'pad-flip': one.flip }]"></i></span>
+        </button>
+      </div>
       <div v-if="named.length" class="pad-named">
         <button
           v-for="button in named"
@@ -270,6 +301,20 @@ function sendTyped(): void {
 .pad-others {
   display: flex;
   gap: 0.6rem;
+}
+
+// a player's buttons in a row, wide enough for a finger on a phone
+.pad-player {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  gap: 0.25rem;
+  width: 100%;
+  max-width: 30rem;
+}
+
+// the play triangle, the other way round
+.pad-flip {
+  transform: scaleX(-1);
 }
 
 // a move and its other way side by side: F F' U U' R R', six to a row
