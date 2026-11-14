@@ -106,7 +106,7 @@ async function showOnDevice(changedIds: string[]): Promise<void> {
     return;
   }
   // useAPI tells why, when it cannot be started
-  await startApp(check.id, check.actions[0]!.id, {}).catch(() => {});
+  await startApp(check.id, check.actions[0]!.id, toolParams(check, values.value?.[check.setting])).catch(() => {});
 }
 
 /**
@@ -169,7 +169,7 @@ async function saveSettings(): Promise<void> {
           <SettingTools
             v-if="!app"
             :setting="setting.id"
-            :unsaved="!same(form[setting.id], values?.[setting.id])"
+            :value="form[setting.id]"
             @ended="toolEnded"
           />
         </div>

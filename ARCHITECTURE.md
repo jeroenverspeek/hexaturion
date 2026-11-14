@@ -211,12 +211,14 @@ Under a setting come the tools the device has for it (the catalog's
 device which side is set to be on top. A tool is started as an app is
 (`POST /start`), so the bar at the bottom tells of it and stops it; while
 it runs the page asks `/status` every second and shows what the tool says
-(`said`, the device's own English) and its buttons, which go to
+right under its description (`said`, the device's own English; in red when
+it stopped with an error) and its buttons, which go to
 `POST /control`. A tool marked `check` is started by the page when its
 setting has been saved as something else, unless an app runs. When a tool
 has ended the settings are asked for again: it may have set one itself.
-The tools go by what is saved, so they are greyed out while their setting
-is changed and not saved yet.
+A tool that goes by its setting has it as its one parameter, and is sent
+what is chosen on the page, saved or not yet: a zenith can be looked at on
+the device before it is saved.
 
 ### Language
 

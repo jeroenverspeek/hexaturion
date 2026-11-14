@@ -7,6 +7,8 @@ import type {
   ParamDefinition,
   ParamValue,
   ParamValues,
+  SettingValue,
+  ToolDefinition,
 } from "../types/catalog";
 
 /** The cube's settings as they are now, by their id - or nothing, while the cube has not told them. */
@@ -156,4 +158,14 @@ export function unmetParams(app: AppDefinition, action: ActionDefinition, values
 /** An action's preview image for these values, or undefined if it has none. */
 export function previewUrl(action: ActionDefinition, values: ParamValues): string | undefined {
   return action.preview?.replace(/\{(\w+)\}/g, (_, id: string) => encodeURIComponent(String(values[id] ?? "")));
+}
+
+/**
+ What a tool of the settings page is started with: its setting as chosen on
+ the page, for a tool that takes it (a parameter by the setting's id), and
+ nothing for one that does not.
+*/
+export function toolParams(tool: ToolDefinition, value: SettingValue | undefined): ParamValues {
+  const takes = tool.params.some((param) => param.id === tool.setting);
+  return takes && value !== undefined ? { [tool.setting]: value } : {};
 }

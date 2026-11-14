@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import type { ToolDefinition } from "~/types/catalog";
+import type { SettingValue, ToolDefinition } from "~/types/catalog";
 
 /**
  The tools the device has for a setting, under it on the settings page:
  calibrating the accelerometer, showing on the device which side is set to
  be on top. Each is a button; started, it runs as an app does - the bar at
- the bottom tells of it too, and stops it - and what it says is shown here,
- with its own buttons (the calibration's Ready).
+ the bottom tells of it too, and stops it - and what it says is shown right
+ under it, with its own buttons (the calibration's Ready).
 */
 const props = defineProps<{
   /** The id of the setting. */
   setting: string;
-  /** The setting is changed on the page and not saved yet: the tools go by what is saved. */
-  unsaved?: boolean;
+  /** The setting as it is chosen on the page, saved or not yet: what a tool that takes it goes by. */
+  value?: SettingValue;
 }>();
 const emit = defineEmits<{
   /** A tool has ended: it may have changed a setting itself. */
@@ -60,14 +60,6 @@ const ended = computed(() => {
 /** The tool to tell of, running or ended, and what it said. */
 const shown = computed(() => runningTool.value ?? mine(ended.value?.app));
 const said = computed(() => (runningTool.value ? running.value?.said : ended.value?.said) ?? []);
-const heading = computed(() => {
-  if (!shown.value) return "";
-  const tool = appText(shown.value).title;
-  if (runningTool.value) return t("settings.toolRuns", { tool });
-  if (ended.value?.failed) return t("settings.toolFailed", { tool });
-  return t(ended.value?.code === 0 ? "settings.toolDone" : "settings.toolStopped", { tool });
-});
-
 // what a tool says is what to do next: asked for more often than the bar does
 const { pause, resume } = useIntervalFn(refresh, 1000, { immediate: false });
 watch(runningTool, (now) => (now ? resume() : pause()), { immediate: true });
@@ -81,17 +73,17 @@ const buttons = computed(() => {
 });
 
 /** The newest line in view. */
-const output = ref<HTMLElement>();
+const output = ref<HTMLElement[]>();
 watch(said, async () => {
   await nextTick();
-  if (output.value) output.value.scrollTop = output.value.scrollHeight;
+  for (const one of output.value ?? []) one.scrollTop = one.scrollHeight;
 });
 
 async function start(tool: ToolDefinition): Promise<void> {
   starting.value = tool.id;
   seen.value = tool.id;
   try {
-    await startApp(tool.id, tool.actions[0]!.id, {});
+    await startApp(tool.id, tool.actions[0]!.id, toolParams(tool, props.value));
     await refresh();
   } catch {
     // useAPI has told the user already
@@ -108,7 +100,7 @@ async function start(tool: ToolDefinition): Promise<void> {
         type="button"
         class="button is-small"
         :class="{ 'is-loading': starting === tool.id }"
-        :disabled="unsaved || !!running || reachable === false || starting !== undefined"
+        :disabled="!!running || reachable === false || starting !== undefined"
         :title="running ? t('settings.busy', { app: inTheWay }) : undefined"
         @click="start(tool)"
       >
@@ -116,20 +108,19 @@ async function start(tool: ToolDefinition): Promise<void> {
         <span>{{ appText(tool).title }}</span>
       </button>
       <p class="help">{{ appText(tool).description }}</p>
-    </div>
-    <p v-if="unsaved" class="help has-text-grey">{{ t("settings.saveFirst") }}</p>
-    <p v-else-if="running && !runningTool" class="help has-text-grey">{{ t("settings.busy", { app: inTheWay }) }}</p>
 
-    <div v-if="shown" class="tool-report" role="status">
-      <p class="has-text-weight-semibold" :class="{ 'has-text-danger': ended?.failed }">{{ heading }}</p>
-      <pre ref="output" class="tool-said">{{ said.length > 0 ? said.join("\n") : t("settings.toolSilent") }}</pre>
-      <div v-if="runningTool" class="buttons mt-2 mb-0">
-        <button v-for="one in buttons" :key="one.button" type="button" class="button is-primary" @click="control(one.button, 'tap')">
-          {{ one.label }}
-        </button>
-        <StopButton />
+      <!-- what it says, right under it: while it runs, and once it has ended -->
+      <div v-if="shown?.id === tool.id" class="tool-report" role="status">
+        <pre ref="output" class="tool-said" :class="{ 'has-text-danger': ended?.failed }">{{ said.length > 0 ? said.join("\n") : t("settings.toolSilent") }}</pre>
+        <div v-if="runningTool" class="buttons mt-2 mb-0">
+          <button v-for="one in buttons" :key="one.button" type="button" class="button is-primary" @click="control(one.button, 'tap')">
+            {{ one.label }}
+          </button>
+          <StopButton />
+        </div>
       </div>
     </div>
+    <p v-if="running && !runningTool" class="help has-text-grey">{{ t("settings.busy", { app: inTheWay }) }}</p>
   </div>
 </template>
 
@@ -143,7 +134,7 @@ async function start(tool: ToolDefinition): Promise<void> {
 }
 
 .tool-report {
-  margin-top: 0.75rem;
+  margin-top: 0.5rem;
 }
 
 .tool-said {
