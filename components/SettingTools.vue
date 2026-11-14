@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SettingValue, ToolDefinition } from "~/types/catalog";
+import type { SettingValues, ToolDefinition } from "~/types/catalog";
 
 /**
  The tools the device has for a setting, under it on the settings page:
@@ -11,8 +11,8 @@ import type { SettingValue, ToolDefinition } from "~/types/catalog";
 const props = defineProps<{
   /** The id of the setting. */
   setting: string;
-  /** The setting as it is chosen on the page, saved or not yet: what a tool that takes it goes by. */
-  value?: SettingValue;
+  /** The settings as they are chosen on the page, saved or not yet: what a tool that takes some goes by. */
+  values: SettingValues;
 }>();
 const emit = defineEmits<{
   /** A tool has ended: it may have changed a setting itself. */
@@ -83,7 +83,7 @@ async function start(tool: ToolDefinition): Promise<void> {
   starting.value = tool.id;
   seen.value = tool.id;
   try {
-    await startApp(tool.id, tool.actions[0]!.id, toolParams(tool, props.value));
+    await startApp(tool.id, tool.actions[0]!.id, toolParams(tool, props.values));
     await refresh();
   } catch {
     // useAPI has told the user already

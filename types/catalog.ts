@@ -169,9 +169,9 @@ export interface AppDefinition {
 */
 export interface ToolDefinition extends AppDefinition {
   /**
-   The setting it comes under on the settings page. A tool that goes by the
-   setting has one parameter, by the setting's id: it is sent what is chosen
-   on the page, saved or not yet (toolParams).
+   The setting it comes under on the settings page. A tool that goes by
+   settings has a parameter for each, by the setting's id: it is sent what
+   is chosen on the page, saved or not yet (toolParams).
   */
   setting: string;
   /** A check of that setting on the device itself: started when the setting has been saved as something else. */

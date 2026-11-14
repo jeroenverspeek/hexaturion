@@ -216,9 +216,9 @@ it stopped with an error) and its buttons, which go to
 `POST /control`. A tool marked `check` is started by the page when its
 setting has been saved as something else, unless an app runs. When a tool
 has ended the settings are asked for again: it may have set one itself.
-A tool that goes by its setting has it as its one parameter, and is sent
-what is chosen on the page, saved or not yet: a zenith can be looked at on
-the device before it is saved.
+A tool that goes by settings has a parameter for each, and is sent what is
+chosen on the page, saved or not yet: a zenith can be looked at on the
+device, and the sound heard at a volume, before it is saved.
 
 ### Language
 

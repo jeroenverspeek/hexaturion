@@ -7,7 +7,7 @@ import type {
   ParamDefinition,
   ParamValue,
   ParamValues,
-  SettingValue,
+  SettingValues,
   ToolDefinition,
 } from "../types/catalog";
 
@@ -161,11 +161,10 @@ export function previewUrl(action: ActionDefinition, values: ParamValues): strin
 }
 
 /**
- What a tool of the settings page is started with: its setting as chosen on
- the page, for a tool that takes it (a parameter by the setting's id), and
- nothing for one that does not.
+ What a tool of the settings page is started with: the settings it takes (a
+ parameter by the setting's id) as chosen on the page, saved or not yet -
+ the zenith to show, the speaker and the volume to test.
 */
-export function toolParams(tool: ToolDefinition, value: SettingValue | undefined): ParamValues {
-  const takes = tool.params.some((param) => param.id === tool.setting);
-  return takes && value !== undefined ? { [tool.setting]: value } : {};
+export function toolParams(tool: ToolDefinition, values: SettingValues): ParamValues {
+  return Object.fromEntries(tool.params.filter((param) => values[param.id] !== undefined).map((param) => [param.id, values[param.id]!]));
 }
