@@ -1,13 +1,15 @@
 <script setup lang="ts">
-const { findApp } = useCatalog();
+const { findApp, findTool } = useCatalog();
 const { status, reachable, refresh } = useCubeStatus();
 const { t, appText } = useLanguage();
 
 /** What an app is called in the language spoken: as the device said it, for one this GUI does not know yet. */
 const titleOf = (one: { app: string; title: string }): string => {
-  const known = findApp(one.app);
+  const known = findApp(one.app) ?? findTool(one.app);
   return known ? appText(known).title : one.title;
 };
+/** Where there is more of it: an app's own page, or the settings page for one of its tools. */
+const pageOf = (one: { app: string }) => (findTool(one.app) ? { path: "/settings" } : { path: "/app", query: { id: one.app } });
 
 // Asked every few seconds, for as long as the page is looked at: an app can
 // end by itself, or be started from another phone.
@@ -19,7 +21,7 @@ const running = computed(() => status.value?.running ?? null);
 /** The app that ended by giving up, rather than by being done or being stopped. */
 const failed = computed(() => (status.value?.ended?.failed ? status.value.ended : null));
 /** The app's icon; an app this GUI does not know yet gets a plain one. */
-const icon = computed(() => (running.value && findApp(running.value.app)?.icon) || "play");
+const icon = computed(() => (running.value && (findApp(running.value.app) ?? findTool(running.value.app))?.icon) || "play");
 
 const runningFor = computed(() => {
   const minutes = Math.floor((running.value?.runningFor ?? 0) / 60);
@@ -41,14 +43,14 @@ const runningFor = computed(() => {
         <template v-if="running">
           <span :key="icon" class="icon has-text-primary"><i class="fa-solid" :class="`fa-${icon}`"></i></span>
           <span class="now-playing-text">
-            <NuxtLink :to="{ path: '/app', query: { id: running.app } }" class="has-text-weight-bold">{{ titleOf(running) }}</NuxtLink>
+            <NuxtLink :to="pageOf(running)" class="has-text-weight-bold">{{ titleOf(running) }}</NuxtLink>
             <span class="now-playing-aside now-playing-time">{{ runningFor }}</span>
           </span>
         </template>
         <template v-else-if="failed">
           <span class="icon has-text-warning"><i class="fa-solid fa-triangle-exclamation"></i></span>
           <span class="now-playing-text">
-            <NuxtLink :to="{ path: '/app', query: { id: failed.app } }" class="has-text-weight-bold">{{ titleOf(failed) }}</NuxtLink>
+            <NuxtLink :to="pageOf(failed)" class="has-text-weight-bold">{{ titleOf(failed) }}</NuxtLink>
             {{ t("playing.failed") }}
           </span>
         </template>

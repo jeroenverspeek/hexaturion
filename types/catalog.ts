@@ -134,6 +134,8 @@ export interface ActionDefinition {
   typed?: boolean;
   /** With controls: what the buttons do, to show with them. */
   controlsHelp?: string;
+  /** What it says is to be read here: /status gives its last lines (said) while it runs and once it has ended. */
+  report?: boolean;
 }
 
 export interface Category {
@@ -156,6 +158,20 @@ export interface AppDefinition {
   params: ParamDefinition[];
   /** At least one. */
   actions: ActionDefinition[];
+}
+
+/**
+ A tool: started as an app is, but from the settings page rather than from
+ a tile - calibrating the accelerometer, showing on the device which side
+ is set to be on top. A button under one of the settings, with its title
+ on it and its description next to it; what it says while it runs is shown
+ there, and so are its buttons (SettingTools.vue).
+*/
+export interface ToolDefinition extends AppDefinition {
+  /** The setting it comes under on the settings page. */
+  setting: string;
+  /** A check of that setting on the device itself: started when the setting has been saved as something else. */
+  check?: boolean;
 }
 
 export type SettingType = "select" | "text" | "list";
@@ -217,6 +233,8 @@ export interface Catalog {
   categories: Category[];
   /** In the order they come within their category. */
   apps: AppDefinition[];
+  /** What is started from the settings page rather than from a tile. None on a device from before there were any. */
+  tools?: ToolDefinition[];
   /** What can be set once for the cube. */
   settings: SettingDefinition[];
   /** The Dutch of the texts of the apps' options and buttons and of the settings, by their English. */

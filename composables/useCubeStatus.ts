@@ -4,6 +4,8 @@ interface StatusApp {
   app: string;
   action: string;
   title: string;
+  /** The last lines it said, for one whose action reports: a tool of the settings page. */
+  said?: string[];
 }
 
 /** A game's buttons, as the device's server names them (games/Controls.ts there): the pad has a place for each. */

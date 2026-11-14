@@ -20,6 +20,10 @@ const { t, dt } = useLanguage();
 
 const { definitions, values, load, save } = useCubeSettings();
 const { active } = useDevices();
+const { catalog, findApp, findTool } = useCatalog();
+const { status } = useCubeStatus();
+const { startApp } = useAPI();
+const { appText } = useLanguage();
 
 /** The settings as they stand on the page, to be saved. */
 const form = reactive<Record<string, SettingValue>>({});
@@ -28,6 +32,8 @@ const problem = ref("");
 const loading = ref(true);
 const saving = ref(false);
 const saved = ref(false);
+/** Why what was saved is not shown on the device, when an app is in the way. */
+const checkSkipped = ref("");
 
 const copy = <T,>(value: T): T => JSON.parse(JSON.stringify(value));
 const same = (a: unknown, b: unknown): boolean => JSON.stringify(a) === JSON.stringify(b);
@@ -84,13 +90,51 @@ watch(changed, (now) => {
   if (now) saved.value = false;
 });
 
+/**
+ A setting saved as something else that has a check among the device's
+ tools - which side is on top - is shown on the device itself, to see
+ whether it is right. Not when an app runs: that one is left alone.
+*/
+async function showOnDevice(changedIds: string[]): Promise<void> {
+  checkSkipped.value = "";
+  const check = (catalog.value?.tools ?? []).find((tool) => tool.check && changedIds.includes(tool.setting));
+  if (!check || props.app) return;
+  const running = status.value?.running;
+  if (running) {
+    const known = findApp(running.app) ?? findTool(running.app);
+    checkSkipped.value = t("settings.checkSkipped", { app: known ? appText(known).title : running.title });
+    return;
+  }
+  // useAPI tells why, when it cannot be started
+  await startApp(check.id, check.actions[0]!.id, {}).catch(() => {});
+}
+
+/**
+ A tool has ended, and may have changed a setting itself (the zenith, found
+ by the accelerometer): the settings are asked for again. What was changed
+ on the page and not saved yet stays.
+*/
+async function toolEnded(): Promise<void> {
+  const before = copy(values.value ?? {});
+  try {
+    await load();
+  } catch {
+    return; // the bar says that the device does not answer
+  }
+  for (const [id, value] of Object.entries(values.value ?? {})) {
+    if (same(form[id], before[id])) form[id] = copy(value);
+  }
+}
+
 async function saveSettings(): Promise<void> {
   saving.value = true;
   problem.value = "";
   try {
+    const changedIds = Object.keys(changes.value);
     await save(changes.value);
     Object.assign(form, copy(values.value ?? {}));
     saved.value = true;
+    await showOnDevice(changedIds);
   } catch (e) {
     problem.value = reasonOf(e);
   } finally {
@@ -122,6 +166,12 @@ async function saveSettings(): Promise<void> {
           >
             {{ t("settings.default") }}
           </button>
+          <SettingTools
+            v-if="!app"
+            :setting="setting.id"
+            :unsaved="!same(form[setting.id], values?.[setting.id])"
+            @ended="toolEnded"
+          />
         </div>
       </section>
 
@@ -132,7 +182,7 @@ async function saveSettings(): Promise<void> {
             <span>{{ t("settings.save") }}</span>
           </button>
         </p>
-        <p v-if="saved" class="has-text-success">{{ t("settings.saved") }}</p>
+        <p v-if="saved" class="has-text-success">{{ t("settings.saved") }}<template v-if="checkSkipped">. {{ checkSkipped }}</template></p>
         <p v-else-if="changed" class="has-text-grey">{{ t("settings.notSaved") }}</p>
       </div>
     </form>

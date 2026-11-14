@@ -1,4 +1,4 @@
-import type { AppDefinition, Catalog } from "~/types/catalog";
+import type { AppDefinition, Catalog, ToolDefinition } from "~/types/catalog";
 
 /** Each device has its own catalog, kept under its id. */
 const storageKey = (): string => `hexaturion.catalog.${useDevices().active.value.id}`;
@@ -55,5 +55,8 @@ export const useCatalog = () => {
 
   const findApp = (id: string): AppDefinition | undefined => catalog.value?.apps.find((app) => app.id === id);
 
-  return { catalog, problem, loading, load, reset, findApp };
+  /** A tool of the settings page: not among the apps, though started and told of as one. */
+  const findTool = (id: string): ToolDefinition | undefined => catalog.value?.tools?.find((tool) => tool.id === id);
+
+  return { catalog, problem, loading, load, reset, findApp, findTool };
 };

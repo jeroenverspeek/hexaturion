@@ -206,6 +206,18 @@ definitions `GET /settings` gives (`SettingsForm.vue`, a
 `SettingField.vue` each), and saves with `PUT /settings`. The same page has
 the list of devices, and reboot and shut down.
 
+Under a setting come the tools the device has for it (the catalog's
+`tools`, `SettingTools.vue`): calibrating the accelerometer, showing on the
+device which side is set to be on top. A tool is started as an app is
+(`POST /start`), so the bar at the bottom tells of it and stops it; while
+it runs the page asks `/status` every second and shows what the tool says
+(`said`, the device's own English) and its buttons, which go to
+`POST /control`. A tool marked `check` is started by the page when its
+setting has been saved as something else, unless an app runs. When a tool
+has ended the settings are asked for again: it may have set one itself.
+The tools go by what is saved, so they are greyed out while their setting
+is changed and not saved yet.
+
 ### Language
 
 English or Dutch, chosen in the navbar (`LanguageSwitcher.vue`) and kept
